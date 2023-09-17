@@ -39,14 +39,27 @@ public class ClienteDao <VO extends ClienteVO> extends BaseDao <VO>{
             ps.setLong(1, cliente.getId());
             return ps.execute();
 
-        } catch (Exception e) {
+        } catch (SQLException e) {
             throw e;
         } finally {
             ps.close();
         }
     }
 
-    public boolean atualizar(VO cliente) throws SQLException {
+    public boolean deletarPorCPF(VO cliente) throws SQLException {
+        String query = "DELETE FROM clientes WHERE cpf = (?)";
+        PreparedStatement ps = null;
+        try {
+            ps = this.db.prepareStatement(query);
+            ps.setString(1, cliente.getCpf());
+            return ps.execute();
+
+        } catch (SQLException e) {
+            throw e;
+        }
+    }
+
+    public long atualizar(VO cliente) throws SQLException {
         String query = "UPDATE clientes SET nome = ?, cpf = ? WHERE id = ?";
         PreparedStatement ps = null;
 
@@ -55,7 +68,7 @@ public class ClienteDao <VO extends ClienteVO> extends BaseDao <VO>{
             ps.setLong(3, cliente.getId());
             ps.setString(1, cliente.getNome());
             ps.setString(2, cliente.getCpf());
-            return ps.execute();
+            return ps.executeUpdate();
 
         } catch (SQLException e) {
             throw e;
@@ -72,10 +85,8 @@ public class ClienteDao <VO extends ClienteVO> extends BaseDao <VO>{
             ps.setLong(1, cliente.getId());
             return ps.executeQuery();
 
-        } catch (Exception e) {
+        } catch (SQLException e) {
             throw e;
-        } finally {
-            ps.close();
         }
     }
 
@@ -87,10 +98,8 @@ public class ClienteDao <VO extends ClienteVO> extends BaseDao <VO>{
             ps.setString(1, cliente.getCpf());
             return ps.executeQuery();
 
-        } catch (Exception e) {
+        } catch (SQLException e) {
             throw e;
-        } finally {
-            ps.close();
         }
     }
 
@@ -101,10 +110,8 @@ public class ClienteDao <VO extends ClienteVO> extends BaseDao <VO>{
             ps = this.db.prepareStatement(query);
             return ps.executeQuery();
 
-        } catch (Exception e) {
+        } catch (SQLException e) {
             throw e;
-        } finally {
-            ps.close();
         }
     }
 }

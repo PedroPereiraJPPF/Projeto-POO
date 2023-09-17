@@ -50,7 +50,7 @@ public class FuncionarioDao <VO extends FuncionarioVO> extends BaseDao <VO> {
         }
     }
 
-    public boolean atualizar(VO funcionario) throws SQLException {
+    public long atualizar(VO funcionario) throws SQLException {
         String query = "UPDATE funcionarios SET nome = ?, cpf = ?, salario = ?, dataDeAdmissao = ?, funcao = ? WHERE id = ?";
         PreparedStatement ps = null;
 
@@ -62,7 +62,7 @@ public class FuncionarioDao <VO extends FuncionarioVO> extends BaseDao <VO> {
             ps.setDouble(3, funcionario.getSalario());
             ps.setString(4, funcionario.getDataDeAdimissao());
             ps.setInt(5, funcionario.getFuncao());
-            return ps.execute();
+            return ps.executeUpdate();
 
         } catch (SQLException e) {
             throw e;
@@ -81,8 +81,6 @@ public class FuncionarioDao <VO extends FuncionarioVO> extends BaseDao <VO> {
 
         } catch (Exception e) {
             throw e;
-        } finally {
-            ps.close();
         }
     }
 
@@ -96,8 +94,6 @@ public class FuncionarioDao <VO extends FuncionarioVO> extends BaseDao <VO> {
 
         } catch (Exception e) {
             throw e;
-        } finally {
-            ps.close();
         }
     }
 
@@ -110,8 +106,6 @@ public class FuncionarioDao <VO extends FuncionarioVO> extends BaseDao <VO> {
 
         } catch (Exception e) {
             throw e;
-        } finally {
-            ps.close();
         }
     }
     

@@ -1,0 +1,53 @@
+CREATE TABLE funcionarios
+(
+    id serial unique,
+    nome varchar(50),
+    salario numeric(2,1),
+    datadeadmissao varchar(30),
+    cpf varchar(20),
+    funcao integer,
+    primary key(cpf)
+);
+
+create table clientes (
+	id serial unique,
+	nome varchar(50),
+	cpf varchar(50),
+	
+	primary key (cpf)
+);
+
+create table telefonesClientes (
+	id serial,
+	cpfCliente varchar(50),
+	numero varchar(30),
+	
+	primary key(id),
+	foreign key(cpfCliente) references clientes(cpf)
+);
+
+create table telefonesFuncionarios(
+	id serial,
+	cpfFuncionario varchar(50),
+	numero varchar(30),
+	
+	primary key(id),
+	foreign key(cpfFuncionario) references funcionarios(cpf)
+);
+
+create table enderecos(
+	id serial,
+	cpfCliente varchar(50),
+	cpfFuncionario varchar(50),
+	rua varchar(30),
+	bairro varchar(30),
+	cidade varchar(30),
+	estado varchar(40),
+	cep varchar(10),
+	
+	primary key(id),
+	foreign key(cpfCliente) references clientes(cpf),
+	foreign key(cpfFuncionario) references funcionarios(cpf)
+);
+
+
