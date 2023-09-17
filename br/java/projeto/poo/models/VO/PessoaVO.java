@@ -1,19 +1,20 @@
 package br.java.projeto.poo.models.VO;
 
-public abstract class PessoaVo {
-    private int id;
+public abstract class PessoaVO {
+    private long id;
     private String nome, cpf;
 
-    public PessoaVo(String nome, String cpf) {
+    public PessoaVO(long id, String nome, String cpf) {
+        setId(id);
         setCpf(cpf);
         setNome(nome);
     }
 
-    public int getId() {
+    public long getId() {
         return this.id;
     }
 
-    protected void setId(int id) {
+    public void setId(long id) {
         this.id = id;
     }
 

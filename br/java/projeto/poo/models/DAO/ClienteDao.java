@@ -5,27 +5,23 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 
-import br.java.projeto.poo.models.VO.FuncionarioVO;
+import br.java.projeto.poo.models.VO.ClienteVO;
 
-public class FuncionarioDao <VO extends FuncionarioVO> extends BaseDao <VO> {
-
+public class ClienteDao <VO extends ClienteVO> extends BaseDao <VO>{
     Connection db;
 
-    public FuncionarioDao() {
+    public ClienteDao() {
         db = this.getConnection();
     }
 
-    public boolean inserir(VO funcionario) throws SQLException {
-        String query = "INSERT INTO funcionarios (nome, cpf, salario, dataDeAdmissao, funcao) VALUES (?, ?, ?, ?, ?)";
+    public boolean inserir(VO cliente) throws SQLException {
+        String query = "INSERT INTO clientes (nome, cpf) VALUES (?, ?)";
         PreparedStatement ps = null;
 
         try {
             ps = this.db.prepareStatement(query);
-            ps.setString(1, funcionario.getNome());
-            ps.setString(2, funcionario.getCpf());
-            ps.setDouble(3, funcionario.getSalario());
-            ps.setString(4, funcionario.getDataDeAdimissao());
-            ps.setInt(5, funcionario.getFuncao());
+            ps.setString(1, cliente.getNome());
+            ps.setString(2, cliente.getCpf());
             return ps.execute();
 
         } catch (SQLException e) {
@@ -35,12 +31,12 @@ public class FuncionarioDao <VO extends FuncionarioVO> extends BaseDao <VO> {
         }
     }
 
-    public boolean deletar(VO vo) throws SQLException {
-        String query = "DELETE FROM funcionarios WHERE id = (?)";
+    public boolean deletar(VO cliente) throws SQLException {
+        String query = "DELETE FROM clientes WHERE id = (?)";
         PreparedStatement ps = null;
         try {
             ps = this.db.prepareStatement(query);
-            ps.setLong(1, vo.getId());
+            ps.setLong(1, cliente.getId());
             return ps.execute();
 
         } catch (Exception e) {
@@ -50,18 +46,15 @@ public class FuncionarioDao <VO extends FuncionarioVO> extends BaseDao <VO> {
         }
     }
 
-    public boolean atualizar(VO funcionario) throws SQLException {
-        String query = "UPDATE funcionarios SET nome = ?, cpf = ?, salario = ?, dataDeAdmissao = ?, funcao = ? WHERE id = ?";
+    public boolean atualizar(VO cliente) throws SQLException {
+        String query = "UPDATE clientes SET nome = ?, cpf = ? WHERE id = ?";
         PreparedStatement ps = null;
 
         try {
             ps = this.db.prepareStatement(query);
-            ps.setLong(6, funcionario.getId());
-            ps.setString(1, funcionario.getNome());
-            ps.setString(2, funcionario.getCpf());
-            ps.setDouble(3, funcionario.getSalario());
-            ps.setString(4, funcionario.getDataDeAdimissao());
-            ps.setInt(5, funcionario.getFuncao());
+            ps.setLong(3, cliente.getId());
+            ps.setString(1, cliente.getNome());
+            ps.setString(2, cliente.getCpf());
             return ps.execute();
 
         } catch (SQLException e) {
@@ -71,12 +64,12 @@ public class FuncionarioDao <VO extends FuncionarioVO> extends BaseDao <VO> {
         }
     }
 
-    public ResultSet buscarPorId(VO funcionario) throws SQLException {
-        String query = "Select * from funcionarios where id = (?)";
+    public ResultSet buscarPorId(VO cliente) throws SQLException {
+        String query = "Select * from clientes where id = (?)";
         PreparedStatement ps = null;
         try {
             ps = this.db.prepareStatement(query);
-            ps.setLong(1, funcionario.getId());
+            ps.setLong(1, cliente.getId());
             return ps.executeQuery();
 
         } catch (Exception e) {
@@ -86,12 +79,12 @@ public class FuncionarioDao <VO extends FuncionarioVO> extends BaseDao <VO> {
         }
     }
 
-    public ResultSet buscarPorCPF(VO funcionario) throws SQLException {
-        String query = "Select * from funcionarios where cpf = (?)";
+    public ResultSet buscarPorCPF(VO cliente) throws SQLException {
+        String query = "Select * from clientes where cpf = (?)";
         PreparedStatement ps = null;
         try {
             ps = this.db.prepareStatement(query);
-            ps.setString(1, funcionario.getCpf());
+            ps.setString(1, cliente.getCpf());
             return ps.executeQuery();
 
         } catch (Exception e) {
@@ -102,7 +95,7 @@ public class FuncionarioDao <VO extends FuncionarioVO> extends BaseDao <VO> {
     }
 
     public ResultSet listar() throws SQLException {
-        String query = "Select * from funcionarios";
+        String query = "Select * from clientes";
         PreparedStatement ps = null;
         try {
             ps = this.db.prepareStatement(query);
@@ -114,5 +107,4 @@ public class FuncionarioDao <VO extends FuncionarioVO> extends BaseDao <VO> {
             ps.close();
         }
     }
-    
 }

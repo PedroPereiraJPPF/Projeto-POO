@@ -2,7 +2,7 @@ package br.java.projeto.poo.models.VO;
 
 import java.util.Date;
 
-public class FuncionarioVO extends PessoaVo {
+public class FuncionarioVO extends PessoaVO {
     private double salario;
     private String dataDeAdimissao;
     private int funcao;
@@ -11,8 +11,8 @@ public class FuncionarioVO extends PessoaVo {
         return this.salario;
     }
 
-    public FuncionarioVO(String nome, String cpf, double salario, String dataDeAdimissao, int funcao) {
-        super(nome, cpf);
+    public FuncionarioVO(long id, String nome, String cpf, double salario, String dataDeAdimissao, int funcao) {
+        super(id, nome, cpf);
         setSalario(salario);
         setDataDeAdimissao(dataDeAdimissao);
         setFuncao(funcao);
