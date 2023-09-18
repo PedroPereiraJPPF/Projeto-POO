@@ -50,4 +50,16 @@ create table enderecos(
 	foreign key(cpfFuncionario) references funcionarios(cpf)
 );
 
+create table veiculos(
+	id serial unique,
+	placa varchar(10),
+	cor varchar(20),
+	modelo varchar(50) not null,
+	tipo varchar(15) not null,
+	cpfDono varchar(20),
+	
+	primary key(placa),
+	foreign key(cpfDono) references clientes(cpf) on Update Cascade on delete cascade
+);
+
 
