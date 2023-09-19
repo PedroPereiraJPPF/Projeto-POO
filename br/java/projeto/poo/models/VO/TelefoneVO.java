@@ -1,8 +1,8 @@
 package br.java.projeto.poo.models.VO;
 
 public class TelefoneVO {
-    long id;
-    String numero, cpfCliente, cpfFuncionario;
+    private long id;
+    private String numero, cpfCliente, cpfFuncionario;
 
     public TelefoneVO(long id, String cpfCliente, String cpfFuncionario, String numero) {
         setId(id);

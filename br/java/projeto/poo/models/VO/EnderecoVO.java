@@ -1,8 +1,8 @@
 package br.java.projeto.poo.models.VO;
 
 public class EnderecoVO {
-    long id;
-    String cpfCliente, cpfFuncionario, rua, bairro, cidade, estado, cep;
+    private long id;
+    private String cpfCliente, cpfFuncionario, rua, bairro, cidade, estado, cep;
 
     public EnderecoVO(int id, String cpfCliente, String cpfFuncionario, String rua, String bairro, String cidade, String estado, String Cep) {
         setId(id);

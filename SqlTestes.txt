@@ -1,3 +1,4 @@
+@Não testado
 CREATE TABLE funcionarios
 (
     id serial unique,
@@ -62,4 +63,47 @@ create table veiculos(
 	foreign key(cpfDono) references clientes(cpf) on Update Cascade on delete cascade
 );
 
+@Não testado
+create table servicos (
+	id integer,
+	nome varchar(50),
+	preco float
+);
+
+@Não testado
+create table pecas (
+	id integer,
+	nome varchar(50),
+	preco float,
+	fabricante varchar(50)
+);
+
+@Em teste 
+create table orcamentos (
+	id serial,
+	valor float,
+	placaVeiculo varchar(10),
+	
+	primary key(id),
+	foreign key(placaVeiculo) references veiculos(placa) on delete cascade on update cascade
+);
+
+create table pecas_orcamentos (
+	idOrcamento integer,
+	idPeca integer,
+	
+	foreign key(idOrcamento) references orcamentos(id) on delete cascade on update cascade,
+	foreign key(idPeca) references pecas(id) on delete cascade on update cascade
+);
+
+create table servicos_orcamentos (
+	idOrcamento integer,
+	idServico integer,
+	
+	foreign key(idOrcamento) references orcamentos(id) on delete cascade on update cascade,
+	foreign key(idServico) references servicos(id) on delete cascade on update cascade
+);	
+	foreign key(idOrcamento) references orcamentos(id),
+	foreign key(idServico) references servicos(id)
+);
 
