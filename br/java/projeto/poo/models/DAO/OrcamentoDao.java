@@ -28,6 +28,7 @@ public class OrcamentoDao <VO extends OrcamentoVO> extends BaseDao <VO>{
             ps.setString(1, orcamento.getPlacaVeiculo());
             ps.setDouble(2, orcamento.getValor());
             ps.execute();
+            orcamento.setId(ps.getGeneratedKeys().getInt(1));
             ps.close();
 
             List<PecaVo> pecas = orcamento.getPecas();
