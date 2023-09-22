@@ -1,6 +1,14 @@
 {
     "java.project.referencedLibraries": [
         "lib/**/*.jar",
-        "br/java/projeto/poo/lib/postgresql-driver.jar"
+        "br/java/projeto/poo/lib/postgresql-driver.jar",
+        "br/java/projeto/poo/lib/javafx-swt.jar",
+        "br/java/projeto/poo/lib/javafx.web.jar",
+        "br/java/projeto/poo/lib/javafx.swing.jar",
+        "br/java/projeto/poo/lib/javafx.media.jar",
+        "br/java/projeto/poo/lib/javafx.graphics.jar",
+        "br/java/projeto/poo/lib/javafx.fxml.jar",
+        "br/java/projeto/poo/lib/javafx.controls.jar",
+        "br/java/projeto/poo/lib/javafx.base.jar"
     ]
 }
