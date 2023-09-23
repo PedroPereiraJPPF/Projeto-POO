@@ -1,10 +1,8 @@
 package br.java.projeto.poo.models.VO;
 
-import java.util.Date;
-
 public class FuncionarioVO extends PessoaVO {
     private double salario;
-    private String dataDeAdimissao;
+    private String dataDeAdimissao, senha;
     private int funcao;
 
     public double getSalario() {
@@ -38,4 +36,12 @@ public class FuncionarioVO extends PessoaVO {
         this.funcao = funcao;
     }
 
+
+    public String getSenha() {
+        return this.senha;
+    }
+
+    public void setSenha(String senha) {
+        this.senha = senha;
+    }
 }

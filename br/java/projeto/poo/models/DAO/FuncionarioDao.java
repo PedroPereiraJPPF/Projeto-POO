@@ -16,7 +16,7 @@ public class FuncionarioDao <VO extends FuncionarioVO> extends BaseDao <VO> {
     }
 
     public boolean inserir(VO funcionario) throws SQLException {
-        String query = "INSERT INTO funcionarios (nome, cpf, salario, dataDeAdmissao, funcao) VALUES (?, ?, ?, ?, ?)";
+        String query = "INSERT INTO funcionarios (nome, cpf, salario, dataDeAdmissao, funcao, senha) VALUES (?, ?, ?, ?, ?, ?)";
         PreparedStatement ps = null;
 
         try {
@@ -26,6 +26,7 @@ public class FuncionarioDao <VO extends FuncionarioVO> extends BaseDao <VO> {
             ps.setDouble(3, funcionario.getSalario());
             ps.setString(4, funcionario.getDataDeAdimissao());
             ps.setInt(5, funcionario.getFuncao());
+            ps.setString(6, funcionario.getSenha());
             return ps.execute();
 
         } catch (SQLException e) {

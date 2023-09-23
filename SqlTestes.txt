@@ -6,6 +6,7 @@ CREATE TABLE funcionarios
     salario numeric(2,1),
     datadeadmissao varchar(30),
     cpf varchar(20),
+	senha varchar(50),
     funcao integer,
     primary key(cpf)
 );
