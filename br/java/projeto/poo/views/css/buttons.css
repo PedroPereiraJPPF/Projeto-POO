@@ -10,3 +10,27 @@
 .btn-primary:pressed {
     -fx-background-color: #185bcf;
 }
+
+.searchField {
+    -fx-background-image:url('../../public/searchRegular.png');
+    -fx-background-repeat: no-repeat;
+    -fx-background-position: right 10px center;
+    -fx-font-size: 13px;
+}
+
+.searchField:focused {
+    -fx-background-image: none;
+}
+
+.btn-primary {
+    -fx-background-color: #064EB9;
+    -fx-text-fill: #FFF;
+}
+
+.btn-primary:hover {
+    -fx-background-color: #0E65CC;
+}
+
+.btn-primary:pressed {
+    -fx-background-color: #185bcf;
+}
