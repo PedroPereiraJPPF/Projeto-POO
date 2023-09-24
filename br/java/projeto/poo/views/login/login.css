@@ -1,0 +1,13 @@
+.body {
+    -fx-background-image: url("../../public/Fundo.png");
+    -fx-alignment: center;
+}
+
+.loginContainer {
+    -fx-background-color: #FFF;
+    -fx-background-radius: 16px;
+}
+
+.logoContainer {
+    -fx-background-image: url("../../public/LogoPrimary.png");
+}
