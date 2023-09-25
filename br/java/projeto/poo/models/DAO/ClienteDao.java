@@ -103,6 +103,19 @@ public class ClienteDao <VO extends ClienteVO> extends BaseDao <VO>{
         }
     }
 
+    public ResultSet buscarPorNome(VO cliente) throws SQLException {
+        String query = "Select * from clientes where nome = (?)";
+        PreparedStatement ps = null;
+        try {
+            ps = this.db.prepareStatement(query);
+            ps.setString(1, cliente.getNome());
+            return ps.executeQuery();
+
+        } catch (SQLException e) {
+            throw e;
+        }
+    }
+
     public ResultSet listar() throws SQLException {
         String query = "Select * from clientes";
         PreparedStatement ps = null;
