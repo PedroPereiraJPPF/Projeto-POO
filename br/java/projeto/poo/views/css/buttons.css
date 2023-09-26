@@ -11,6 +11,13 @@
     -fx-background-color: #185bcf;
 }
 
+.btn-user-icon {
+    -fx-background-image:url('../../public/userAdd.png');
+    -fx-background-repeat: no-repeat;
+    -fx-background-position: left 10px center;
+    -fx-font-size: 13px;
+}
+
 .searchField {
     -fx-background-image:url('../../public/searchRegular.png');
     -fx-background-repeat: no-repeat;
