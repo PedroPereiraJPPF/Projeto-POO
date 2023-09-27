@@ -15,7 +15,7 @@
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Font?>
 
-<BorderPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="800.0" prefWidth="1024.0" styleClass="celulaTabela" xmlns="http://javafx.com/javafx/20.0.1" xmlns:fx="http://javafx.com/fxml/1">
+<BorderPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="800.0" prefWidth="1024.0" styleClass="celulaTabela" xmlns="http://javafx.com/javafx/20.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="br.java.projeto.poo.controller.AutomoveisController">
    <center>
       <VBox prefHeight="200.0" prefWidth="100.0" BorderPane.alignment="CENTER">
          <BorderPane.margin>
@@ -95,7 +95,7 @@
    <top>
       <HBox alignment="CENTER" prefHeight="100.0" prefWidth="200.0" BorderPane.alignment="CENTER">
          <children>
-            <ImageView fitHeight="50.0" fitWidth="170.0" onMouseClicked="#teste" pickOnBounds="true" preserveRatio="true">
+            <ImageView fitHeight="50.0" fitWidth="170.0" onMouseClicked="#carregarOrcamentos" pickOnBounds="true" preserveRatio="true">
                <image>
                   <Image url="@../../public/LogoPrimary.png" />
                </image>
@@ -105,7 +105,7 @@
             </ImageView>
             <HBox alignment="CENTER" prefHeight="80.0" prefWidth="730.0" spacing="15.0" HBox.hgrow="ALWAYS">
                <children>
-                  <Label text="Clientes" textOverrun="CLIP">
+                  <Label onMouseClicked="#carregarClientes" text="Clientes" textOverrun="CLIP">
                      <padding>
                         <Insets bottom="10.0" left="5.0" right="5.0" top="10.0" />
                      </padding>
@@ -116,7 +116,7 @@
                         <Cursor fx:constant="HAND" />
                      </cursor>
                   </Label>
-                  <Label text="Servicos" textOverrun="CLIP">
+                  <Label onMouseClicked="#carregarServicos" text="Servicos" textOverrun="CLIP">
                      <padding>
                         <Insets bottom="10.0" left="5.0" right="5.0" top="10.0" />
                      </padding>
@@ -127,7 +127,7 @@
                         <Font size="15.0" />
                      </font>
                   </Label>
-                  <Label text="Automóveis" textFill="#064eb9" textOverrun="CLIP">
+                  <Label onMouseClicked="#carregarAutomoveis" text="Automóveis" textFill="#064eb9" textOverrun="CLIP">
                      <padding>
                         <Insets bottom="10.0" left="5.0" right="5.0" top="10.0" />
                      </padding>
@@ -138,7 +138,7 @@
                         <Font name="System Bold" size="15.0" />
                      </font>
                   </Label>
-                  <Label text="Peças" textOverrun="CLIP">
+                  <Label onMouseClicked="#carregarPecas" text="Peças" textOverrun="CLIP">
                      <padding>
                         <Insets bottom="10.0" left="5.0" right="5.0" top="10.0" />
                      </padding>
@@ -149,7 +149,7 @@
                         <Font size="15.0" />
                      </font>
                   </Label>
-                  <Label text="Orçamentos" textOverrun="CLIP">
+                  <Label onMouseClicked="#carregarOrcamentos" text="Orçamentos" textOverrun="CLIP">
                      <padding>
                         <Insets bottom="10.0" left="5.0" right="5.0" top="10.0" />
                      </padding>
@@ -160,7 +160,7 @@
                         <Font size="15.0" />
                      </font>
                   </Label>
-                  <Label text="Funcionários" textOverrun="CLIP">
+                  <Label onMouseClicked="#carregarFuncionarios" text="Funcionários" textOverrun="CLIP">
                      <padding>
                         <Insets bottom="10.0" left="5.0" right="5.0" top="10.0" />
                      </padding>
@@ -171,7 +171,7 @@
                         <Font size="15.0" />
                      </font>
                   </Label>
-                  <HBox alignment="CENTER" maxHeight="-Infinity">
+                  <HBox alignment="CENTER" maxHeight="-Infinity" onMouseClicked="#logout">
                      <children>
                         <Label text="sair" textOverrun="CLIP">
                            <padding>
