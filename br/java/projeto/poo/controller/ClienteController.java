@@ -1,5 +1,5 @@
 package br.java.projeto.poo.controller;
 
-public class ClienteController {
-    
+public class ClienteController extends BaseController {
+
 }

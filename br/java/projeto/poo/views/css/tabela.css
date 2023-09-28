@@ -33,4 +33,5 @@
  .table-view .table-cell{
      -fx-text-fill: #3A4B5A;
      -fx-font-weight: normal;
+     -fx-padding: 10px;
  }
