@@ -4,9 +4,6 @@ import java.io.IOException;
 
 import br.java.projeto.poo.src.App;
 import javafx.fxml.FXML;
-import javafx.fxml.FXMLLoader;
-import javafx.scene.Parent;
-import javafx.scene.Scene;
 import javafx.scene.input.MouseEvent;
 import javafx.stage.Stage;
 
