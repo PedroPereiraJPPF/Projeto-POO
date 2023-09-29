@@ -29,12 +29,12 @@
             </ImageView>
             <HBox alignment="CENTER_RIGHT" prefHeight="80.0" prefWidth="730.0" spacing="15.0" HBox.hgrow="ALWAYS">
                <children>
-                  <Label onMouseClicked="#carregarClientes" text="Clientes" textFill="#064eb9" textOverrun="CLIP">
+                  <Label onMouseClicked="#carregarClientes" text="Clientes" textOverrun="CLIP">
                      <padding>
                         <Insets bottom="10.0" left="5.0" right="5.0" top="10.0" />
                      </padding>
                      <font>
-                        <Font name="System Bold" size="15.0" />
+                        <Font size="15.0" />
                      </font>
                      <cursor>
                         <Cursor fx:constant="HAND" />
@@ -84,7 +84,7 @@
                         <Font size="15.0" />
                      </font>
                   </Label>
-                  <Label onMouseClicked="#carregarFuncionarios" text="Funcionários" textOverrun="CLIP">
+                  <Label onMouseClicked="#carregarFuncionarios" text="Funcionários" textFill="#064eb9" textOverrun="CLIP">
                      <padding>
                         <Insets bottom="10.0" left="5.0" right="5.0" top="10.0" />
                      </padding>
@@ -92,12 +92,12 @@
                         <Cursor fx:constant="HAND" />
                      </cursor>
                      <font>
-                        <Font size="15.0" />
+                        <Font name="System Bold" size="15.0" />
                      </font>
                   </Label>
                   <HBox alignment="CENTER" maxHeight="-Infinity">
                      <children>
-                        <Label onMouseClicked="#logout" text="sair" textOverrun="CLIP">
+                        <Label accessibleRole="BUTTON" onMouseClicked="#logout" text="sair" textOverrun="CLIP">
                            <padding>
                               <Insets bottom="10.0" right="5.0" top="10.0" />
                            </padding>
@@ -114,6 +114,9 @@
                            </image>
                         </ImageView>
                      </children>
+                     <cursor>
+                        <Cursor fx:constant="HAND" />
+                     </cursor>
                   </HBox>
                </children>
                <HBox.margin>
@@ -143,10 +146,10 @@
                            <children>
                               <Label text="Início" />
                               <Label text=" &gt; " />
-                              <Label text="Clientes" />
+                              <Label text="Funcionários" />
                            </children>
                         </HBox>
-                        <Label text="Lista de Clientes">
+                        <Label text="Lista de Funcionários">
                            <font>
                               <Font name="System Bold" size="18.0" />
                            </font>
@@ -163,7 +166,7 @@
                               <Insets />
                            </HBox.margin>
                         </TextField>
-                        <Button alignment="CENTER_RIGHT" mnemonicParsing="false" prefHeight="40.0" stylesheets="@../css/buttons.css" text="Novo Cliente" textAlignment="RIGHT" textFill="#064eb9">
+                        <Button alignment="CENTER_RIGHT" mnemonicParsing="false" prefHeight="40.0" stylesheets="@../css/buttons.css" text="Novo Funcionário" textAlignment="RIGHT" textFill="#064eb9">
                            <padding>
                               <Insets bottom="10.0" left="35.0" right="10.0" top="10.0" />
                            </padding>
@@ -184,11 +187,11 @@
             </HBox>
             <TableView prefHeight="200.0" prefWidth="200.0" stylesheets="@../css/tabela.css">
               <columns>
-                <TableColumn maxWidth="500.0" prefWidth="75.0" text="Nome" />
-                <TableColumn maxWidth="400.0" prefWidth="75.0" text="CPF" />
-                  <TableColumn maxWidth="800.0" prefWidth="75.0" text="Endereco" />
-                  <TableColumn maxWidth="400.0" prefWidth="75.0" text="Veiculo" />
-                  <TableColumn maxWidth="120.0" prefWidth="75.0" sortable="false" text="Açoes" />
+                <TableColumn maxWidth="500.0" prefWidth="348.0" text="Nome" />
+                <TableColumn maxWidth="400.0" prefWidth="155.0" text="CPF" />
+                  <TableColumn maxWidth="800.0" prefWidth="165.0" text="Data de admissão" />
+                  <TableColumn maxWidth="400.0" prefWidth="131.0" text="Cargo" />
+                  <TableColumn maxWidth="176.0" prefWidth="113.0" sortable="false" text="Açoes" />
               </columns>
                <columnResizePolicy>
                   <TableView fx:constant="CONSTRAINED_RESIZE_POLICY" />
