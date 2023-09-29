@@ -1,47 +1,54 @@
 package br.java.projeto.poo.controller;
 
+import java.io.IOException;
+
+import br.java.projeto.poo.src.App;
 import javafx.fxml.FXML;
-import javafx.scene.input.KeyEvent;
+import javafx.fxml.FXMLLoader;
+import javafx.scene.Parent;
+import javafx.scene.Scene;
 import javafx.scene.input.MouseEvent;
+import javafx.stage.Stage;
 
 /*
  * Carrega funções que todos os controllers possuem
  */
 
 public class BaseController {
+    protected Stage stage;
 
     @FXML
-    void carregarAutomoveis(KeyEvent event) {
-
+    void carregarAutomoveis(MouseEvent event) throws Exception {
+        App.navegarEntreTelas("automoveis");
     }
 
     @FXML
-    void carregarClientes(KeyEvent event) {
+    void carregarClientes(MouseEvent event) throws Exception {
+        App.navegarEntreTelas("clientes");
+    }   
 
+    @FXML
+    void carregarFuncionarios(MouseEvent event) throws Exception {
+        App.navegarEntreTelas("funcionarios");
     }
 
     @FXML
-    void carregarFuncionarios(KeyEvent event) {
-
+    void carregarOrcamentos(MouseEvent event) throws Exception {
+        App.navegarEntreTelas("orcamentos");
     }
 
     @FXML
-    void carregarOrcamentos(KeyEvent event) {
-
+    void carregarPecas(MouseEvent event) throws Exception {
+        App.navegarEntreTelas("pecas");
     }
 
     @FXML
-    void carregarPecas(KeyEvent event) {
-
+    void carregarServicos(MouseEvent event) throws Exception {
+        App.navegarEntreTelas("servicos");
     }
 
     @FXML
-    void carregarServicos(KeyEvent event) {
-
-    }
-
-    @FXML
-    void logout(KeyEvent event) {
+    void logout(MouseEvent event) {
 
     }
 }
