@@ -11,9 +11,9 @@
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Font?>
 
-<AnchorPane id="nody" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="807.0" prefWidth="929.0" styleClass="body" xmlns="http://javafx.com/javafx/20.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="br.java.projeto.poo.controller.LoginController">
+<AnchorPane id="nody" maxHeight="-Infinity" maxWidth="-Infinity" prefHeight="800.0" prefWidth="1024.0" styleClass="body" xmlns="http://javafx.com/javafx/20.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="br.java.projeto.poo.controller.LoginController">
    <children>
-      <VBox layoutX="240.0" layoutY="139.0" prefHeight="530.0" prefWidth="450.0" styleClass="loginContainer">
+      <VBox alignment="CENTER" layoutX="287.0" layoutY="135.0" prefHeight="530.0" prefWidth="450.0" styleClass="loginContainer">
          <children>
             <VBox alignment="CENTER" prefHeight="160.0" prefWidth="450.0">
                <children>
