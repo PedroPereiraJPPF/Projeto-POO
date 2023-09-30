@@ -26,7 +26,7 @@
             <AnchorPane prefHeight="407.0" prefWidth="450.0">
                <children>
                   <TextField fx:id="nomeUsuario" layoutX="50.0" layoutY="90.0" prefHeight="35.0" prefWidth="350.0" promptText="CPF" />
-                  <Label layoutX="50.0" layoutY="14.0" text="Informe seu usuario e senha para fazer login">
+                  <Label alignment="CENTER" layoutX="78.0" layoutY="14.0" text="Informe seu usuario e senha para fazer login">
                      <font>
                         <Font size="15.0" />
                      </font>
@@ -46,7 +46,10 @@
                         <Font size="15.0" />
                      </font>
                   </Label>
-                  <Button fx:id="logar" layoutX="50.0" layoutY="216.0" mnemonicParsing="false" onAction="#logarUsuario" prefHeight="35.0" prefWidth="350.0" styleClass="btn-primary" text="Button" textFill="WHITE" />
+                  <Button fx:id="logar" layoutX="50.0" layoutY="235.0" mnemonicParsing="false" onAction="#logarUsuario" prefHeight="35.0" prefWidth="350.0" styleClass="btn-primary" text="Entrar" textFill="WHITE">
+                     <font>
+                        <Font size="16.0" />
+                     </font></Button>
                   <Label layoutX="144.0" layoutY="214.0" textFill="#064eb9">
                      <font>
                         <Font size="15.0" />
