@@ -20,6 +20,7 @@ public class TelasDisponiveis {
         this.telasDisponiveis.put("login", "Login/Login.fxml");
         this.telasDisponiveis.put("pecas", "Pecas/Pecas.fxml");
         this.telasDisponiveis.put("servicos", "Servicos/Servicos.fxml");
+        this.telasDisponiveis.put("funcionarios", "Funcionarios/Funcionarios.fxml");
     }
 
     /**
