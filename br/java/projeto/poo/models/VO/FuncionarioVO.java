@@ -5,8 +5,8 @@ public class FuncionarioVO extends PessoaVO {
     private String dataDeAdimissao, senha;
     private int funcao;
 
-    public double getSalario() {
-        return this.salario;
+    public FuncionarioVO () {
+        super();
     }
 
     public FuncionarioVO(long id, String nome, String cpf, double salario, String dataDeAdimissao, int funcao) {
@@ -14,6 +14,10 @@ public class FuncionarioVO extends PessoaVO {
         setSalario(salario);
         setDataDeAdimissao(dataDeAdimissao);
         setFuncao(funcao);
+    }
+
+    public double getSalario() {
+        return this.salario;
     }
 
     public void setSalario(double salario) {

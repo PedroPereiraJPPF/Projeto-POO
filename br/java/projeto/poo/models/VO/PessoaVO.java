@@ -4,6 +4,10 @@ public abstract class PessoaVO {
     private long id;
     private String nome, cpf;
 
+    public PessoaVO() {
+
+    }
+
     public PessoaVO(long id, String nome, String cpf) {
         setId(id);
         setCpf(cpf);

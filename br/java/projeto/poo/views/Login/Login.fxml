@@ -25,7 +25,7 @@
             </VBox>
             <AnchorPane prefHeight="407.0" prefWidth="450.0">
                <children>
-                  <TextField fx:id="nomeUsuario" layoutX="50.0" layoutY="90.0" prefHeight="35.0" prefWidth="350.0" promptText="Nome" />
+                  <TextField fx:id="nomeUsuario" layoutX="50.0" layoutY="90.0" prefHeight="35.0" prefWidth="350.0" promptText="CPF" />
                   <Label layoutX="50.0" layoutY="14.0" text="Informe seu usuario e senha para fazer login">
                      <font>
                         <Font size="15.0" />
@@ -46,8 +46,8 @@
                         <Font size="15.0" />
                      </font>
                   </Label>
-                  <Button fx:id="logar" layoutX="50.0" layoutY="249.0" mnemonicParsing="false" onAction="#logarUsuario" prefHeight="35.0" prefWidth="350.0" styleClass="btn-primary" text="Button" textFill="WHITE" />
-                  <Label layoutX="144.0" layoutY="214.0" text="Esqueci minha Senha" textFill="#064eb9">
+                  <Button fx:id="logar" layoutX="50.0" layoutY="216.0" mnemonicParsing="false" onAction="#logarUsuario" prefHeight="35.0" prefWidth="350.0" styleClass="btn-primary" text="Button" textFill="WHITE" />
+                  <Label layoutX="144.0" layoutY="214.0" textFill="#064eb9">
                      <font>
                         <Font size="15.0" />
                      </font>
@@ -62,7 +62,7 @@
                         <Font size="15.0" />
                      </font>
                   </Label>
-                  <PasswordField layoutX="50.0" layoutY="157.0" prefHeight="35.0" prefWidth="350.0" promptText="Senha">
+                  <PasswordField fx:id="password" layoutX="50.0" layoutY="157.0" prefHeight="35.0" prefWidth="350.0" promptText="Senha">
                      <font>
                         <Font size="12.0" />
                      </font>

@@ -1,5 +1,6 @@
 package br.java.projeto.poo.src;
 
+import br.java.projeto.poo.models.VO.FuncionarioVO;
 import javafx.application.Application;
 import javafx.scene.Scene;
 import javafx.stage.Stage;
@@ -7,6 +8,7 @@ import javafx.stage.Stage;
 public class App extends Application {
     private static Stage stage;
     private static GerenciadorDeTelas gr = new GerenciadorDeTelas();
+    private FuncionarioVO usuario; 
 
     public static void main(String[] args) {
         launch(args);
@@ -15,7 +17,7 @@ public class App extends Application {
     @Override
     public void start(Stage primaryStage) throws Exception{
         stage = primaryStage;
-        Scene telaInicial = gr.carregarNovaTela("orcamentos"); // carrega a tela inicial
+        Scene telaInicial = gr.carregarNovaTela("login"); // carrega a tela inicial
         primaryStage.setScene(telaInicial);
         primaryStage.show();
     }

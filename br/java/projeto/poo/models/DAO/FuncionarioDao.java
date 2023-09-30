@@ -7,7 +7,7 @@ import java.sql.SQLException;
 
 import br.java.projeto.poo.models.VO.FuncionarioVO;
 
-public class FuncionarioDao <VO extends FuncionarioVO> extends BaseDao <VO> {
+public class FuncionarioDao extends BaseDao <FuncionarioVO> {
 
     Connection db;
 
@@ -15,7 +15,7 @@ public class FuncionarioDao <VO extends FuncionarioVO> extends BaseDao <VO> {
         db = this.getConnection();
     }
 
-    public boolean inserir(VO funcionario) throws SQLException {
+    public boolean inserir(FuncionarioVO funcionario) throws SQLException {
         String query = "INSERT INTO funcionarios (nome, cpf, salario, dataDeAdmissao, funcao, senha) VALUES (?, ?, ?, ?, ?, ?)";
         PreparedStatement ps = null;
 
@@ -36,7 +36,7 @@ public class FuncionarioDao <VO extends FuncionarioVO> extends BaseDao <VO> {
         }
     }
 
-    public boolean deletar(VO vo) throws SQLException {
+    public boolean deletar(FuncionarioVO vo) throws SQLException {
         String query = "DELETE FROM funcionarios WHERE id = (?)";
         PreparedStatement ps = null;
         try {
@@ -51,7 +51,7 @@ public class FuncionarioDao <VO extends FuncionarioVO> extends BaseDao <VO> {
         }
     }
 
-    public long atualizar(VO funcionario) throws SQLException {
+    public long atualizar(FuncionarioVO funcionario) throws SQLException {
         String query = "UPDATE funcionarios SET nome = ?, cpf = ?, salario = ?, dataDeAdmissao = ?, funcao = ? WHERE id = ?";
         PreparedStatement ps = null;
 
@@ -72,7 +72,7 @@ public class FuncionarioDao <VO extends FuncionarioVO> extends BaseDao <VO> {
         }
     }
 
-    public ResultSet buscarPorId(VO funcionario) throws SQLException {
+    public ResultSet buscarPorId(FuncionarioVO funcionario) throws SQLException {
         String query = "Select * from funcionarios where id = (?)";
         PreparedStatement ps = null;
         try {
@@ -85,7 +85,7 @@ public class FuncionarioDao <VO extends FuncionarioVO> extends BaseDao <VO> {
         }
     }
 
-    public ResultSet buscarPorCPF(VO funcionario) throws SQLException {
+    public ResultSet buscarPorCPF(FuncionarioVO funcionario) throws SQLException {
         String query = "Select * from funcionarios where cpf = (?)";
         PreparedStatement ps = null;
         try {

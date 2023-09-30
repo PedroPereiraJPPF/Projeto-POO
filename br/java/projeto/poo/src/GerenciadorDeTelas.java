@@ -13,7 +13,6 @@ public class GerenciadorDeTelas {
         final private TelasDisponiveis telas = new TelasDisponiveis();
 
         public Scene carregarNovaTela(String nomeTela) throws Exception {
-            System.out.println(pastaPadrao + telas.pegarTelaPorNome(nomeTela));
             FXMLLoader loader = new FXMLLoader(getClass().getResource(pastaPadrao + telas.pegarTelaPorNome(nomeTela)));
             Parent root = loader.load();
             Scene tela = new Scene(root);
