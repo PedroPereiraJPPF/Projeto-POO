@@ -18,6 +18,19 @@
     -fx-font-size: 13px;
 }
 
+.btn-back{
+    -fx-background-color: transparent;
+    -fx-text-fill: #064eb9;
+    -fx-border-color: #064eb9;
+    -fx-border-radius: 5px;
+}
+
+.btn-back:hover{
+    -fx-background-color: #064eb9;
+    -fx-text-fill: #ffffff;
+
+}
+
 .searchField {
     -fx-background-image:url('../../public/searchRegular.png');
     -fx-background-repeat: no-repeat;
@@ -30,7 +43,7 @@
 }
 
 .btn-primary {
-    -fx-background-color: #064EB9;
+    -fx-background-color: #064eb9;
     -fx-text-fill: #FFF;
 }
 

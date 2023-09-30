@@ -1,0 +1,375 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.Cursor?>
+<?import javafx.scene.Group?>
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.ScrollPane?>
+<?import javafx.scene.image.Image?>
+<?import javafx.scene.image.ImageView?>
+<?import javafx.scene.layout.BorderPane?>
+<?import javafx.scene.layout.HBox?>
+<?import javafx.scene.layout.VBox?>
+<?import javafx.scene.shape.Rectangle?>
+<?import javafx.scene.text.Font?>
+
+<BorderPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="800.0" prefWidth="1024.0" styleClass="celulaTabela" xmlns="http://javafx.com/javafx/20.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="br.java.projeto.poo.controller.OrcamentosController">
+   <top>
+      <HBox alignment="CENTER_LEFT" prefHeight="100.0" prefWidth="200.0" BorderPane.alignment="CENTER">
+         <children>
+            <ImageView fitHeight="50.0" fitWidth="170.0" onMouseClicked="#carregarOrcamentos" pickOnBounds="true" preserveRatio="true">
+               <image>
+                  <Image url="@../../public/LogoPrimary.png" />
+               </image>
+               <HBox.margin>
+                  <Insets left="40.0" right="10.0" />
+               </HBox.margin>
+            </ImageView>
+            <HBox alignment="CENTER_RIGHT" prefHeight="80.0" prefWidth="730.0" spacing="15.0" HBox.hgrow="ALWAYS">
+               <children>
+                  <Label onMouseClicked="#carregarClientes" text="Clientes" textOverrun="CLIP">
+                     <padding>
+                        <Insets bottom="10.0" left="5.0" right="5.0" top="10.0" />
+                     </padding>
+                     <font>
+                        <Font size="15.0" />
+                     </font>
+                     <cursor>
+                        <Cursor fx:constant="HAND" />
+                     </cursor>
+                  </Label>
+                  <Label onMouseClicked="#carregarServicos" text="Servicos" textOverrun="CLIP">
+                     <padding>
+                        <Insets bottom="10.0" left="5.0" right="5.0" top="10.0" />
+                     </padding>
+                     <cursor>
+                        <Cursor fx:constant="HAND" />
+                     </cursor>
+                     <font>
+                        <Font size="15.0" />
+                     </font>
+                  </Label>
+                  <Label onMouseClicked="#carregarAutomoveis" text="Automóveis" textOverrun="CLIP">
+                     <padding>
+                        <Insets bottom="10.0" left="5.0" right="5.0" top="10.0" />
+                     </padding>
+                     <cursor>
+                        <Cursor fx:constant="HAND" />
+                     </cursor>
+                     <font>
+                        <Font size="15.0" />
+                     </font>
+                  </Label>
+                  <Label onMouseClicked="#carregarPecas" text="Peças" textOverrun="CLIP">
+                     <padding>
+                        <Insets bottom="10.0" left="5.0" right="5.0" top="10.0" />
+                     </padding>
+                     <cursor>
+                        <Cursor fx:constant="HAND" />
+                     </cursor>
+                     <font>
+                        <Font size="15.0" />
+                     </font>
+                  </Label>
+                  <Label onMouseClicked="#carregarOrcamentos" text="Orçamentos" textFill="#064eb9" textOverrun="CLIP">
+                     <padding>
+                        <Insets bottom="10.0" left="5.0" right="5.0" top="10.0" />
+                     </padding>
+                     <cursor>
+                        <Cursor fx:constant="HAND" />
+                     </cursor>
+                     <font>
+                        <Font name="System Bold" size="15.0" />
+                     </font>
+                  </Label>
+                  <Label onMouseClicked="#carregarFuncionarios" text="Funcionários" textOverrun="CLIP">
+                     <padding>
+                        <Insets bottom="10.0" left="5.0" right="5.0" top="10.0" />
+                     </padding>
+                     <cursor>
+                        <Cursor fx:constant="HAND" />
+                     </cursor>
+                     <font>
+                        <Font size="15.0" />
+                     </font>
+                  </Label>
+                  <HBox alignment="CENTER" maxHeight="-Infinity">
+                     <children>
+                        <Label onMouseClicked="#logout" text="sair" textOverrun="CLIP">
+                           <padding>
+                              <Insets bottom="10.0" right="5.0" top="10.0" />
+                           </padding>
+                           <cursor>
+                              <Cursor fx:constant="HAND" />
+                           </cursor>
+                           <font>
+                              <Font size="15.0" />
+                           </font>
+                        </Label>
+                        <ImageView fitHeight="15.0" fitWidth="15.0" pickOnBounds="true" preserveRatio="true">
+                           <image>
+                              <Image url="@../../public/iconeSair.png" />
+                           </image>
+                        </ImageView>
+                     </children>
+                  </HBox>
+               </children>
+               <padding>
+                  <Insets left="60.0" />
+               </padding>
+               <HBox.margin>
+                  <Insets right="40.0" />
+               </HBox.margin>
+            </HBox>
+         </children>
+         <padding>
+            <Insets bottom="10.0" left="5.0" right="5.0" top="10.0" />
+         </padding>
+      </HBox>
+   </top>
+   <center>
+      <VBox prefHeight="200.0" prefWidth="100.0" BorderPane.alignment="CENTER">
+         <BorderPane.margin>
+            <Insets left="30.0" right="30.0" />
+         </BorderPane.margin>
+         <children>
+            <HBox prefHeight="49.0" prefWidth="951.0">
+               <children>
+                  <VBox minWidth="-Infinity">
+                     <children>
+                        <HBox>
+                           <children>
+                              <Label text="Início" />
+                              <Label text=" &gt; " />
+                              <Label text="Clientes" />
+                              <Label text=" &gt; " />
+                              <Label text="Cliente 1" />
+                           </children>
+                        </HBox>
+                        <Label minHeight="-Infinity" minWidth="-Infinity" text="Exibir cliente">
+                           <font>
+                              <Font name="System Bold" size="18.0" />
+                           </font>
+                        </Label>
+                     </children>
+                     <padding>
+                        <Insets top="5.0" />
+                     </padding>
+                  </VBox>
+                  <HBox alignment="CENTER_RIGHT" prefHeight="42.0" prefWidth="620.0" spacing="15.0" HBox.hgrow="ALWAYS">
+                     <children>
+                        <Button maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" mnemonicParsing="false" prefHeight="40.0" prefWidth="110.0" styleClass="btn-back" stylesheets="@../css/buttons.css" text="Voltar">
+                           <HBox.margin>
+                              <Insets />
+                           </HBox.margin>
+                           <font>
+                              <Font name="System Bold" size="12.0" />
+                           </font>
+                        </Button>
+                     </children>
+                     <HBox.margin>
+                        <Insets left="115.0" />
+                     </HBox.margin>
+                  </HBox>
+               </children>
+               <VBox.margin>
+                  <Insets bottom="10.0" />
+               </VBox.margin>
+               <padding>
+                  <Insets right="15.0" />
+               </padding>
+            </HBox>
+            <ScrollPane fitToWidth="true" prefHeight="600.0" prefWidth="960.0">
+               <content>
+                  <VBox prefHeight="877.0" prefWidth="949.0">
+                     <children>
+                        <VBox spacing="10.0">
+                           <children>
+                              <HBox alignment="CENTER" maxHeight="-Infinity" prefHeight="45.0" prefWidth="949.0">
+                                 <children>
+                                    <Label maxHeight="-Infinity" maxWidth="-Infinity" prefHeight="40.0" prefWidth="900.0" text="Informações do cliente" textFill="#535f6b">
+                                       <font>
+                                          <Font name="System Bold" size="20.0" />
+                                       </font>
+                                    </Label>
+                                    <ImageView fitHeight="30.0" fitWidth="30.0" pickOnBounds="true" preserveRatio="true">
+                                       <image>
+                                          <Image url="@../../public/Edit%20Buttom%20Original.png" />
+                                       </image>
+                                       <HBox.margin>
+                                          <Insets left="15.0" right="15.0" />
+                                       </HBox.margin>
+                                    </ImageView>
+                                 </children>
+                              </HBox>
+                              <Group>
+                                 <children>
+                                    <Rectangle arcHeight="8.0" arcWidth="8.0" fill="WHITE" height="190.0" layoutY="9.0" stroke="#8d8d8d" strokeType="INSIDE" width="949.0" />
+                                    <VBox layoutY="9.0" maxHeight="-Infinity" maxWidth="-Infinity" prefHeight="190.0" prefWidth="949.0">
+                                       <children>
+                                          <HBox maxHeight="-Infinity" maxWidth="-Infinity" prefHeight="100.0" prefWidth="949.0">
+                                             <children>
+                                                <Label maxHeight="-Infinity" maxWidth="-Infinity" prefHeight="50.0" prefWidth="474.0" text="Nome" textFill="#677788">
+                                                   <font>
+                                                      <Font name="System Bold" size="18.0" />
+                                                   </font>
+                                                   <padding>
+                                                      <Insets left="15.0" />
+                                                   </padding>
+                                                </Label>
+                                                <Label maxHeight="-Infinity" maxWidth="-Infinity" prefHeight="50.0" prefWidth="474.0" text="Endereço" textFill="#677788">
+                                                   <font>
+                                                      <Font name="System Bold" size="18.0" />
+                                                   </font>
+                                                   <padding>
+                                                      <Insets left="15.0" />
+                                                   </padding>
+                                                </Label>
+                                             </children>
+                                          </HBox>
+                                          <HBox prefHeight="100.0" prefWidth="949.0">
+                                             <children>
+                                                <Label prefHeight="17.0" prefWidth="474.0" text="CPF" textFill="#677788">
+                                                   <padding>
+                                                      <Insets left="15.0" />
+                                                   </padding>
+                                                   <font>
+                                                      <Font name="System Bold" size="18.0" />
+                                                   </font>
+                                                </Label>
+                                                <Label prefHeight="17.0" prefWidth="474.0" text="Data de cadastro" textFill="#677788">
+                                                   <padding>
+                                                      <Insets left="15.0" />
+                                                   </padding>
+                                                   <font>
+                                                      <Font name="System Bold" size="18.0" />
+                                                   </font>
+                                                </Label>
+                                             </children>
+                                          </HBox>
+                                       </children>
+                                    </VBox>
+                                 </children>
+                              </Group>
+                           </children>
+                           <VBox.margin>
+                              <Insets bottom="15.0" top="10.0" />
+                           </VBox.margin>
+                        </VBox>
+                        <VBox prefHeight="200.0" prefWidth="949.0" spacing="10.0">
+                           <children>
+                              <HBox prefHeight="45.0" prefWidth="949.0">
+                                 <children>
+                                    <Label maxHeight="-Infinity" maxWidth="-Infinity" prefHeight="40.0" prefWidth="900.0" text="Informações do automóvel" textFill="#535f6b">
+                                       <font>
+                                          <Font name="System Bold" size="19.0" />
+                                       </font>
+                                    </Label>
+                                    <ImageView fitHeight="30.0" fitWidth="30.0" pickOnBounds="true" preserveRatio="true">
+                                       <image>
+                                          <Image url="@../../public/Edit%20Buttom%20Original.png" />
+                                       </image>
+                                       <HBox.margin>
+                                          <Insets left="15.0" right="15.0" />
+                                       </HBox.margin>
+                                    </ImageView>
+                                 </children>
+                              </HBox>
+                              <Group>
+                                 <children>
+                                    <Rectangle arcHeight="8.0" arcWidth="8.0" fill="WHITE" height="650.0" stroke="#8d8d8d" strokeType="INSIDE" width="949.0" />
+                                    <VBox>
+                                       <children>
+                                          <HBox prefHeight="100.0" prefWidth="949.0">
+                                             <children>
+                                                <Label maxHeight="-Infinity" maxWidth="1.7976931348623157E308" prefHeight="50.0" prefWidth="474.0" text="Cor" textFill="#677788">
+                                                   <font>
+                                                      <Font name="System Bold" size="18.0" />
+                                                   </font>
+                                                   <HBox.margin>
+                                                      <Insets />
+                                                   </HBox.margin>
+                                                   <padding>
+                                                      <Insets left="15.0" />
+                                                   </padding>
+                                                </Label>
+                                                <Label maxHeight="-Infinity" maxWidth="1.7976931348623157E308" prefHeight="50.0" prefWidth="474.0" text="Placa do veículo" textFill="#677788">
+                                                   <font>
+                                                      <Font name="System Bold" size="18.0" />
+                                                   </font>
+                                                   <padding>
+                                                      <Insets left="15.0" />
+                                                   </padding>
+                                                </Label>
+                                             </children>
+                                          </HBox>
+                                          <HBox prefHeight="100.0" prefWidth="949.0">
+                                             <children>
+                                                <Label maxHeight="-Infinity" maxWidth="1.7976931348623157E308" prefHeight="50.0" prefWidth="474.0" text="Modelo do veículo" textFill="#677788">
+                                                   <font>
+                                                      <Font name="System Bold" size="18.0" />
+                                                   </font>
+                                                   <HBox.margin>
+                                                      <Insets />
+                                                   </HBox.margin>
+                                                   <padding>
+                                                      <Insets left="15.0" />
+                                                   </padding>
+                                                </Label>
+                                                <Label maxHeight="-Infinity" maxWidth="1.7976931348623157E308" prefHeight="50.0" prefWidth="474.0" text="Quilometragem" textFill="#677788">
+                                                   <padding>
+                                                      <Insets left="15.0" />
+                                                   </padding>
+                                                   <HBox.margin>
+                                                      <Insets />
+                                                   </HBox.margin>
+                                                   <font>
+                                                      <Font name="System Bold" size="18.0" />
+                                                   </font>
+                                                </Label>
+                                             </children>
+                                          </HBox>
+                                          <Label maxHeight="-Infinity" maxWidth="1.7976931348623157E308" prefHeight="50.0" prefWidth="474.0" text="Ano do veículo" textFill="#677788">
+                                             <padding>
+                                                <Insets left="15.0" />
+                                             </padding>
+                                             <font>
+                                                <Font name="System Bold" size="18.0" />
+                                             </font>
+                                          </Label>
+                                       </children>
+                                    </VBox>
+                                    <Button alignment="CENTER" layoutX="612.0" layoutY="250.0" mnemonicParsing="false" prefHeight="45.0" prefWidth="150.0" styleClass="btn-primary" stylesheets="@../css/buttons.css" text="Novo automóvel">
+                                       <graphic>
+                                          <ImageView fitHeight="25.0" fitWidth="25.0" pickOnBounds="true" preserveRatio="true">
+                                             <image>
+                                                <Image url="@../../public/carAdd-symbol.png" />
+                                             </image>
+                                          </ImageView>
+                                       </graphic>
+                                    </Button>
+                                    <Button layoutX="785.0" layoutY="250.0" mnemonicParsing="false" prefHeight="45.0" prefWidth="150.0" styleClass="btn-primary" stylesheets="@../css/buttons.css" text="Novo orçamento">
+                                       <graphic>
+                                          <ImageView fitHeight="20.0" fitWidth="20.0" pickOnBounds="true" preserveRatio="true">
+                                             <image>
+                                                <Image url="@../../public/cashAdd-symbol.png" />
+                                             </image>
+                                          </ImageView>
+                                       </graphic>
+                                    </Button>
+                                 </children>
+                              </Group>
+                           </children>
+                        </VBox>
+                     </children>
+                  </VBox>
+               </content>
+               <opaqueInsets>
+                  <Insets />
+               </opaqueInsets>
+            </ScrollPane>
+         </children>
+      </VBox>
+   </center>
+</BorderPane>
