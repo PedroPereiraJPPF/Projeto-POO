@@ -25,7 +25,7 @@ public class FuncionarioDao extends BaseDao <FuncionarioVO> {
             ps.setString(2, funcionario.getCpf());
             ps.setDouble(3, funcionario.getSalario());
             ps.setString(4, funcionario.getDataDeAdimissao());
-            ps.setInt(5, funcionario.getFuncao());
+            ps.setInt(5, funcionario.getNivel());
             ps.setString(6, funcionario.getSenha());
             return ps.execute();
 
@@ -62,7 +62,7 @@ public class FuncionarioDao extends BaseDao <FuncionarioVO> {
             ps.setString(2, funcionario.getCpf());
             ps.setDouble(3, funcionario.getSalario());
             ps.setString(4, funcionario.getDataDeAdimissao());
-            ps.setInt(5, funcionario.getFuncao());
+            ps.setInt(5, funcionario.getNivel());
             return ps.executeUpdate();
 
         } catch (SQLException e) {

@@ -3,7 +3,7 @@ CREATE TABLE funcionarios
 (
     id serial unique,
     nome varchar(50),
-    salario numeric(2,1),
+    salario float,
     datadeadmissao varchar(30),
     cpf varchar(20),
 	senha varchar(50),
@@ -56,22 +56,21 @@ create table veiculos(
 	foreign key(cpfDono) references clientes(cpf) on Update Cascade on delete cascade
 );
 
-@Não testado
 create table servicos (
-	id integer,
+	id integer primary key,
 	nome varchar(50),
 	preco float
 );
 
-@Não testado
+@teste ok
 create table pecas (
-	id integer,
+	id integer primary key,
 	nome varchar(50),
 	preco float,
 	fabricante varchar(50)
 );
 
-@Em teste 
+@Teste ok 
 create table orcamentos (
 	id serial,
 	valor float,

@@ -1,40 +1,52 @@
 package br.java.projeto.poo.models.BO;
 
 import java.sql.ResultSet;
+import java.sql.SQLException;
 import java.util.ArrayList;
 
 import br.java.projeto.poo.exceptions.ErroDeAuthenticacaoException;
 import br.java.projeto.poo.models.DAO.FuncionarioDao;
 import br.java.projeto.poo.models.VO.FuncionarioVO;
 
-public class FuncionarioBO<VO extends FuncionarioVO> implements BaseInterfaceBO<VO>{
+public class FuncionarioBO {
     private FuncionarioDao funcionarioDao = new FuncionarioDao();
 
-    @Override
-    public ArrayList<VO> listar() {
-        // TODO Auto-generated method stub
-        throw new UnsupportedOperationException("Unimplemented method 'buscarPorId'");
+    public ArrayList<FuncionarioVO> listar() throws SQLException {
+        try {
+            ArrayList<FuncionarioVO> funcionarios = new ArrayList<FuncionarioVO>();
+            ResultSet selectFuncionarios = funcionarioDao.listar();
+            while(selectFuncionarios.next()) {
+                funcionarios.add(new FuncionarioVO(
+                    selectFuncionarios.getInt("id"), 
+                    selectFuncionarios.getString("nome"),
+                    selectFuncionarios.getString("cpf"), 
+                    selectFuncionarios.getDouble("salario"), 
+                    selectFuncionarios.getString("dataDeAdmissao"), 
+                    selectFuncionarios.getInt("funcao")));
+            }
+            
+            return funcionarios;
+        } catch (SQLException e) {
+            System.out.println(e.getMessage());
+            throw new SQLException("Erro ao acessar o banco");
+        }
     }
 
-    @Override
     public FuncionarioVO buscarPorId(int id) {
         // TODO Auto-generated method stub
         throw new UnsupportedOperationException("Unimplemented method 'buscarPorId'");
     }
 
-    @Override
-    public boolean inserir(VO ob) {
+    public boolean inserir(FuncionarioVO ob) {
         // TODO Auto-generated method stub
         throw new UnsupportedOperationException("Unimplemented method 'inserir'");
     }
 
-    @Override
-    public Object atualizar(VO ob) {
+    public Object atualizar(FuncionarioVO ob) {
         // TODO Auto-generated method stub
         throw new UnsupportedOperationException("Unimplemented method 'atualizar'");
     }
 
-    @Override
     public Boolean deletar() {
         // TODO Auto-generated method stub
         throw new UnsupportedOperationException("Unimplemented method 'deletar'");

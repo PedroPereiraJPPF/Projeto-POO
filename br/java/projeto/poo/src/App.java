@@ -17,7 +17,7 @@ public class App extends Application {
     @Override
     public void start(Stage primaryStage) throws Exception{
         stage = primaryStage;
-        Scene telaInicial = gr.carregarNovaTela("login"); // carrega a tela inicial
+        Scene telaInicial = gr.carregarNovaTela("funcionarios"); // carrega a tela inicial
         primaryStage.setScene(telaInicial);
         primaryStage.show();
     }

@@ -26,7 +26,7 @@
             <AnchorPane prefHeight="407.0" prefWidth="450.0">
                <children>
                   <TextField fx:id="nomeUsuario" layoutX="50.0" layoutY="90.0" prefHeight="35.0" prefWidth="350.0" promptText="CPF" />
-                  <Label alignment="CENTER" layoutX="78.0" layoutY="14.0" text="Informe seu usuario e senha para fazer login">
+                  <Label alignment="CENTER" layoutX="50.0" layoutY="14.0" text="Informe seu usuario e senha para fazer login">
                      <font>
                         <Font size="15.0" />
                      </font>
@@ -70,6 +70,11 @@
                         <Font size="12.0" />
                      </font>
                   </PasswordField>
+                  <Label fx:id="erro" layoutX="50.0" layoutY="206.0" text="CPF ou senha invalidos" textFill="RED">
+                     <font>
+                        <Font size="12.0" />
+                     </font>
+                  </Label>
                </children>
             </AnchorPane>
          </children></VBox>

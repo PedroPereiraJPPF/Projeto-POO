@@ -3,17 +3,17 @@ package br.java.projeto.poo.models.VO;
 public class FuncionarioVO extends PessoaVO {
     private double salario;
     private String dataDeAdimissao, senha;
-    private int funcao;
+    private int nivel;
 
     public FuncionarioVO () {
         super();
     }
 
-    public FuncionarioVO(long id, String nome, String cpf, double salario, String dataDeAdimissao, int funcao) {
+    public FuncionarioVO(long id, String nome, String cpf, double salario, String dataDeAdimissao, int nivel) {
         super(id, nome, cpf);
         setSalario(salario);
         setDataDeAdimissao(dataDeAdimissao);
-        setFuncao(funcao);
+        setNivel(nivel);
     }
 
     public double getSalario() {
@@ -32,12 +32,12 @@ public class FuncionarioVO extends PessoaVO {
         this.dataDeAdimissao = dataDeAdimissao;
     }
 
-    public int getFuncao() {
-        return this.funcao;
+    public int getNivel() {
+        return this.nivel;
     }
 
-    public void setFuncao(int funcao) {
-        this.funcao = funcao;
+    public void setNivel(int nivel) {
+        this.nivel = nivel;
     }
 
 

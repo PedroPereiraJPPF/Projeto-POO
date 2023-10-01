@@ -55,6 +55,7 @@
     -fx-background-position:right center;
     -fx-background-repeat:no-repeat;
     -fx-border-color:transparent;
+    -fx-background-size: 15px;
 }
 
 .btn-logout:hover{

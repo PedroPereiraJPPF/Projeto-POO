@@ -1,7 +1,5 @@
 package br.java.projeto.poo.controller;
 
-import java.io.IOException;
-
 import br.java.projeto.poo.src.App;
 import javafx.fxml.FXML;
 import javafx.scene.input.MouseEvent;

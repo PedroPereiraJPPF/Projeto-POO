@@ -6,11 +6,12 @@ import br.java.projeto.poo.src.App;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.control.Button;
+import javafx.scene.control.Label;
 import javafx.scene.control.PasswordField;
 import javafx.scene.control.TextField;
 
 public class LoginController {
-    private FuncionarioBO<FuncionarioVO> funcBO = new FuncionarioBO<FuncionarioVO>();
+    private FuncionarioBO funcBO = new FuncionarioBO();
 
     @FXML
     private Button logar;
@@ -22,6 +23,14 @@ public class LoginController {
     private PasswordField password;
 
     @FXML
+    private Label erro;
+
+    @FXML
+    public void initialize() {
+        this.erro.setVisible(false);
+    }
+
+    @FXML
     void logarUsuario(ActionEvent event) throws Exception {
         try {
             FuncionarioVO usuario = new FuncionarioVO();
@@ -31,6 +40,7 @@ public class LoginController {
             funcBO.authenticar(usuario);
             App.navegarEntreTelas("orcamentos");
         } catch (Exception e) {
+            this.erro.setVisible(true);
             e.printStackTrace();
             throw new ErroDeAuthenticacaoException(e.getMessage());
         }
