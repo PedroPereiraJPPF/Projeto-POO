@@ -1,0 +1,140 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.Group?>
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.Separator?>
+<?import javafx.scene.control.TextField?>
+<?import javafx.scene.layout.HBox?>
+<?import javafx.scene.layout.Pane?>
+<?import javafx.scene.layout.VBox?>
+<?import javafx.scene.text.Font?>
+
+<Pane fx:id="CadastrarCliente" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="600.0" prefWidth="500.0" xmlns="http://javafx.com/javafx/20.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="ClienteController.java">
+   <children>
+      <Label alignment="CENTER" contentDisplay="CENTER" layoutX="40.0" layoutY="14.0" text="Cadastrar cliente">
+         <font>
+            <Font size="18.0" />
+         </font>
+      </Label>
+      <Separator layoutY="50.0" minHeight="-Infinity" minWidth="-Infinity" prefHeight="0.0" prefWidth="500.0" />
+      <VBox layoutX="40.0" layoutY="62.0" spacing="5.0">
+         <children>
+            <Group>
+               <children>
+                  <VBox spacing="3.0">
+                     <children>
+                        <Label text="Nome" />
+                        <TextField prefHeight="40.0" prefWidth="300.0" promptText="Ex.: João Pedro" />
+                     </children>
+                     <padding>
+                        <Insets bottom="5.0" />
+                     </padding>
+                  </VBox>
+               </children>
+            </Group>
+            <Group>
+               <children>
+                  <VBox spacing="3.0">
+                     <children>
+                        <Label text="CPF" />
+                        <TextField prefHeight="40.0" prefWidth="200.0" promptText="Ex.: 123.456.789-10" />
+                     </children>
+                     <padding>
+                        <Insets bottom="5.0" />
+                     </padding>
+                  </VBox>
+               </children>
+            </Group>
+            <Group>
+               <children>
+                  <VBox layoutX="14.0" layoutY="-6.0" spacing="3.0">
+                     <children>
+                        <Label text="Endereço" />
+                        <TextField prefHeight="40.0" prefWidth="420.0" promptText="Ex.: Rua Teste, XX, Cidade/Estado" />
+                     </children>
+                     <padding>
+                        <Insets bottom="5.0" />
+                     </padding>
+                  </VBox>
+               </children>
+            </Group>
+         </children>
+      </VBox>
+      <Separator layoutY="276.0" minHeight="-Infinity" minWidth="-Infinity" prefHeight="0.0" prefWidth="500.0" />
+      <Group layoutX="40.0" layoutY="285.0">
+         <children>
+            <VBox layoutY="15.0" spacing="5.0">
+               <children>
+                  <VBox spacing="3.0">
+                     <children>
+                        <Label text="Modelo do veículo" />
+                        <TextField prefHeight="40.0" prefWidth="420.0" promptText="Ex.: Hoda Civic" />
+                     </children>
+                     <VBox.margin>
+                        <Insets bottom="5.0" />
+                     </VBox.margin>
+                  </VBox>
+                  <HBox spacing="20.0">
+                     <children>
+                        <VBox spacing="3.0">
+                           <children>
+                              <Label text="Ano do veículo" />
+                              <TextField prefHeight="40.0" prefWidth="200.0" promptText="Ex.: 2010" />
+                           </children>
+                        </VBox>
+                        <VBox spacing="3.0">
+                           <children>
+                              <Label text="Quilometragem" />
+                              <TextField prefHeight="40.0" prefWidth="200.0" promptText="Ex.: 10000" />
+                           </children>
+                        </VBox>
+                     </children>
+                     <VBox.margin>
+                        <Insets bottom="5.0" />
+                     </VBox.margin>
+                  </HBox>
+                  <HBox spacing="20.0">
+                     <children>
+                        <VBox spacing="3.0">
+                           <children>
+                              <Label text="Placa do veículo" />
+                              <TextField prefHeight="40.0" prefWidth="200.0" promptText="Ex.: 1AB2C34" />
+                           </children>
+                        </VBox>
+                        <VBox spacing="3.0">
+                           <children>
+                              <Label text="Cor do veículo" />
+                              <TextField prefHeight="40.0" prefWidth="200.0" promptText="Ex.: Vermelho" />
+                           </children>
+                        </VBox>
+                     </children>
+                     <VBox.margin>
+                        <Insets bottom="5.0" />
+                     </VBox.margin>
+                  </HBox>
+               </children>
+               <padding>
+                  <Insets bottom="10.0" />
+               </padding>
+            </VBox>
+         </children>
+      </Group>
+      <Separator layoutY="515.0" minHeight="-Infinity" minWidth="-Infinity" prefHeight="0.0" prefWidth="500.0" />
+      <HBox alignment="CENTER" layoutY="515.0" prefHeight="85.0" prefWidth="500.0" spacing="50.0">
+         <children>
+            <Button alignment="CENTER" contentDisplay="CENTER" mnemonicParsing="false" prefHeight="50.0" prefWidth="200.0" styleClass="btn-back" stylesheets="@../css/buttons.css" text="Cancelar">
+               <font>
+                  <Font size="15.0" />
+               </font>
+            </Button>
+            <Button alignment="CENTER" contentDisplay="CENTER" mnemonicParsing="false" prefHeight="50.0" prefWidth="200.0" styleClass="btn-primary" stylesheets="@../css/buttons.css" text="Cadastrar cliente">
+               <font>
+                  <Font size="15.0" />
+               </font>
+            </Button>
+         </children>
+      </HBox>
+   </children>
+</Pane>
