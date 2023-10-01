@@ -31,6 +31,40 @@
 
 }
 
+.btn-edit{
+    -fx-background-image:url('../../public/EditButtomOriginal.png');
+    -fx-background-position:center;
+    -fx-background-color:transparent;
+    -fx-background-size: 27px, 27px;
+    -fx-background-repeat:no-repeat;
+    -fx-border-color:transparent;
+}
+
+.btn-edit:hover{
+    -fx-background-image:url('../../public/EditButtomHover.png');
+    -fx-background-position:center;
+    -fx-background-color:transparent;
+    -fx-background-size: 27px, 27px;
+    -fx-background-repeat:no-repeat;
+    -fx-border-color:transparent;
+}
+
+.btn-logout{
+    -fx-background-image:url('../../public/iconeSair.png');
+    -fx-background-color:transparent;
+    -fx-background-position:right center;
+    -fx-background-repeat:no-repeat;
+    -fx-border-color:transparent;
+}
+
+.btn-logout:hover{
+    -fx-background-image:url('../../public/iconeSairHover.png');
+    -fx-background-color:transparent;
+    -fx-background-repeat:no-repeat;
+    -fx-border-color:transparent;
+    -fx-text-fill: #ff0000;
+}
+
 .searchField {
     -fx-background-image:url('../../public/searchRegular.png');
     -fx-background-repeat: no-repeat;
