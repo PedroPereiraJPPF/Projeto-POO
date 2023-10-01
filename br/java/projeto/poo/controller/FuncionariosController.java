@@ -9,6 +9,8 @@ import javafx.scene.control.TableCell;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 import javafx.scene.control.cell.PropertyValueFactory;
+import javafx.scene.layout.HBox;
+import javafx.scene.layout.Region;
 
 import java.sql.SQLException;
 import java.util.ArrayList;
@@ -48,12 +50,21 @@ public class FuncionariosController extends BaseController{
         funcSalario.setCellValueFactory(new PropertyValueFactory<FuncionarioVO, Double>("salario"));
 
         funcAcoes.setCellFactory(param -> new TableCell<>() {
-        private final Button btnAcao = new Button("Ação");
+        private final Button btnEdit = new Button();
+        private final Button btnDelete = new Button();
+        private final HBox btnContainer = new HBox(btnEdit, btnDelete);
 
         {
-            btnAcao.setOnAction(event -> {
+            btnEdit.getStyleClass().add("btn-edit");
+            btnDelete.getStyleClass().add("btn-delete");
+            btnEdit.setOnAction(event -> {
                 FuncionarioVO funcionario = getTableView().getItems().get(getIndex());
-                
+                System.out.println(funcionario.getId());
+            });
+
+            btnDelete.setOnAction(event -> {
+                FuncionarioVO funcionario = getTableView().getItems().get(getIndex());
+                System.out.println(funcionario.getNome());
             });
         }
 
@@ -63,7 +74,9 @@ public class FuncionariosController extends BaseController{
             if (empty) {
                 setGraphic(null);
             } else {
-                setGraphic(btnAcao);
+                btnContainer.setStyle("-fx-padding: 0 20 0 20;");
+                btnContainer.setSpacing(10);
+                setGraphic(btnContainer);
             }
         }
     });
