@@ -21,6 +21,8 @@ public class TelasDisponiveis {
         this.telasDisponiveis.put("pecas", "Pecas/Pecas.fxml");
         this.telasDisponiveis.put("servicos", "Servicos/Servicos.fxml");
         this.telasDisponiveis.put("funcionarios", "Funcionarios/Funcionarios.fxml");
+        this.telasDisponiveis.put("cadastrarCliente", "/Clientes/CadastrarCliente.fxml");
+        this.telasDisponiveis.put("exibirClientes", "/Clientes/ExibirCliente.fxml");
     }
 
     /**
