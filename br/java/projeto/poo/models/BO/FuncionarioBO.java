@@ -32,9 +32,12 @@ public class FuncionarioBO {
         }
     }
 
-    public boolean inserir(FuncionarioVO ob) {
-        
-        throw new UnsupportedOperationException("Unimplemented method 'inserir'");
+    public boolean inserir(FuncionarioVO ob) throws Exception {
+        try {
+            return funcionarioDao.inserir(ob);
+        } catch (Exception e) {
+            throw new Exception("Falha ao adicionar funcionario");
+        }
     }
 
     public FuncionarioVO atualizar(FuncionarioVO vo) {

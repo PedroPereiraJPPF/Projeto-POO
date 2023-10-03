@@ -2,13 +2,21 @@ package br.java.projeto.poo.controller;
 
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
+import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
+import javafx.fxml.FXMLLoader;
+import javafx.scene.Parent;
+import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.TableCell;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.layout.HBox;
+import javafx.stage.Modality;
+import javafx.stage.Stage;
+
+import java.io.IOException;
 import java.sql.SQLException;
 import java.util.ArrayList;
 import br.java.projeto.poo.models.BO.FuncionarioBO;
@@ -16,6 +24,7 @@ import br.java.projeto.poo.models.VO.FuncionarioVO;
 
 public class FuncionariosController extends BaseController{
     private FuncionarioBO funcionarioBO = new FuncionarioBO(); 
+    static ObservableList<FuncionarioVO> funcionariosDisponiveis;
    
     @FXML
     private TableView<FuncionarioVO> tabelaFuncionarios;
@@ -40,21 +49,37 @@ public class FuncionariosController extends BaseController{
 
     @FXML
     public void initialize() throws SQLException {
+        ArrayList<FuncionarioVO> funcionarios = this.funcionarioBO.listar();
+        funcionariosDisponiveis = FXCollections.observableArrayList(funcionarios);
         this.inicializarTabela();
     }
 
+    @FXML
+    void abirModalCadastro(ActionEvent event) throws IOException {
+        Stage modalStage = new Stage();
+        modalStage.initModality(Modality.APPLICATION_MODAL);
+        modalStage.setTitle("Janela Modal");
+
+        FXMLLoader loader = new FXMLLoader(getClass().getResource("../views/Funcionarios/CadastrarFuncionario.fxml"));
+        Parent root = loader.load();
+        Scene modalScene = new Scene(root);
+        modalStage.setScene(modalScene);
+        modalStage.showAndWait();
+    }
+
+    // inicializa a tabela
     private void inicializarTabela() throws SQLException {
         funcNome.setCellValueFactory(new PropertyValueFactory<FuncionarioVO, String>("nome"));
         FuncNivel.setCellValueFactory(new PropertyValueFactory<FuncionarioVO, Integer>("nivel"));
         funcAdmi.setCellValueFactory(new PropertyValueFactory<FuncionarioVO, String>("dataDeAdimissao"));
         funcCPF.setCellValueFactory(new PropertyValueFactory<FuncionarioVO, String>("cpf"));
         funcSalario.setCellValueFactory(new PropertyValueFactory<FuncionarioVO, Double>("salario"));
+        tabelaFuncionarios.setItems(funcionariosDisponiveis);
+        this.inicializarBotoesDeAcao(funcionariosDisponiveis);
+    }
 
-        ArrayList<FuncionarioVO> funcionarios = this.funcionarioBO.listar();
-        ObservableList<FuncionarioVO> funcs = FXCollections.observableArrayList(funcionarios);
-        tabelaFuncionarios.setItems(funcs);
-        
-        // colocando os botões de ação
+    // inicializa os botões de ação
+    private void inicializarBotoesDeAcao (ObservableList<FuncionarioVO> funcs) {
         funcAcoes.setCellFactory(param -> new TableCell<>() {
             private final Button btnEdit = new Button();
             private final Button btnDelete = new Button();

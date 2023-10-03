@@ -29,6 +29,6 @@ public class App extends Application {
      */
 
     public static void navegarEntreTelas(String nomeTela) throws Exception {
-        stage.setScene(gr.carregarNovaTela(nomeTela)); // carrega a tela com o nome recebido na função
+        stage.setScene(gr.carregarNovaTela(nomeTela)); // carrega a tela com o nome recebido na funçãzo
     }
 }

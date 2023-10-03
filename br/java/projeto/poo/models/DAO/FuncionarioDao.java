@@ -101,7 +101,7 @@ public class FuncionarioDao extends BaseDao <FuncionarioVO> {
     }
 
     public ResultSet listar() throws SQLException {
-        String query = "Select * from funcionarios";
+        String query = "Select * from funcionarios order by id desc";
         PreparedStatement ps = null;
         try {
             ps = this.db.prepareStatement(query);
