@@ -46,7 +46,7 @@ public class PecaDao <VO extends PecaVo> extends BaseDao <VO>{
         }
     }
 
-    public long atualizar(VO peca) throws SQLException {
+    public VO atualizar(VO peca) throws SQLException {
         String query = "UPDATE pecas SET nome = ?, valor = ? WHERE id = ?";
         PreparedStatement ps = null;
 
@@ -55,7 +55,8 @@ public class PecaDao <VO extends PecaVo> extends BaseDao <VO>{
             ps.setLong(3, peca.getId());
             ps.setString(1, peca.getNome());
             ps.setDouble(2, peca.getValor());
-            return ps.executeUpdate();
+            ps.executeUpdate();
+            return peca;
 
         } catch (SQLException e) {
             throw e;

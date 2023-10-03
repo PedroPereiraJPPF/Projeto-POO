@@ -46,7 +46,7 @@ public class TelefoneDao <VO extends TelefoneVO> extends BaseDao <VO>{
         }
     }
 
-    public long atualizar(VO telefone) throws SQLException {
+    public VO atualizar(VO telefone) throws SQLException {
         String query = "UPDATE telefones SET cpfCliente = ?, cpfFuncionario = ?, numero = ? WHERE id = ?";
         PreparedStatement ps = null;
 
@@ -56,7 +56,8 @@ public class TelefoneDao <VO extends TelefoneVO> extends BaseDao <VO>{
             ps.setString(1, telefone.getCpfCliente());
             ps.setString(2, telefone.getCpfFuncionario());
             ps.setString(3, telefone.getNumero());
-            return ps.executeUpdate();
+            ps.executeUpdate();
+            return telefone; 
 
         } catch (SQLException e) {
             throw e;

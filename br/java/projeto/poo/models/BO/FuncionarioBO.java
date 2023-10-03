@@ -32,24 +32,25 @@ public class FuncionarioBO {
         }
     }
 
-    public FuncionarioVO buscarPorId(int id) {
-        // TODO Auto-generated method stub
-        throw new UnsupportedOperationException("Unimplemented method 'buscarPorId'");
-    }
-
     public boolean inserir(FuncionarioVO ob) {
-        // TODO Auto-generated method stub
+        
         throw new UnsupportedOperationException("Unimplemented method 'inserir'");
     }
 
-    public Object atualizar(FuncionarioVO ob) {
-        // TODO Auto-generated method stub
-        throw new UnsupportedOperationException("Unimplemented method 'atualizar'");
+    public FuncionarioVO atualizar(FuncionarioVO vo) {
+        
+        return vo;
     }
 
-    public Boolean deletar() {
-        // TODO Auto-generated method stub
-        throw new UnsupportedOperationException("Unimplemented method 'deletar'");
+    public Boolean deletar(long id) {
+        try {
+            FuncionarioVO vo = new FuncionarioVO();
+            vo.setId(id);
+            return funcionarioDao.deletar(vo);
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return false;
     }
     
     public FuncionarioVO authenticar(FuncionarioVO vo) throws ErroDeAuthenticacaoException {

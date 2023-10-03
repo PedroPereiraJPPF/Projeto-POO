@@ -51,7 +51,7 @@ public class FuncionarioDao extends BaseDao <FuncionarioVO> {
         }
     }
 
-    public long atualizar(FuncionarioVO funcionario) throws SQLException {
+    public FuncionarioVO atualizar(FuncionarioVO funcionario) throws SQLException {
         String query = "UPDATE funcionarios SET nome = ?, cpf = ?, salario = ?, dataDeAdmissao = ?, funcao = ? WHERE id = ?";
         PreparedStatement ps = null;
 
@@ -63,7 +63,9 @@ public class FuncionarioDao extends BaseDao <FuncionarioVO> {
             ps.setDouble(3, funcionario.getSalario());
             ps.setString(4, funcionario.getDataDeAdimissao());
             ps.setInt(5, funcionario.getNivel());
-            return ps.executeUpdate();
+            ps.executeUpdate();
+
+            return funcionario;
 
         } catch (SQLException e) {
             throw e;

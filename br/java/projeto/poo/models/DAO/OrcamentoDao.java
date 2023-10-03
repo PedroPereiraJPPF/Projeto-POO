@@ -83,7 +83,7 @@ public class OrcamentoDao <VO extends OrcamentoVO> extends BaseDao <VO>{
         }
     }
 
-    public long atualizar(VO orcamento) throws SQLException {
+    public VO atualizar(VO orcamento) throws SQLException {
         String query = "UPDATE orcamentos SET placaAutomovel = ?, valor = ? WHERE id = ?";
         PreparedStatement ps = null;
 
@@ -92,7 +92,8 @@ public class OrcamentoDao <VO extends OrcamentoVO> extends BaseDao <VO>{
             ps.setLong(3, orcamento.getId());
             ps.setString(1, orcamento.getPlacaVeiculo());
             ps.setDouble(2, orcamento.getValor());
-            return ps.executeUpdate();
+            ps.executeUpdate();
+            return orcamento;
 
         } catch (SQLException e) {
             throw e;

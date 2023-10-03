@@ -11,7 +11,6 @@ import javafx.scene.control.TableView;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.Region;
-
 import java.sql.SQLException;
 import java.util.ArrayList;
 import br.java.projeto.poo.models.BO.FuncionarioBO;
@@ -43,12 +42,17 @@ public class FuncionariosController extends BaseController{
 
     @FXML
     public void initialize() throws SQLException {
+        // inicializando as tabelas
         funcNome.setCellValueFactory(new PropertyValueFactory<FuncionarioVO, String>("nome"));
         FuncNivel.setCellValueFactory(new PropertyValueFactory<FuncionarioVO, Integer>("nivel"));
         funcAdmi.setCellValueFactory(new PropertyValueFactory<FuncionarioVO, String>("dataDeAdimissao"));
         funcCPF.setCellValueFactory(new PropertyValueFactory<FuncionarioVO, String>("cpf"));
         funcSalario.setCellValueFactory(new PropertyValueFactory<FuncionarioVO, Double>("salario"));
-
+        // colocando valores
+        ArrayList<FuncionarioVO> funcionarios = this.funcionarioBO.listar();
+        ObservableList<FuncionarioVO> funcs = FXCollections.observableArrayList(funcionarios);
+        tabelaFuncionarios.setItems(funcs);
+        // colocando os botões de ação
         funcAcoes.setCellFactory(param -> new TableCell<>() {
         private final Button btnEdit = new Button();
         private final Button btnDelete = new Button();
@@ -59,12 +63,14 @@ public class FuncionariosController extends BaseController{
             btnDelete.getStyleClass().add("btn-delete");
             btnEdit.setOnAction(event -> {
                 FuncionarioVO funcionario = getTableView().getItems().get(getIndex());
-                System.out.println(funcionario.getId());
+                funcionarioBO.atualizar(funcionario);
             });
 
             btnDelete.setOnAction(event -> {
                 FuncionarioVO funcionario = getTableView().getItems().get(getIndex());
-                System.out.println(funcionario.getNome());
+                if (!funcionarioBO.deletar(funcionario.getId())) {
+                    funcs.remove(funcionario);
+                }
             });
         }
 
@@ -81,9 +87,6 @@ public class FuncionariosController extends BaseController{
         }
     });
 
-        ArrayList<FuncionarioVO> funcionarios = this.funcionarioBO.listar();
-        ObservableList<FuncionarioVO> funcs = FXCollections.observableArrayList(funcionarios);
-        tabelaFuncionarios.setItems(funcs);
     }
     
 }
