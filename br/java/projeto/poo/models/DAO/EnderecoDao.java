@@ -16,7 +16,7 @@ public class EnderecoDao <VO extends EnderecoVO> extends BaseDao <VO>{
     }
 
     public boolean inserir(VO endereco) throws SQLException {
-        String query = "INSERT INTO enderecos (cpfCliente, cpfFuncionario, rua, bairro, cidade, estado, cep) VALUES (?, ?, ?, ?, ?, ?, ?)";
+        String query = "INSERT INTO enderecos (cpfCliente, cpfFuncionario, rua, bairro, cidade, estado) VALUES (?, ?, ?, ?, ?, ?)";
         PreparedStatement ps = null;
 
         try {
@@ -27,7 +27,6 @@ public class EnderecoDao <VO extends EnderecoVO> extends BaseDao <VO>{
             ps.setString(4, endereco.getBairro());
             ps.setString(5, endereco.getCidade());
             ps.setString(6, endereco.getEstado());
-            ps.setString(7, endereco.getCep());
             return ps.execute();
 
         } catch (SQLException e) {
@@ -53,7 +52,7 @@ public class EnderecoDao <VO extends EnderecoVO> extends BaseDao <VO>{
     }
 
     public VO atualizar(VO endereco) throws SQLException {
-        String query = "UPDATE enderecos SET cpfCliente = ?, cpfFuncionario = ?, rua = ?, bairro = ?, cidade = ?, estado = ?, cep = ? WHERE id = ?";
+        String query = "UPDATE enderecos SET cpfCliente = ?, cpfFuncionario = ?, rua = ?, bairro = ?, cidade = ?, estado = ? WHERE id = ?";
         PreparedStatement ps = null;
 
         try {
@@ -65,7 +64,6 @@ public class EnderecoDao <VO extends EnderecoVO> extends BaseDao <VO>{
             ps.setString(4, endereco.getBairro());
             ps.setString(5, endereco.getCidade());
             ps.setString(6, endereco.getEstado());
-            ps.setString(7, endereco.getCep());
             ps.executeUpdate();
             return endereco; 
 
@@ -82,19 +80,6 @@ public class EnderecoDao <VO extends EnderecoVO> extends BaseDao <VO>{
         try {
             ps = this.db.prepareStatement(query);
             ps.setLong(1, endereco.getId());
-            return ps.executeQuery();
-
-        } catch (Exception e) {
-            throw e;
-        }
-    }
-
-    public ResultSet buscarPorCEP(VO endereco) throws SQLException {
-        String query = "Select * from enderecos where cep = (?)";
-        PreparedStatement ps = null;
-        try {
-            ps = this.db.prepareStatement(query);
-            ps.setString(1, endereco.getCep());
             return ps.executeQuery();
 
         } catch (Exception e) {

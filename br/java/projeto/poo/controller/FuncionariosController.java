@@ -48,20 +48,35 @@ public class FuncionariosController extends BaseController{
     private TableColumn<FuncionarioVO, Double> funcSalario;
 
     @FXML
-    public void initialize() throws SQLException {
+    private TableColumn<FuncionarioVO, Integer> funcId;
+
+    @FXML
+    public void initialize() throws Exception {
         ArrayList<FuncionarioVO> funcionarios = this.funcionarioBO.listar();
-        funcionariosDisponiveis = FXCollections.observableArrayList(funcionarios);
-        this.inicializarTabela();
+        funcionariosDisponiveis = FXCollections.observableArrayList(funcionarios); // pega os funcionarios disponiveis no banco de dados
+        this.inicializarTabela(); // inicializa os valores da tabela
     }
 
     @FXML
     void abirModalCadastro(ActionEvent event) throws IOException {
         Stage modalStage = new Stage();
         modalStage.initModality(Modality.APPLICATION_MODAL);
-        modalStage.setTitle("Janela Modal");
 
         FXMLLoader loader = new FXMLLoader(getClass().getResource("../views/Funcionarios/CadastrarFuncionario.fxml"));
         Parent root = loader.load();
+        Scene modalScene = new Scene(root);
+        modalStage.setScene(modalScene);
+        modalStage.showAndWait();
+    }
+
+    void abrirModalEditar(FuncionarioVO vo, int indice) throws IOException {
+        Stage modalStage = new Stage();
+        modalStage.initModality(Modality.APPLICATION_MODAL);
+
+        FXMLLoader loader = new FXMLLoader(getClass().getResource("../views/Funcionarios/EditarFuncionario.fxml"));
+        Parent root = loader.load();
+        EditarFuncionariosController editarController = loader.getController();
+        editarController.setDados(vo, indice);
         Scene modalScene = new Scene(root);
         modalStage.setScene(modalScene);
         modalStage.showAndWait();
@@ -74,6 +89,7 @@ public class FuncionariosController extends BaseController{
         funcAdmi.setCellValueFactory(new PropertyValueFactory<FuncionarioVO, String>("dataDeAdimissao"));
         funcCPF.setCellValueFactory(new PropertyValueFactory<FuncionarioVO, String>("cpf"));
         funcSalario.setCellValueFactory(new PropertyValueFactory<FuncionarioVO, Double>("salario"));
+        funcId.setCellValueFactory(new PropertyValueFactory<FuncionarioVO, Integer>("id"));
         tabelaFuncionarios.setItems(funcionariosDisponiveis);
         this.inicializarBotoesDeAcao(funcionariosDisponiveis);
     }
@@ -89,8 +105,12 @@ public class FuncionariosController extends BaseController{
                 btnEdit.getStyleClass().add("btn-edit");
                 btnDelete.getStyleClass().add("btn-delete");
                 btnEdit.setOnAction(event -> {
-                    FuncionarioVO funcionario = getTableView().getItems().get(getIndex());
-                    funcionarioBO.atualizar(funcionario);
+                    try {
+                        FuncionarioVO funcionario = getTableView().getItems().get(getIndex());
+                        abrirModalEditar(funcionario, getIndex());
+                    } catch (Exception e) {
+                        
+                    }
                 });
 
                 btnDelete.setOnAction(event -> {
@@ -113,6 +133,5 @@ public class FuncionariosController extends BaseController{
                 }
             }
         });
-    }
-    
+    }  
 }

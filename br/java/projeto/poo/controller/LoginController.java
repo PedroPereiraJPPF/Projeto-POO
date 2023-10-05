@@ -37,7 +37,7 @@ public class LoginController {
             usuario.setCpf(nomeUsuario.getText());
             usuario.setSenha(password.getText());
 
-            funcBO.authenticar(usuario);
+            App.usuarioLogado = funcBO.authenticar(usuario);
             App.navegarEntreTelas("orcamentos");
         } catch (Exception e) {
             this.erro.setVisible(true);

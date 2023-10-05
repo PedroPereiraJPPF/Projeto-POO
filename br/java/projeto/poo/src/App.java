@@ -8,7 +8,7 @@ import javafx.stage.Stage;
 public class App extends Application {
     private static Stage stage;
     private static GerenciadorDeTelas gr = new GerenciadorDeTelas();
-    private FuncionarioVO usuario; 
+    public static FuncionarioVO usuarioLogado;
 
     public static void main(String[] args) {
         launch(args);

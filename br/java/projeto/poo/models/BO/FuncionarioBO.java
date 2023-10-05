@@ -5,13 +5,15 @@ import java.sql.SQLException;
 import java.util.ArrayList;
 
 import br.java.projeto.poo.exceptions.ErroDeAuthenticacaoException;
+import br.java.projeto.poo.exceptions.InvalidCpfException;
+import br.java.projeto.poo.exceptions.UsuarioNaoEncontradoException;
 import br.java.projeto.poo.models.DAO.FuncionarioDao;
 import br.java.projeto.poo.models.VO.FuncionarioVO;
 
 public class FuncionarioBO {
     private FuncionarioDao funcionarioDao = new FuncionarioDao();
 
-    public ArrayList<FuncionarioVO> listar() throws SQLException {
+    public ArrayList<FuncionarioVO> listar() throws Exception {
         try {
             ArrayList<FuncionarioVO> funcionarios = new ArrayList<FuncionarioVO>();
             ResultSet selectFuncionarios = funcionarioDao.listar();
@@ -32,17 +34,37 @@ public class FuncionarioBO {
         }
     }
 
-    public boolean inserir(FuncionarioVO ob) throws Exception {
+    public boolean inserir(FuncionarioVO vo) throws Exception {
         try {
-            return funcionarioDao.inserir(ob);
+            return funcionarioDao.inserir(vo);
         } catch (Exception e) {
             throw new Exception("Falha ao adicionar funcionario");
         }
     }
 
-    public FuncionarioVO atualizar(FuncionarioVO vo) {
-        
-        return vo;
+    public FuncionarioVO atualizar(FuncionarioVO vo) throws Exception {
+        try {
+            ResultSet verificarFuncionario = funcionarioDao.buscarPorId(vo);
+
+            if (!verificarFuncionario.next() || vo.getId() == 0) {
+                throw new UsuarioNaoEncontradoException("Usuario não encontrado");
+            }
+
+            if (!this.validarCpf(vo.getCpf())) {
+                throw new InvalidCpfException("CPF inválido o formato deve ser ***.***.***-**");
+            }
+
+            return funcionarioDao.atualizar(vo);
+        } 
+        catch (SQLException e) {
+            if (e.getSQLState().equals("23505")) {
+                throw new Exception("Esse CPF já pertence a outro usuario");
+            }
+            throw new Exception("falha ao atualizar funcionario");
+        }
+        catch (Exception e) {
+            throw new Exception(e.getMessage());
+        }
     }
 
     public Boolean deletar(long id) {
@@ -59,7 +81,6 @@ public class FuncionarioBO {
     public FuncionarioVO authenticar(FuncionarioVO vo) throws ErroDeAuthenticacaoException {
         try {
             ResultSet funcionario = funcionarioDao.buscarPorCPF(vo);
-            System.out.println("opa");
             if (funcionario == null) {
                 throw new ErroDeAuthenticacaoException("Usuario não encontrado");
             }
@@ -81,5 +102,9 @@ public class FuncionarioBO {
             e.printStackTrace();
             throw new ErroDeAuthenticacaoException(e.getMessage());
         }
+    }
+
+    private boolean validarCpf(String cpf) {
+        return cpf.matches("\\b\\d{3}\\.\\d{3}\\.\\d{3}-\\d{2}\\b");
     }
 }

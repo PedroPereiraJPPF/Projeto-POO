@@ -4,7 +4,7 @@ public class EnderecoVO {
     private long id;
     private String cpfCliente, cpfFuncionario, rua, bairro, cidade, estado, cep;
 
-    public EnderecoVO(int id, String cpfCliente, String cpfFuncionario, String rua, String bairro, String cidade, String estado, String Cep) {
+    public EnderecoVO(int id, String cpfCliente, String cpfFuncionario, String rua, String bairro, String cidade, String estado) {
         setId(id);
         setCpfCliente(cpfCliente);
         setCpfFuncionario(cpfFuncionario);
@@ -12,7 +12,6 @@ public class EnderecoVO {
         setBairro(bairro);
         setCidade(cidade);
         setEstado(estado);
-        setCep(Cep);
     }
 
 

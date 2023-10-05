@@ -1,5 +1,7 @@
 package br.java.projeto.poo.models.VO;
 
+import br.java.projeto.poo.exceptions.InvalidIdException;
+
 public abstract class PessoaVO {
     private long id;
     private String nome, cpf;
@@ -8,7 +10,7 @@ public abstract class PessoaVO {
 
     }
 
-    public PessoaVO(long id, String nome, String cpf) {
+    public PessoaVO(long id, String nome, String cpf) throws Exception {
         setId(id);
         setCpf(cpf);
         setNome(nome);
@@ -18,7 +20,11 @@ public abstract class PessoaVO {
         return this.id;
     }
 
-    public void setId(long id) {
+    public void setId(long id) throws InvalidIdException {
+        if (id < 0) {
+            throw new InvalidIdException("O id inserido é invalido");
+        }
+
         this.id = id;
     }
 
