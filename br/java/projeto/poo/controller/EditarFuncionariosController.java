@@ -1,6 +1,8 @@
 package br.java.projeto.poo.controller;
 
+import br.java.projeto.poo.models.BO.EnderecoBO;
 import br.java.projeto.poo.models.BO.FuncionarioBO;
+import br.java.projeto.poo.models.VO.EnderecoVO;
 import br.java.projeto.poo.models.VO.FuncionarioVO;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
@@ -45,7 +47,7 @@ public class EditarFuncionariosController {
     private TextField salario;
 
     @FXML
-    private Label id;
+    private TextField id;
 
     @FXML
     void initialize () {
@@ -56,11 +58,20 @@ public class EditarFuncionariosController {
     @FXML
     void atualizarFuncionario(ActionEvent event) {
         try {
-            FuncionarioVO funcionario = new FuncionarioVO(Long.valueOf(id.getText()), nome.getText(), cpf.getText(), Double.valueOf(salario.getText()), this.dataDeAdmissao.getText(), Integer.valueOf(nivel.getText()));
+            EnderecoVO enderecoFuncionario = new EnderecoVO().pegarValoresComoString(endereco.getText());
+            FuncionarioVO funcionario = new FuncionarioVO(Long.valueOf(id.getText()), 
+            nome.getText(), 
+            cpf.getText(), 
+            Double.valueOf(salario.getText()), 
+            this.dataDeAdmissao.getText(), 
+            enderecoFuncionario, 
+            Integer.valueOf(nivel.getText()));
+
             funcionarioBO.atualizar(funcionario);
             FuncionariosController.funcionariosDisponiveis.set(this.indice, funcionario);
             this.fecharModal();
         } catch (Exception e) {
+            e.printStackTrace();
             this.mensagemDeErro.setText(e.getMessage());
             this.mensagemDeErro.setVisible(true);
         } 
@@ -76,15 +87,20 @@ public class EditarFuncionariosController {
         stage.close();
     }
 
-    public void setDados(FuncionarioVO vo, int indice) {
-        this.cpf.setText(vo.getCpf());
-        this.nome.setText(vo.getNome());
-        this.salario.setText(String.valueOf(vo.getSalario()));
-        this.endereco.setText("teste");
-        this.nivel.setText(String.valueOf(vo.getNivel()));
-        this.dataDeAdmissao.setText(vo.getDataDeAdimissao());
-        this.id.setText(String.valueOf(vo.getId()));
-        this.indice = indice;
+    public void setDados(FuncionarioVO vo, int indice) throws Exception {
+       try {
+            EnderecoVO enderecoFuncionario = new EnderecoBO().buscarPorFuncionario(vo.getCpf());
+            this.cpf.setText(vo.getCpf());
+            this.nome.setText(vo.getNome());
+            this.salario.setText(String.valueOf(vo.getSalario()));
+            this.nivel.setText(String.valueOf(vo.getNivel()));
+            this.dataDeAdmissao.setText(vo.getDataDeAdimissao());
+            this.id.setText(String.valueOf(vo.getId()));
+            this.indice = indice;
+            this.endereco.setText(enderecoFuncionario.toString());
+       } catch (Exception e) {
+            System.out.println(e.getMessage());
+       }
     }
 
 }

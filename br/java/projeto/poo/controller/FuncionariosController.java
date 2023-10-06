@@ -20,6 +20,7 @@ import java.io.IOException;
 import java.sql.SQLException;
 import java.util.ArrayList;
 import br.java.projeto.poo.models.BO.FuncionarioBO;
+import br.java.projeto.poo.models.VO.EnderecoVO;
 import br.java.projeto.poo.models.VO.FuncionarioVO;
 
 public class FuncionariosController extends BaseController{
@@ -51,6 +52,9 @@ public class FuncionariosController extends BaseController{
     private TableColumn<FuncionarioVO, Integer> funcId;
 
     @FXML
+    private TableColumn<FuncionarioVO, String> funcEndereco;
+
+    @FXML
     public void initialize() throws Exception {
         ArrayList<FuncionarioVO> funcionarios = this.funcionarioBO.listar();
         funcionariosDisponiveis = FXCollections.observableArrayList(funcionarios); // pega os funcionarios disponiveis no banco de dados
@@ -69,17 +73,21 @@ public class FuncionariosController extends BaseController{
         modalStage.showAndWait();
     }
 
-    void abrirModalEditar(FuncionarioVO vo, int indice) throws IOException {
-        Stage modalStage = new Stage();
-        modalStage.initModality(Modality.APPLICATION_MODAL);
+    void abrirModalEditar(FuncionarioVO vo, int indice) throws Exception {
+        try {
+            Stage modalStage = new Stage();
+            modalStage.initModality(Modality.APPLICATION_MODAL);
 
-        FXMLLoader loader = new FXMLLoader(getClass().getResource("../views/Funcionarios/EditarFuncionario.fxml"));
-        Parent root = loader.load();
-        EditarFuncionariosController editarController = loader.getController();
-        editarController.setDados(vo, indice);
-        Scene modalScene = new Scene(root);
-        modalStage.setScene(modalScene);
-        modalStage.showAndWait();
+            FXMLLoader loader = new FXMLLoader(getClass().getResource("../views/Funcionarios/EditarFuncionario.fxml"));
+            Parent root = loader.load();
+            EditarFuncionariosController editarController = loader.getController();
+            editarController.setDados(vo, indice);
+            Scene modalScene = new Scene(root);
+            modalStage.setScene(modalScene);
+            modalStage.showAndWait();
+        } catch (Exception e) {
+            System.out.println(e.getMessage());
+        }
     }
 
     // inicializa a tabela
@@ -90,6 +98,7 @@ public class FuncionariosController extends BaseController{
         funcCPF.setCellValueFactory(new PropertyValueFactory<FuncionarioVO, String>("cpf"));
         funcSalario.setCellValueFactory(new PropertyValueFactory<FuncionarioVO, Double>("salario"));
         funcId.setCellValueFactory(new PropertyValueFactory<FuncionarioVO, Integer>("id"));
+        funcEndereco.setCellValueFactory(new PropertyValueFactory<FuncionarioVO, String>("endereco"));
         tabelaFuncionarios.setItems(funcionariosDisponiveis);
         this.inicializarBotoesDeAcao(funcionariosDisponiveis);
     }
@@ -109,7 +118,7 @@ public class FuncionariosController extends BaseController{
                         FuncionarioVO funcionario = getTableView().getItems().get(getIndex());
                         abrirModalEditar(funcionario, getIndex());
                     } catch (Exception e) {
-                        
+                        System.out.println(e.getMessage());
                     }
                 });
 

@@ -8,8 +8,8 @@ import java.sql.SQLException;
 import br.java.projeto.poo.models.VO.FuncionarioVO;
 
 public class FuncionarioDao extends BaseDao <FuncionarioVO> {
-
     Connection db;
+
 
     public FuncionarioDao() {
         db = this.getConnection();
@@ -27,10 +27,17 @@ public class FuncionarioDao extends BaseDao <FuncionarioVO> {
             ps.setString(4, funcionario.getDataDeAdimissao());
             ps.setInt(5, funcionario.getNivel());
             ps.setString(6, funcionario.getSenha());
-            return ps.execute();
+            
+            if (!ps.execute() && funcionario.getEndereco() != null) {
+                EnderecoDao endereco = new EnderecoDao();
+                funcionario.getEndereco().setCpfFuncionario(funcionario.getCpf());
+                endereco.inserir(funcionario.getEndereco());
+            }
 
+            return true;
         } catch (SQLException e) {
-            throw e;
+            System.out.println(e.getMessage());
+            throw new SQLException("Falha ao inserir usuario");
         } finally {
             ps.close();
         }
@@ -64,6 +71,13 @@ public class FuncionarioDao extends BaseDao <FuncionarioVO> {
             ps.setString(4, funcionario.getDataDeAdimissao());
             ps.setInt(5, funcionario.getNivel());
             ps.executeUpdate();
+
+            if (ps.executeUpdate() > 0 && funcionario.getEndereco() != null) {
+                EnderecoDao endereco = new EnderecoDao();
+                funcionario.getEndereco().setCpfFuncionario(funcionario.getCpf());
+                endereco.deletarPorCPFFuncionario(funcionario);
+                endereco.inserir(funcionario.getEndereco());
+            }
 
             return funcionario;
 

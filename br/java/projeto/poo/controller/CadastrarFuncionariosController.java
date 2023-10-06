@@ -4,6 +4,7 @@ import java.util.Date;
 import java.text.SimpleDateFormat;
 
 import br.java.projeto.poo.models.BO.FuncionarioBO;
+import br.java.projeto.poo.models.VO.EnderecoVO;
 import br.java.projeto.poo.models.VO.FuncionarioVO;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
@@ -53,15 +54,18 @@ public class CadastrarFuncionariosController {
         try {
             Date dataAtual = new Date();
             SimpleDateFormat formato = new SimpleDateFormat("dd/MM/yyyy");
-            String dataAtualString = formato.format(dataAtual);
-            FuncionarioVO funcionario = new FuncionarioVO(0, nome.getText(), cpf.getText(), Double.valueOf(salario.getText()), dataAtualString, Integer.valueOf(nivel.getText()));
-            if(!funcionarioBO.inserir(funcionario)) {
+            String dataAtualString = formato.format(dataAtual); // pega a data em que o usuario esta sendo criado
+            EnderecoVO enderecoFuncionario = new EnderecoVO().pegarValoresComoString(endereco.getText()); // envia a string com os dados do endereco
+            enderecoFuncionario.setCpfFuncionario(cpf.getText());
+            FuncionarioVO funcionario = new FuncionarioVO(0, nome.getText(), cpf.getText(), Double.valueOf(salario.getText()), dataAtualString, enderecoFuncionario, Integer.valueOf(nivel.getText()));
+            if(funcionarioBO.inserir(funcionario)) {
                 FuncionariosController.funcionariosDisponiveis.add(0, funcionario);
                 this.fecharModal();
             } else {
                 this.mensagemDeErro.setVisible(true);
             }
         } catch (Exception e) {
+            this.mensagemDeErro.setText(e.getMessage());
             this.mensagemDeErro.setVisible(true);
         }
     }

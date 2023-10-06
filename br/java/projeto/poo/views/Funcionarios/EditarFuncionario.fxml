@@ -123,7 +123,7 @@
                         <Insets left="35.0" />
                      </padding>
                   </VBox>
-                  <Label fx:id="id" layoutX="250.0" layoutY="17.0" maxHeight="0.0" maxWidth="0.0" />
+                  <TextField fx:id="id" layoutX="242.0" layoutY="13.0" maxHeight="0.0" maxWidth="0.0" minHeight="0.0" prefHeight="0.0" prefWidth="0.0" promptText="id" />
                </children>
             </Pane>
          </children>

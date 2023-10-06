@@ -8,22 +8,26 @@ import br.java.projeto.poo.exceptions.ErroDeAuthenticacaoException;
 import br.java.projeto.poo.exceptions.InvalidCpfException;
 import br.java.projeto.poo.exceptions.UsuarioNaoEncontradoException;
 import br.java.projeto.poo.models.DAO.FuncionarioDao;
+import br.java.projeto.poo.models.VO.EnderecoVO;
 import br.java.projeto.poo.models.VO.FuncionarioVO;
 
 public class FuncionarioBO {
     private FuncionarioDao funcionarioDao = new FuncionarioDao();
+    private EnderecoBO endereco = new EnderecoBO();
 
     public ArrayList<FuncionarioVO> listar() throws Exception {
         try {
             ArrayList<FuncionarioVO> funcionarios = new ArrayList<FuncionarioVO>();
             ResultSet selectFuncionarios = funcionarioDao.listar();
             while(selectFuncionarios.next()) {
+                EnderecoVO selectEndereco = endereco.buscarPorFuncionario(selectFuncionarios.getString("cpf"));
                 funcionarios.add(new FuncionarioVO(
                     selectFuncionarios.getInt("id"), 
                     selectFuncionarios.getString("nome"),
                     selectFuncionarios.getString("cpf"), 
                     selectFuncionarios.getDouble("salario"), 
                     selectFuncionarios.getString("dataDeAdmissao"), 
+                    selectEndereco,
                     selectFuncionarios.getInt("funcao")));
             }
             
@@ -38,6 +42,7 @@ public class FuncionarioBO {
         try {
             return funcionarioDao.inserir(vo);
         } catch (Exception e) {
+            System.out.println(e.getMessage());
             throw new Exception("Falha ao adicionar funcionario");
         }
     }

@@ -6,8 +6,9 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 
 import br.java.projeto.poo.models.VO.EnderecoVO;
+import br.java.projeto.poo.models.VO.FuncionarioVO;
 
-public class EnderecoDao <VO extends EnderecoVO> extends BaseDao <VO>{
+public class EnderecoDao extends BaseDao <EnderecoVO>{
     
     Connection db;
 
@@ -15,7 +16,7 @@ public class EnderecoDao <VO extends EnderecoVO> extends BaseDao <VO>{
         db = this.getConnection();
     }
 
-    public boolean inserir(VO endereco) throws SQLException {
+    public boolean inserir(EnderecoVO endereco) throws SQLException {
         String query = "INSERT INTO enderecos (cpfCliente, cpfFuncionario, rua, bairro, cidade, estado) VALUES (?, ?, ?, ?, ?, ?)";
         PreparedStatement ps = null;
 
@@ -36,12 +37,12 @@ public class EnderecoDao <VO extends EnderecoVO> extends BaseDao <VO>{
         }
     }
 
-    public boolean deletar(VO vo) throws SQLException {
+    public boolean deletar(EnderecoVO EnderecoVO) throws SQLException {
         String query = "DELETE FROM enderecos WHERE id = (?)";
         PreparedStatement ps = null;
         try {
             ps = this.db.prepareStatement(query);
-            ps.setLong(1, vo.getId());
+            ps.setLong(1, EnderecoVO.getId());
             return ps.execute();
 
         } catch (Exception e) {
@@ -51,7 +52,22 @@ public class EnderecoDao <VO extends EnderecoVO> extends BaseDao <VO>{
         }
     }
 
-    public VO atualizar(VO endereco) throws SQLException {
+    public boolean deletarPorCPFFuncionario(FuncionarioVO funcionarioVO) throws SQLException {
+        String query = "DELETE FROM enderecos WHERE cpfFuncionario = (?)";
+        PreparedStatement ps = null;
+        try {
+            ps = this.db.prepareStatement(query);
+            ps.setString(1, funcionarioVO.getCpf());
+            return ps.execute();
+
+        } catch (Exception e) {
+            throw e;
+        } finally {
+            ps.close();
+        }
+    }
+
+    public EnderecoVO atualizar(EnderecoVO endereco) throws SQLException {
         String query = "UPDATE enderecos SET cpfCliente = ?, cpfFuncionario = ?, rua = ?, bairro = ?, cidade = ?, estado = ? WHERE id = ?";
         PreparedStatement ps = null;
 
@@ -74,12 +90,38 @@ public class EnderecoDao <VO extends EnderecoVO> extends BaseDao <VO>{
         }
     }
 
-    public ResultSet buscarPorId(VO endereco) throws SQLException {
+    public ResultSet buscarPorId(EnderecoVO endereco) throws SQLException {
         String query = "Select * from enderecos where id = (?)";
         PreparedStatement ps = null;
         try {
             ps = this.db.prepareStatement(query);
             ps.setLong(1, endereco.getId());
+            return ps.executeQuery();
+
+        } catch (Exception e) {
+            throw e;
+        }
+    }
+
+    public ResultSet buscarPorFuncionario(EnderecoVO endereco) throws SQLException {
+        String query = "Select * from enderecos where cpfFuncionario = (?)";
+        PreparedStatement ps = null;
+        try {
+            ps = this.db.prepareStatement(query);
+            ps.setString(1, endereco.getCpfFuncionario());
+            return ps.executeQuery();
+
+        } catch (Exception e) {
+            throw e;
+        }
+    }
+
+    public ResultSet buscarPorCliente(EnderecoVO endereco) throws SQLException {
+        String query = "Select * from enderecos where cpfCliente = (?)";
+        PreparedStatement ps = null;
+        try {
+            ps = this.db.prepareStatement(query);
+            ps.setString(1, endereco.getCpfCliente());
             return ps.executeQuery();
 
         } catch (Exception e) {
