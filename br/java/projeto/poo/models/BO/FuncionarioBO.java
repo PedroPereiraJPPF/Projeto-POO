@@ -38,6 +38,50 @@ public class FuncionarioBO {
         }
     }
 
+    public FuncionarioVO buscarPorCPF(String cpf) throws Exception {
+        try {
+            FuncionarioVO vo = new FuncionarioVO();
+            vo.setCpf(cpf);
+            ResultSet funcionario = funcionarioDao.buscarPorCPF(vo);
+
+            if (funcionario.next()) {
+                return new FuncionarioVO(funcionario.getLong("id"),
+                funcionario.getString("nome"),
+                funcionario.getString("cpf"),
+                funcionario.getFloat("salario"),
+                funcionario.getString("dataDeAdmissao"),
+                funcionario.getInt("funcao"));
+            }
+
+            return null;
+        } catch (Exception e) {
+            System.out.println(e.getMessage());
+            throw new Exception("Erro ao buscar funcionario");
+        }
+    }
+
+    public FuncionarioVO buscarPorNome(String nome) throws Exception {
+        try {
+            FuncionarioVO vo = new FuncionarioVO();
+            vo.setNome(nome);
+            ResultSet funcionario = funcionarioDao.buscarPorCPF(vo);
+
+            if (funcionario.next()) {
+                return new FuncionarioVO(funcionario.getLong("id"),
+                funcionario.getString("nome"),
+                funcionario.getString("cpf"),
+                funcionario.getFloat("salario"),
+                funcionario.getString("dataDeAdmissao"),
+                funcionario.getInt("funcao"));
+            }
+
+            return null;
+        } catch (Exception e) {
+            System.out.println(e.getMessage());
+            throw new Exception("Erro ao buscar funcionario");
+        }
+    }
+
     public boolean inserir(FuncionarioVO vo) throws Exception {
         try {
             return funcionarioDao.inserir(vo);
@@ -62,6 +106,7 @@ public class FuncionarioBO {
             return funcionarioDao.atualizar(vo);
         } 
         catch (SQLException e) {
+            System.out.println(e.getMessage());
             if (e.getSQLState().equals("23505")) {
                 throw new Exception("Esse CPF já pertence a outro usuario");
             }

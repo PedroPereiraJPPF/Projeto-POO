@@ -40,8 +40,8 @@ create table enderecos(
 	cep varchar(10),
 	
 	primary key(id),
-	foreign key(cpfCliente) references clientes(cpf),
-	foreign key(cpfFuncionario) references funcionarios(cpf)
+	foreign key(cpfCliente) references clientes(cpf) on update cascade on delete cascade,
+	foreign key(cpfFuncionario) references funcionarios(cpf) on update cascade on delete cascade
 );
 
 create table veiculos(

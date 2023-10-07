@@ -90,12 +90,16 @@ public class EditarFuncionariosController {
     public void setDados(FuncionarioVO vo, int indice) throws Exception {
        try {
             EnderecoVO enderecoFuncionario = new EnderecoBO().buscarPorFuncionario(vo.getCpf());
+            if (Long.valueOf(vo.getId()) <= 0) { // verifica se o funcionario possui um id válido
+                this.id.setText(String.valueOf(funcionarioBO.buscarPorCPF(vo.getCpf()).getId()));
+            } else {
+                this.id.setText(String.valueOf(vo.getId()));   
+            }
             this.cpf.setText(vo.getCpf());
             this.nome.setText(vo.getNome());
             this.salario.setText(String.valueOf(vo.getSalario()));
             this.nivel.setText(String.valueOf(vo.getNivel()));
             this.dataDeAdmissao.setText(vo.getDataDeAdimissao());
-            this.id.setText(String.valueOf(vo.getId()));
             this.indice = indice;
             this.endereco.setText(enderecoFuncionario.toString());
        } catch (Exception e) {

@@ -11,7 +11,9 @@ import javafx.scene.control.Button;
 import javafx.scene.control.TableCell;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
+import javafx.scene.control.TextField;
 import javafx.scene.control.cell.PropertyValueFactory;
+import javafx.scene.input.KeyEvent;
 import javafx.scene.layout.HBox;
 import javafx.stage.Modality;
 import javafx.stage.Stage;
@@ -56,10 +58,21 @@ public class FuncionariosController extends BaseController{
     private TableColumn<FuncionarioVO, String> funcEndereco;
 
     @FXML
+    private TextField buscar;
+
+    @FXML
     public void initialize() throws Exception {
         ArrayList<FuncionarioVO> funcionarios = this.funcionarioBO.listar();
         funcionariosDisponiveis = FXCollections.observableArrayList(funcionarios); // pega os funcionarios disponiveis no banco de dados
         this.inicializarTabela(); // inicializa os valores da tabela
+    }
+
+    @FXML
+    void buscarFuncionario(KeyEvent event) {
+        
+        // if (this.buscar.getText().matches("^\\d{3}")) {
+            
+        // }
     }
 
     @FXML

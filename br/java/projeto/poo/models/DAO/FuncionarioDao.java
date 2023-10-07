@@ -27,11 +27,12 @@ public class FuncionarioDao extends BaseDao <FuncionarioVO> {
             ps.setString(4, funcionario.getDataDeAdimissao());
             ps.setInt(5, funcionario.getNivel());
             ps.setString(6, funcionario.getSenha());
+            ps.execute();
             
-            if (!ps.execute() && funcionario.getEndereco() != null) {
+            if (funcionario.getEndereco() != null) {
                 EnderecoDao endereco = new EnderecoDao();
                 funcionario.getEndereco().setCpfFuncionario(funcionario.getCpf());
-                endereco.inserir(funcionario.getEndereco());
+                endereco.inserir(funcionario.getEndereco());    
             }
 
             return true;
@@ -66,6 +67,7 @@ public class FuncionarioDao extends BaseDao <FuncionarioVO> {
             ps = this.db.prepareStatement(query);
             ps.setLong(6, funcionario.getId());
             ps.setString(1, funcionario.getNome());
+            System.out.println(funcionario.getCpf());
             ps.setString(2, funcionario.getCpf());
             ps.setDouble(3, funcionario.getSalario());
             ps.setString(4, funcionario.getDataDeAdimissao());
@@ -107,6 +109,19 @@ public class FuncionarioDao extends BaseDao <FuncionarioVO> {
         try {
             ps = this.db.prepareStatement(query);
             ps.setString(1, funcionario.getCpf());
+            return ps.executeQuery();
+
+        } catch (Exception e) {
+            throw e;
+        }
+    }
+
+    public ResultSet buscarPorNome(FuncionarioVO funcionario) throws SQLException {
+        String query = "Select * from funcionarios where nome = (?)";
+        PreparedStatement ps = null;
+        try {
+            ps = this.db.prepareStatement(query);
+            ps.setString(1, funcionario.getNome());
             return ps.executeQuery();
 
         } catch (Exception e) {
