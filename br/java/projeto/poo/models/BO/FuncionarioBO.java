@@ -85,10 +85,19 @@ public class FuncionarioBO {
 
     public boolean inserir(FuncionarioVO vo) throws Exception {
         try {
+            if (!this.validarCpf(vo.getCpf())) {
+                throw new InvalidCpfException("CPF inválido o formato deve ser ***.***.***-**");
+            }
+
             return funcionarioDao.inserir(vo);
+        } catch (SQLException e) {
+            System.out.println(e.getSQLState());
+            if (e.getSQLState().equals("23505")) {
+                throw new Exception("Esse CPF já pertence a outro usuario");
+            }
+            throw new Exception("falha ao atualizar funcionario");
         } catch (Exception e) {
-            System.out.println(e.getMessage());
-            throw new Exception("Falha ao adicionar funcionario");
+            throw new Exception(e.getMessage());
         }
     }
 
@@ -107,7 +116,6 @@ public class FuncionarioBO {
             return funcionarioDao.atualizar(vo);
         } 
         catch (SQLException e) {
-            System.out.println(e.getMessage());
             if (e.getSQLState().equals("23505")) {
                 throw new Exception("Esse CPF já pertence a outro usuario");
             }

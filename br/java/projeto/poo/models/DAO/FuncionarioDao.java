@@ -37,8 +37,7 @@ public class FuncionarioDao extends BaseDao <FuncionarioVO> {
 
             return true;
         } catch (SQLException e) {
-            System.out.println(e.getMessage());
-            throw new SQLException("Falha ao inserir usuario");
+            throw e;
         } finally {
             ps.close();
         }
