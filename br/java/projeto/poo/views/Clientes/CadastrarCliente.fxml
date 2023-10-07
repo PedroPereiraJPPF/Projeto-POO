@@ -3,6 +3,7 @@
 <?import javafx.geometry.Insets?>
 <?import javafx.scene.Group?>
 <?import javafx.scene.control.Button?>
+<?import javafx.scene.control.ChoiceBox?>
 <?import javafx.scene.control.Label?>
 <?import javafx.scene.control.Separator?>
 <?import javafx.scene.control.TextField?>
@@ -11,7 +12,7 @@
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Font?>
 
-<Pane fx:id="CadastrarCliente" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="600.0" prefWidth="500.0" xmlns="http://javafx.com/javafx/20.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="ClienteController.java">
+<Pane id="cadastroCliente" fx:id="cadastroCliente" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="650.0" prefWidth="500.0" stylesheets="@../css/Modals.css" xmlns="http://javafx.com/javafx/20.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="br.java.projeto.poo.controller.ClienteController">
    <children>
       <Label alignment="CENTER" contentDisplay="CENTER" layoutX="40.0" layoutY="14.0" text="Cadastrar cliente">
          <font>
@@ -19,14 +20,14 @@
          </font>
       </Label>
       <Separator layoutY="50.0" minHeight="-Infinity" minWidth="-Infinity" prefHeight="0.0" prefWidth="500.0" />
-      <VBox layoutX="40.0" layoutY="62.0" spacing="5.0">
+      <VBox layoutX="40.0" layoutY="50.0" spacing="5.0">
          <children>
             <Group>
                <children>
                   <VBox spacing="3.0">
                      <children>
                         <Label text="Nome" />
-                        <TextField prefHeight="40.0" prefWidth="300.0" promptText="Ex.: João Pedro" />
+                        <TextField fx:id="campoNomeCliente" onMouseClicked="#SetInvisibleCad" prefHeight="40.0" prefWidth="300.0" promptText="Ex.: João Pedro" />
                      </children>
                      <padding>
                         <Insets bottom="5.0" />
@@ -39,7 +40,7 @@
                   <VBox spacing="3.0">
                      <children>
                         <Label text="CPF" />
-                        <TextField prefHeight="40.0" prefWidth="200.0" promptText="Ex.: 123.456.789-10" />
+                        <TextField fx:id="campoCPFCliente" onMouseClicked="#SetInvisibleCad" prefHeight="40.0" prefWidth="200.0" promptText="Ex.: 123.456.789-10" />
                      </children>
                      <padding>
                         <Insets bottom="5.0" />
@@ -52,7 +53,7 @@
                   <VBox layoutX="14.0" layoutY="-6.0" spacing="3.0">
                      <children>
                         <Label text="Endereço" />
-                        <TextField prefHeight="40.0" prefWidth="420.0" promptText="Ex.: Rua Teste, XX, Cidade/Estado" />
+                        <TextField fx:id="campoEndCliente" onMouseClicked="#SetInvisibleCad" prefHeight="40.0" prefWidth="420.0" promptText="Ex.: Rua Teste, XX, Cidade/Estado" />
                      </children>
                      <padding>
                         <Insets bottom="5.0" />
@@ -61,80 +62,94 @@
                </children>
             </Group>
          </children>
+         <padding>
+            <Insets bottom="5.0" top="10.0" />
+         </padding>
       </VBox>
-      <Separator layoutY="276.0" minHeight="-Infinity" minWidth="-Infinity" prefHeight="0.0" prefWidth="500.0" />
-      <Group layoutX="40.0" layoutY="285.0">
+      <Separator layoutY="270.0" minHeight="-Infinity" minWidth="-Infinity" prefHeight="0.0" prefWidth="500.0" />
+      <Group layoutX="40.0" layoutY="285.0" />
+      <Separator layoutY="564.0" minHeight="-Infinity" minWidth="-Infinity" prefHeight="0.0" prefWidth="500.0" />
+      <HBox alignment="CENTER" layoutY="565.0" prefHeight="85.0" prefWidth="500.0" spacing="20.0">
          <children>
-            <VBox layoutY="15.0" spacing="5.0">
-               <children>
-                  <VBox spacing="3.0">
-                     <children>
-                        <Label text="Modelo do veículo" />
-                        <TextField prefHeight="40.0" prefWidth="420.0" promptText="Ex.: Hoda Civic" />
-                     </children>
-                     <VBox.margin>
-                        <Insets bottom="5.0" />
-                     </VBox.margin>
-                  </VBox>
-                  <HBox spacing="20.0">
-                     <children>
-                        <VBox spacing="3.0">
-                           <children>
-                              <Label text="Ano do veículo" />
-                              <TextField prefHeight="40.0" prefWidth="200.0" promptText="Ex.: 2010" />
-                           </children>
-                        </VBox>
-                        <VBox spacing="3.0">
-                           <children>
-                              <Label text="Quilometragem" />
-                              <TextField prefHeight="40.0" prefWidth="200.0" promptText="Ex.: 10000" />
-                           </children>
-                        </VBox>
-                     </children>
-                     <VBox.margin>
-                        <Insets bottom="5.0" />
-                     </VBox.margin>
-                  </HBox>
-                  <HBox spacing="20.0">
-                     <children>
-                        <VBox spacing="3.0">
-                           <children>
-                              <Label text="Placa do veículo" />
-                              <TextField prefHeight="40.0" prefWidth="200.0" promptText="Ex.: 1AB2C34" />
-                           </children>
-                        </VBox>
-                        <VBox spacing="3.0">
-                           <children>
-                              <Label text="Cor do veículo" />
-                              <TextField prefHeight="40.0" prefWidth="200.0" promptText="Ex.: Vermelho" />
-                           </children>
-                        </VBox>
-                     </children>
-                     <VBox.margin>
-                        <Insets bottom="5.0" />
-                     </VBox.margin>
-                  </HBox>
-               </children>
-               <padding>
-                  <Insets bottom="10.0" />
-               </padding>
-            </VBox>
-         </children>
-      </Group>
-      <Separator layoutY="515.0" minHeight="-Infinity" minWidth="-Infinity" prefHeight="0.0" prefWidth="500.0" />
-      <HBox alignment="CENTER" layoutY="515.0" prefHeight="85.0" prefWidth="500.0" spacing="50.0">
-         <children>
-            <Button alignment="CENTER" contentDisplay="CENTER" mnemonicParsing="false" prefHeight="50.0" prefWidth="200.0" styleClass="btn-back" stylesheets="@../css/buttons.css" text="Cancelar">
+            <Button fx:id="cancelarCadastro" alignment="CENTER" contentDisplay="CENTER" mnemonicParsing="false" onAction="#CancelarCadastro" prefHeight="50.0" prefWidth="200.0" styleClass="btn-back" stylesheets="@../css/buttons.css" text="Cancelar">
                <font>
                   <Font size="15.0" />
                </font>
             </Button>
-            <Button alignment="CENTER" contentDisplay="CENTER" mnemonicParsing="false" prefHeight="50.0" prefWidth="200.0" styleClass="btn-primary" stylesheets="@../css/buttons.css" text="Cadastrar cliente">
+            <Button fx:id="cadastrarCliente" alignment="CENTER" contentDisplay="CENTER" mnemonicParsing="false" onAction="#CadastrarCliente" prefHeight="50.0" prefWidth="200.0" styleClass="btn-primary" stylesheets="@../css/buttons.css" text="Cadastrar cliente">
                <font>
                   <Font size="15.0" />
                </font>
             </Button>
          </children>
       </HBox>
+      <VBox alignment="CENTER" layoutX="40.0" layoutY="270.0" spacing="5.0">
+         <children>
+            <VBox spacing="3.0">
+               <children>
+                  <Label text="Tipo do veículo" />
+                  <ChoiceBox fx:id="tipoVeic" prefWidth="150.0" />
+               </children>
+               <VBox.margin>
+                  <Insets bottom="5.0" />
+               </VBox.margin>
+            </VBox>
+            <VBox spacing="3.0">
+               <children>
+                  <Label text="Modelo do veículo" />
+                  <TextField fx:id="campoModVeic" onMouseClicked="#SetInvisibleCad" prefHeight="40.0" prefWidth="420.0" promptText="Ex.: Hoda Civic" />
+               </children>
+               <VBox.margin>
+                  <Insets bottom="5.0" />
+               </VBox.margin>
+            </VBox>
+            <HBox spacing="20.0">
+               <children>
+                  <VBox spacing="3.0">
+                     <children>
+                        <Label text="Ano do veículo" />
+                        <TextField fx:id="campoAnoVeic" onMouseClicked="#SetInvisibleCad" prefHeight="40.0" prefWidth="200.0" promptText="Ex.: 2010" />
+                     </children>
+                  </VBox>
+                  <VBox spacing="3.0">
+                     <children>
+                        <Label text="Quilometragem" />
+                        <TextField fx:id="campoKMVeic" onMouseClicked="#SetInvisibleCad" prefHeight="40.0" prefWidth="200.0" promptText="Ex.: 10000" />
+                     </children>
+                  </VBox>
+               </children>
+               <VBox.margin>
+                  <Insets bottom="5.0" />
+               </VBox.margin>
+            </HBox>
+            <HBox spacing="20.0">
+               <children>
+                  <VBox spacing="3.0">
+                     <children>
+                        <Label text="Placa do veículo" />
+                        <TextField fx:id="campoPlacCliente" onMouseClicked="#SetInvisibleCad" prefHeight="40.0" prefWidth="200.0" promptText="Ex.: 1AB2C34" />
+                     </children>
+                  </VBox>
+                  <VBox spacing="3.0">
+                     <children>
+                        <Label text="Cor do veículo" />
+                        <TextField fx:id="campoCorVeic" onMouseClicked="#SetInvisibleCad" prefHeight="40.0" prefWidth="200.0" promptText="Ex.: Vermelho" />
+                     </children>
+                  </VBox>
+               </children>
+               <VBox.margin>
+                  <Insets bottom="5.0" />
+               </VBox.margin>
+            </HBox>
+            <Label fx:id="mensagemErroCad" alignment="CENTER" contentDisplay="CENTER" text="Os campos não podem ser vazios" textFill="RED" visible="false">
+               <font>
+                  <Font size="15.0" />
+               </font>
+            </Label>
+         </children>
+         <padding>
+            <Insets top="8.0" />
+         </padding>
+      </VBox>
    </children>
 </Pane>

@@ -15,6 +15,7 @@ import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.layout.HBox;
 import javafx.stage.Modality;
 import javafx.stage.Stage;
+import javafx.stage.StageStyle;
 
 import java.io.IOException;
 import java.sql.SQLException;
@@ -65,6 +66,8 @@ public class FuncionariosController extends BaseController{
     void abirModalCadastro(ActionEvent event) throws IOException {
         Stage modalStage = new Stage();
         modalStage.initModality(Modality.APPLICATION_MODAL);
+        modalStage.initStyle(StageStyle.UNDECORATED);
+        modalStage.setResizable(false);
 
         FXMLLoader loader = new FXMLLoader(getClass().getResource("../views/Funcionarios/CadastrarFuncionario.fxml"));
         Parent root = loader.load();

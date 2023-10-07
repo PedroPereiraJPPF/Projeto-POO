@@ -13,37 +13,37 @@ public class BaseController {
     protected Stage stage;
 
     @FXML
-    void carregarAutomoveis(MouseEvent event) throws Exception {
+    final void carregarAutomoveis(MouseEvent event) throws Exception {
         App.navegarEntreTelas("automoveis");
     }
 
     @FXML
-    void carregarClientes(MouseEvent event) throws Exception {
+    final void carregarClientes(MouseEvent event) throws Exception {
         App.navegarEntreTelas("clientes");
     }   
 
     @FXML
-    void carregarFuncionarios(MouseEvent event) throws Exception {
+    final void carregarFuncionarios(MouseEvent event) throws Exception {
         App.navegarEntreTelas("funcionarios");
     }
 
     @FXML
-    void carregarOrcamentos(MouseEvent event) throws Exception {
+    final void carregarOrcamentos(MouseEvent event) throws Exception {
         App.navegarEntreTelas("orcamentos");
     }
 
     @FXML
-    void carregarPecas(MouseEvent event) throws Exception {
+    final void carregarPecas(MouseEvent event) throws Exception {
         App.navegarEntreTelas("pecas");
     }
 
     @FXML
-    void carregarServicos(MouseEvent event) throws Exception {
+    final void carregarServicos(MouseEvent event) throws Exception {
         App.navegarEntreTelas("servicos");
     }
 
     @FXML
-    void logout(MouseEvent event) throws Exception {
+    final void logout(MouseEvent event) throws Exception {
         App.navegarEntreTelas("login");
     }
 }

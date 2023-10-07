@@ -1,0 +1,66 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.Separator?>
+<?import javafx.scene.control.TextField?>
+<?import javafx.scene.layout.HBox?>
+<?import javafx.scene.layout.Pane?>
+<?import javafx.scene.layout.VBox?>
+<?import javafx.scene.text.Font?>
+
+<Pane id="editarCliente" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="450.0" prefWidth="500.0" stylesheets="@../css/Modals.css" xmlns="http://javafx.com/javafx/20.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="br.java.projeto.poo.controller.ClienteController">
+   <children>
+      <VBox alignment="CENTER" layoutY="50.0" prefHeight="300.0" prefWidth="500.0" spacing="20.0">
+         <children>
+            <VBox alignment="CENTER_LEFT" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="80.0" prefWidth="400.0" spacing="15.0">
+               <children>
+                  <Label text="Nome" />
+                  <TextField fx:id="campoNome" minHeight="-Infinity" minWidth="-Infinity" onMouseClicked="#SetInvisibleEdit" prefHeight="40.0" prefWidth="400.0" />
+               </children>
+            </VBox>
+            <VBox alignment="CENTER_LEFT" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="80.0" prefWidth="400.0" spacing="15.0">
+               <children>
+                  <Label text="Endereço" />
+                  <TextField fx:id="campoEndereco" minHeight="-Infinity" minWidth="-Infinity" onMouseClicked="#SetInvisibleEdit" prefHeight="40.0" prefWidth="400.0" />
+               </children>
+            </VBox>
+            <VBox alignment="CENTER_LEFT" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="80.0" prefWidth="400.0" spacing="15.0">
+               <children>
+                  <Label text="CPF" />
+                  <TextField fx:id="campoCPF" minHeight="-Infinity" minWidth="-Infinity" onMouseClicked="#SetInvisibleEdit" prefHeight="40.0" prefWidth="400.0" />
+               </children>
+            </VBox>
+         </children>
+      </VBox>
+      <VBox alignment="CENTER_LEFT" prefHeight="50.0" prefWidth="500.0" spacing="10.0">
+         <children>
+            <Label text="Editar dados do cliente">
+               <font>
+                  <Font name="System Bold" size="20.0" />
+               </font>
+               <padding>
+                  <Insets left="20.0" />
+               </padding>
+            </Label>
+            <Separator prefWidth="500.0" />
+         </children>
+         <padding>
+            <Insets top="10.0" />
+         </padding>
+      </VBox>
+      <Separator layoutY="366.0" prefWidth="500.0" />
+      <HBox alignment="CENTER" layoutY="369.0" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="80.0" prefWidth="500.0" spacing="20.0">
+         <children>
+            <Button fx:id="cancelarEdicao" alignment="CENTER" contentDisplay="CENTER" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" mnemonicParsing="false" onAction="#CancelarEdicao" prefHeight="45.0" prefWidth="190.0" styleClass="btn-back" stylesheets="@../css/buttons.css" text="Cancelar" />
+            <Button fx:id="salvarEdicao" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" mnemonicParsing="false" prefHeight="45.0" prefWidth="190.0" styleClass="btn-primary" stylesheets="@../css/buttons.css" text="Salvar Alterações" />
+         </children>
+      </HBox>
+      <Label fx:id="mensagemErroEdit" alignment="CENTER" contentDisplay="CENTER" layoutX="117.0" layoutY="337.0" text="Os campos não podem ser vazios" textFill="RED" visible="false">
+         <font>
+            <Font size="18.0" />
+         </font>
+      </Label>
+   </children>
+</Pane>

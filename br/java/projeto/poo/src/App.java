@@ -3,10 +3,11 @@ package br.java.projeto.poo.src;
 import br.java.projeto.poo.models.VO.FuncionarioVO;
 import javafx.application.Application;
 import javafx.scene.Scene;
+import javafx.scene.image.Image;
 import javafx.stage.Stage;
  
 public class App extends Application {
-    private static Stage stage;
+    private static Stage janela;
     private static GerenciadorDeTelas gr = new GerenciadorDeTelas();
     public static FuncionarioVO usuarioLogado;
 
@@ -16,10 +17,16 @@ public class App extends Application {
 
     @Override
     public void start(Stage primaryStage) throws Exception{
-        stage = primaryStage;
+        janela = primaryStage;
+        //File f = new File("public/MarcãoIcon16x16.png");
+        Image logo = new Image("file: public/MarcãoIcon32x32.png");
+        janela.getIcons().add(logo);
+        janela.setResizable(true);
+        janela.setMinHeight(800);
+        janela.setMinWidth(1024);
         Scene telaInicial = gr.carregarNovaTela("funcionarios"); // carrega a tela inicial
-        primaryStage.setScene(telaInicial);
-        primaryStage.show();
+        janela.setScene(telaInicial);
+        janela.show();
     }
 
     /**
@@ -29,6 +36,6 @@ public class App extends Application {
      */
 
     public static void navegarEntreTelas(String nomeTela) throws Exception {
-        stage.setScene(gr.carregarNovaTela(nomeTela)); // carrega a tela com o nome recebido na funçãzo
+        janela.setScene(gr.carregarNovaTela(nomeTela)); // carrega a tela com o nome recebido na funçãzo
     }
 }

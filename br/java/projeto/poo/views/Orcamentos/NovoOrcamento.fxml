@@ -183,7 +183,7 @@
                                     <Font name="System Bold" size="18.0" />
                                  </font>
                               </Label>
-                              <TextField layoutX="117.0" layoutY="27.0" prefHeight="40.0" prefWidth="211.0" promptText="Placa do veículo" styleClass="searchField" stylesheets="@../css/buttons.css" />
+                              <TextField layoutX="128.0" layoutY="27.0" prefHeight="40.0" prefWidth="211.0" promptText="Placa do veículo" styleClass="searchField" stylesheets="@../css/buttons.css" />
                            </children>
                            <VBox.margin>
                               <Insets bottom="15.0" top="15.0" />

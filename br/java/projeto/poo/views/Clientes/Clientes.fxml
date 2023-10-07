@@ -99,6 +99,9 @@
                      <font>
                         <Font size="15.0" />
                      </font>
+                     <cursor>
+                        <Cursor fx:constant="HAND" />
+                     </cursor>
                   </Button>
                </children>
                <HBox.margin>
@@ -143,12 +146,12 @@
                   </VBox>
                   <HBox alignment="CENTER_RIGHT" spacing="25.0" HBox.hgrow="ALWAYS">
                      <children>
-                        <TextField prefHeight="40.0" prefWidth="300.0" promptText="Buscar por CPF ou nome" styleClass="searchField" stylesheets="@../css/buttons.css">
+                        <TextField fx:id="campoBusca" onAction="#buscarCliente" prefHeight="40.0" prefWidth="300.0" promptText="Buscar por CPF ou nome" styleClass="searchField" stylesheets="@../css/buttons.css">
                            <HBox.margin>
                               <Insets />
                            </HBox.margin>
                         </TextField>
-                        <Button alignment="CENTER_RIGHT" mnemonicParsing="false" prefHeight="40.0" stylesheets="@../css/buttons.css" text="Novo Cliente" textAlignment="RIGHT" textFill="#064eb9">
+                        <Button fx:id="novoCliente" alignment="CENTER_RIGHT" mnemonicParsing="false" onAction="#AbrirCadastro" prefHeight="40.0" stylesheets="@../css/buttons.css" text="Novo Cliente" textAlignment="RIGHT" textFill="#064eb9">
                            <padding>
                               <Insets bottom="10.0" left="35.0" right="10.0" top="10.0" />
                            </padding>
