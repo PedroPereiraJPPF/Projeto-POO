@@ -44,6 +44,7 @@ public class BaseController {
 
     @FXML
     final void logout(MouseEvent event) throws Exception {
+        App.usuarioLogado = null;
         App.navegarEntreTelas("login");
     }
 }
