@@ -104,7 +104,7 @@ public class FuncionarioDao extends BaseDao <FuncionarioVO> {
     }
 
     public ResultSet buscarPorCPF(FuncionarioVO funcionario) throws SQLException {
-        String query = "Select * from funcionarios where cpf = (?)";
+        String query = "Select * from funcionarios where cpf like '%' || ? || '%'";
         PreparedStatement ps = null;
         try {
             ps = this.db.prepareStatement(query);
@@ -117,7 +117,7 @@ public class FuncionarioDao extends BaseDao <FuncionarioVO> {
     }
 
     public ResultSet buscarPorNome(FuncionarioVO funcionario) throws SQLException {
-        String query = "Select * from funcionarios where nome = (?)";
+        String query = "Select * from funcionarios where nome like '%' || ? || '%'";
         PreparedStatement ps = null;
         try {
             ps = this.db.prepareStatement(query);

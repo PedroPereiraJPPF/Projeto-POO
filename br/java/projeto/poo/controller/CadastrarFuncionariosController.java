@@ -60,6 +60,7 @@ public class CadastrarFuncionariosController {
             FuncionarioVO funcionario = new FuncionarioVO(0, nome.getText(), cpf.getText(), Double.valueOf(salario.getText()), dataAtualString, enderecoFuncionario, Integer.valueOf(nivel.getText()));
             if(funcionarioBO.inserir(funcionario)) {
                 FuncionariosController.funcionariosDisponiveis.add(0, funcionario);
+                FuncionariosController.listaFuncionarios.add(0, funcionario);
                 this.fecharModal();
             } else {
                 this.mensagemDeErro.setVisible(true);

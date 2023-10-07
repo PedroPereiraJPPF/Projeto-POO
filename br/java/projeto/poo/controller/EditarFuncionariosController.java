@@ -69,6 +69,7 @@ public class EditarFuncionariosController {
 
             funcionarioBO.atualizar(funcionario);
             FuncionariosController.funcionariosDisponiveis.set(this.indice, funcionario);
+            FuncionariosController.listaFuncionarios.set(this.indice, funcionario);
             this.fecharModal();
         } catch (Exception e) {
             e.printStackTrace();
@@ -91,7 +92,7 @@ public class EditarFuncionariosController {
        try {
             EnderecoVO enderecoFuncionario = new EnderecoBO().buscarPorFuncionario(vo.getCpf());
             if (Long.valueOf(vo.getId()) <= 0) { // verifica se o funcionario possui um id válido
-                this.id.setText(String.valueOf(funcionarioBO.buscarPorCPF(vo.getCpf()).getId()));
+                this.id.setText(String.valueOf(funcionarioBO.buscarPorCPF(vo.getCpf()).get(0).getId()));
             } else {
                 this.id.setText(String.valueOf(vo.getId()));   
             }

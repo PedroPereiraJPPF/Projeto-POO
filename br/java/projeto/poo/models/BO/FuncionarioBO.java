@@ -38,44 +38,45 @@ public class FuncionarioBO {
         }
     }
 
-    public FuncionarioVO buscarPorCPF(String cpf) throws Exception {
+    public ArrayList<FuncionarioVO> buscarPorCPF(String cpf) throws Exception {
         try {
             FuncionarioVO vo = new FuncionarioVO();
             vo.setCpf(cpf);
             ResultSet funcionario = funcionarioDao.buscarPorCPF(vo);
-
-            if (funcionario.next()) {
-                return new FuncionarioVO(funcionario.getLong("id"),
+            ArrayList<FuncionarioVO> funcionarios = new ArrayList<>();
+            while (funcionario.next()) {
+                funcionarios.add(new FuncionarioVO(funcionario.getLong("id"),
                 funcionario.getString("nome"),
                 funcionario.getString("cpf"),
                 funcionario.getFloat("salario"),
                 funcionario.getString("dataDeAdmissao"),
-                funcionario.getInt("funcao"));
+                funcionario.getInt("funcao")));
             }
 
-            return null;
+            return funcionarios;
         } catch (Exception e) {
             System.out.println(e.getMessage());
             throw new Exception("Erro ao buscar funcionario");
         }
     }
 
-    public FuncionarioVO buscarPorNome(String nome) throws Exception {
+    public ArrayList<FuncionarioVO> buscarPorNome(String nome) throws Exception {
         try {
             FuncionarioVO vo = new FuncionarioVO();
             vo.setNome(nome);
-            ResultSet funcionario = funcionarioDao.buscarPorCPF(vo);
+            ResultSet funcionario = funcionarioDao.buscarPorNome(vo);
 
-            if (funcionario.next()) {
-                return new FuncionarioVO(funcionario.getLong("id"),
+            ArrayList<FuncionarioVO> funcionarios = new ArrayList<>();
+            while (funcionario.next()) {
+                funcionarios.add(new FuncionarioVO(funcionario.getLong("id"),
                 funcionario.getString("nome"),
                 funcionario.getString("cpf"),
                 funcionario.getFloat("salario"),
                 funcionario.getString("dataDeAdmissao"),
-                funcionario.getInt("funcao"));
+                funcionario.getInt("funcao")));
             }
 
-            return null;
+            return funcionarios;
         } catch (Exception e) {
             System.out.println(e.getMessage());
             throw new Exception("Erro ao buscar funcionario");

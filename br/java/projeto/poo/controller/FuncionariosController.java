@@ -23,12 +23,12 @@ import java.io.IOException;
 import java.sql.SQLException;
 import java.util.ArrayList;
 import br.java.projeto.poo.models.BO.FuncionarioBO;
-import br.java.projeto.poo.models.VO.EnderecoVO;
 import br.java.projeto.poo.models.VO.FuncionarioVO;
 
 public class FuncionariosController extends BaseController{
     private FuncionarioBO funcionarioBO = new FuncionarioBO(); 
     static ObservableList<FuncionarioVO> funcionariosDisponiveis;
+    static ArrayList<FuncionarioVO> listaFuncionarios;
    
     @FXML
     private TableView<FuncionarioVO> tabelaFuncionarios;
@@ -62,17 +62,29 @@ public class FuncionariosController extends BaseController{
 
     @FXML
     public void initialize() throws Exception {
-        ArrayList<FuncionarioVO> funcionarios = this.funcionarioBO.listar();
-        funcionariosDisponiveis = FXCollections.observableArrayList(funcionarios); // pega os funcionarios disponiveis no banco de dados
+        listaFuncionarios = this.funcionarioBO.listar();
+        funcionariosDisponiveis = FXCollections.observableArrayList(listaFuncionarios); // pega os funcionarios disponiveis no banco de dados
         this.inicializarTabela(); // inicializa os valores da tabela
     }
 
     @FXML
     void buscarFuncionario(KeyEvent event) {
-        
-        // if (this.buscar.getText().matches("^\\d{3}")) {
-            
-        // }
+        try {
+            ArrayList<FuncionarioVO> funcionarioVOs;
+            if (this.buscar.getText().length() > 2) {
+                if (this.buscar.getText().matches("^\\n{3}.*")) {
+                    funcionarioVOs = funcionarioBO.buscarPorCPF(this.buscar.getText());
+                    funcionariosDisponiveis.setAll(funcionarioVOs);
+                } else {
+                    funcionarioVOs = funcionarioBO.buscarPorNome(this.buscar.getText());
+                    funcionariosDisponiveis.setAll(funcionarioVOs);
+                }
+            } else {
+                funcionariosDisponiveis.setAll(listaFuncionarios);
+            }
+        } catch (Exception e) {
+            System.out.println(e.getMessage());
+        }
     }
 
     @FXML
