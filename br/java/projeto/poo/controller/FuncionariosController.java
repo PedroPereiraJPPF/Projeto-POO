@@ -62,6 +62,7 @@ public class FuncionariosController extends BaseController{
 
     @FXML
     public void initialize() throws Exception {
+        super.initialize();
         listaFuncionarios = this.funcionarioBO.listar();
         funcionariosDisponiveis = FXCollections.observableArrayList(listaFuncionarios); // pega os funcionarios disponiveis no banco de dados
         this.inicializarTabela(); // inicializa os valores da tabela

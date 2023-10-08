@@ -94,7 +94,7 @@ public class ClienteController extends BaseController{
 
 
     @FXML
-    void initialize(){
+    public void initialize(){
         tipoVeic.getItems().addAll(tipoVeic_Array);
         
     }

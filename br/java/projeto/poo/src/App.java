@@ -9,24 +9,29 @@ import javafx.stage.Stage;
 public class App extends Application {
     private static Stage janela;
     private static GerenciadorDeTelas gr = new GerenciadorDeTelas();
-    public static FuncionarioVO usuarioLogado;
+    public static FuncionarioVO usuarioLogado = null;
 
     public static void main(String[] args) {
         launch(args);
     }
 
     @Override
-    public void start(Stage primaryStage) throws Exception{
-        janela = primaryStage;
-        //File f = new File("public/MarcãoIcon16x16.png");
-        Image logo = new Image("file: public/MarcãoIcon32x32.png");
-        janela.getIcons().add(logo);
-        janela.setResizable(true);
-        janela.setMinHeight(800);
-        janela.setMinWidth(1024);
-        Scene telaInicial = gr.carregarNovaTela("funcionarios"); // carrega a tela inicial
-        janela.setScene(telaInicial);
-        janela.show();
+    public void start(Stage primaryStage) {
+        try {
+            janela = primaryStage;
+            //File f = new File("public/MarcãoIcon16x16.png");
+            Image logo = new Image("file: public/MarcãoIcon32x32.png");
+            janela.getIcons().add(logo);
+            janela.setResizable(true);
+            janela.setMinHeight(800);
+            janela.setMinWidth(1024);
+            // Scene telaInicial = usuarioLogado != null ? gr.carregarNovaTela("funcionarios") : gr.carregarNovaTela("login"); // carrega a tela inicial logica comentada para testes
+            Scene telaInicial = gr.carregarNovaTela("funcionarios"); // usar essa por enquanto
+            janela.setScene(telaInicial);
+            janela.show();
+        } catch (Exception e) {
+            System.out.println(e.getMessage());
+        }
     }
 
     /**
