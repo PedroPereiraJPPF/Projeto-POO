@@ -45,6 +45,9 @@ public class CadastrarFuncionariosController {
     private Label mensagemDeErro;
 
     @FXML
+    private TextField senha;
+
+    @FXML
     void initialize () {
         this.mensagemDeErro.setVisible(false);
     }
@@ -52,12 +55,22 @@ public class CadastrarFuncionariosController {
     @FXML
     void cadastrarFuncionario(ActionEvent event) throws Exception {
         try {
+            this.validarCamposVazios();
             Date dataAtual = new Date();
             SimpleDateFormat formato = new SimpleDateFormat("dd/MM/yyyy");
             String dataAtualString = formato.format(dataAtual); // pega a data em que o usuario esta sendo criado
             EnderecoVO enderecoFuncionario = new EnderecoVO().pegarValoresComoString(endereco.getText()); // envia a string com os dados do endereco
             enderecoFuncionario.setCpfFuncionario(cpf.getText());
-            FuncionarioVO funcionario = new FuncionarioVO(0, nome.getText(), cpf.getText(), Double.valueOf(salario.getText()), dataAtualString, enderecoFuncionario, Integer.valueOf(nivel.getText()));
+
+            FuncionarioVO funcionario = new FuncionarioVO(0, 
+            nome.getText(), 
+            cpf.getText(), 
+            Double.valueOf(salario.getText()), 
+            dataAtualString, 
+            enderecoFuncionario, 
+            Integer.valueOf(nivel.getText()),
+            senha.getText());
+
             if(funcionarioBO.inserir(funcionario)) {
                 FuncionariosController.funcionariosDisponiveis.add(0, funcionario);
                 FuncionariosController.listaFuncionarios.add(0, funcionario);
@@ -79,6 +92,27 @@ public class CadastrarFuncionariosController {
     private void fecharModal() {
         Stage stage = (Stage) this.fechar.getScene().getWindow();
         stage.close();
+    }
+
+    private void validarCamposVazios() throws Exception {
+        if (cpf.getText().isEmpty()) {
+            throw new Exception("CPF não pode ser vazio");
+        }
+        if (endereco.getText().isEmpty()) {
+            throw new Exception("Endereco não pode ser vazio");
+        }
+        if (nivel.getText().isEmpty()) {
+            throw new Exception("Nivel não pode ser vazio");
+        }
+        if (nome.getText().isEmpty()) {
+            throw new Exception("Nome não pode ser vazio");
+        }
+        if (salario.getText().isEmpty()) {
+            throw new Exception("Salario não pode ser vazio");
+        }
+        if (senha.getText().isEmpty()) {
+            throw new Exception("Senha não pode ser vazio");
+        }
     }
 
 }

@@ -66,7 +66,6 @@ public class FuncionarioDao extends BaseDao <FuncionarioVO> {
             ps = this.db.prepareStatement(query);
             ps.setLong(6, funcionario.getId());
             ps.setString(1, funcionario.getNome());
-            System.out.println(funcionario.getCpf());
             ps.setString(2, funcionario.getCpf());
             ps.setDouble(3, funcionario.getSalario());
             ps.setString(4, funcionario.getDataDeAdimissao());

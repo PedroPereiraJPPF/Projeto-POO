@@ -10,6 +10,15 @@ public class FuncionarioVO extends PessoaVO {
         super();
     }
 
+    public FuncionarioVO(long id, String nome, String cpf, double salario, String dataDeAdimissao, EnderecoVO endereco, int nivel, String senha) throws Exception {
+        super(id, nome, cpf);
+        setSalario(salario);
+        setDataDeAdimissao(dataDeAdimissao);
+        setNivel(nivel);
+        setEndereco(endereco);
+        setSenha(senha);
+    }
+
     public FuncionarioVO(long id, String nome, String cpf, double salario, String dataDeAdimissao, EnderecoVO endereco, int nivel) throws Exception {
         super(id, nome, cpf);
         setSalario(salario);

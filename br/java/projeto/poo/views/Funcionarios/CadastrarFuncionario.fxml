@@ -11,7 +11,7 @@
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Font?>
 
-<Pane fx:id="cadastroFuncionario" prefHeight="530.0" prefWidth="500.0" style="-fx-effect: dropshadow;" stylesheets="@../css/Modals.css" xmlns="http://javafx.com/javafx/20.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="br.java.projeto.poo.controller.CadastrarFuncionariosController">
+<Pane fx:id="cadastroFuncionario" prefHeight="585.0" prefWidth="502.0" style="-fx-effect: dropshadow;" stylesheets="@../css/Modals.css" xmlns="http://javafx.com/javafx/20.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="br.java.projeto.poo.controller.CadastrarFuncionariosController">
    <children>
       <Label alignment="CENTER" contentDisplay="CENTER" layoutX="40.0" layoutY="14.0" text="Cadastrar Funcionario">
          <font>
@@ -19,7 +19,7 @@
          </font>
       </Label>
       <Separator layoutY="50.0" minHeight="-Infinity" minWidth="-Infinity" prefHeight="0.0" prefWidth="500.0" />
-      <VBox layoutX="40.0" layoutY="58.0" maxHeight="800.0" maxWidth="600.0" spacing="5.0">
+      <VBox layoutX="40.0" layoutY="58.0" maxHeight="1000.0" maxWidth="600.0" spacing="5.0">
          <children>
             <Group>
                <children>
@@ -91,13 +91,27 @@
             </Group>
             <Group>
                <children>
+                  <VBox layoutX="14.0" layoutY="-6.0" spacing="3.0">
+                     <children>
+                        <Label text="Senha" />
+                        <TextField fx:id="senha" prefHeight="40.0" prefWidth="420.0" promptText="Ex: 2000" />
+                     </children>
+                     <padding>
+                        <Insets bottom="5.0" />
+                     </padding>
+                  </VBox>
+               </children>
+            </Group>
+            <Group>
+               <children>
                   <Label fx:id="mensagemDeErro" layoutY="1.0" text="Falha ao adicionar funcionario" textFill="#a80404" />
                </children>
             </Group>
          </children>
       </VBox>
-      <Group layoutX="40.0" layoutY="442.0">
+      <Group layoutY="503.0">
          <children>
+            <Separator minHeight="-Infinity" minWidth="-Infinity" prefHeight="0.0" prefWidth="500.0" />
             <HBox alignment="CENTER" layoutY="6.0" spacing="20.0">
                <children>
                   <Button fx:id="fechar" alignment="CENTER" contentDisplay="CENTER" mnemonicParsing="false" onAction="#fecharModal" prefHeight="50.0" prefWidth="200.0" styleClass="btn-back" stylesheets="@../css/buttons.css" text="Cancelar">
@@ -112,11 +126,10 @@
                   </Button>
                </children>
                <padding>
-                  <Insets top="10.0" />
+                  <Insets left="38.0" top="10.0" />
                </padding>
             </HBox>
          </children>
       </Group>
-      <Separator layoutY="436.0" minHeight="-Infinity" minWidth="-Infinity" prefHeight="0.0" prefWidth="500.0" />
    </children>
 </Pane>
