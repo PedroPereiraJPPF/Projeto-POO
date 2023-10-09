@@ -100,7 +100,7 @@ public class ClienteDao extends BaseDao <ClienteVO>{
     }
 
     public ResultSet buscarPorCPF(ClienteVO cliente) throws SQLException {
-        String query = "Select * from clientes where cpf = (?)";
+        String query = "Select * from clientes where cpf like '%'|| ? ||'%'";
         PreparedStatement ps = null;
         try {
             ps = this.db.prepareStatement(query);

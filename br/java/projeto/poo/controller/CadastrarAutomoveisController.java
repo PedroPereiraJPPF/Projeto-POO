@@ -1,5 +1,7 @@
 package br.java.projeto.poo.controller;
 
+import java.util.ArrayList;
+
 import br.java.projeto.poo.models.BO.ClienteBO;
 import br.java.projeto.poo.models.BO.VeiculoBO;
 import br.java.projeto.poo.models.VO.ClienteVO;
@@ -65,7 +67,21 @@ public class CadastrarAutomoveisController {
 
     @FXML
     void buscarCliente(KeyEvent event) {
-
+        try {
+            if(cpf.getText().length() == 14) {
+                ArrayList<ClienteVO> clientes = clienteBO.buscarPorCPF(cpf.getText());
+                if(!clientes.isEmpty()) {
+                    ClienteVO cliente = clientes.get(0);
+                    nome.setText(cliente.getNome());
+                    endereco.setText(cliente.getEndereco().toString());
+                    clienteExisteFlag = true;
+                } else {
+                    clienteExisteFlag = false;
+                }
+            }
+        } catch (Exception e) {
+            System.out.println(e.getMessage());
+        }
     }
 
     @FXML
@@ -75,10 +91,12 @@ public class CadastrarAutomoveisController {
             EnderecoVO enderecoCliente = new EnderecoVO().pegarValoresComoString(endereco.getText());
             ClienteVO ClienteVO = new ClienteVO(0, nome.getText(), cpf.getText(), enderecoCliente);
 
-            if (!clienteExisteFlag && clienteBO.inserir(ClienteVO)) {
-                VeiculoVO veiculoVO = new VeiculoVO(0, placa.getText(), cor.getText(), modelo.getText(), cpf.getText(), tipo.getValue());
-                veiculoBO.inserir(veiculoVO);
+            if (!clienteExisteFlag) {
+                clienteBO.inserir(ClienteVO);
             }
+
+            VeiculoVO veiculoVO = new VeiculoVO(0, placa.getText(), cor.getText(), modelo.getText(), cpf.getText(), tipo.getValue());
+            veiculoBO.inserir(veiculoVO);
 
             this.fecharModal();
 

@@ -36,6 +36,25 @@ public class EnderecoBO {
         }
     }
 
+    public EnderecoVO buscarPorCliente(String cpf) throws Exception {
+        try {
+            ResultSet selectEndereco = enderecoDao.buscarPorCliente(new EnderecoVO(cpf, null));
+            if(selectEndereco.next()) {
+                return new EnderecoVO(0, 
+                    selectEndereco.getString("cpfCliente"),
+                    selectEndereco.getString("cpfFuncionario"),
+                    selectEndereco.getString("rua"), 
+                    selectEndereco.getString("bairro"), 
+                    selectEndereco.getString("cidade"), 
+                    selectEndereco.getString("estado"));
+            }
+
+            return null;
+        } catch (Exception e) {
+            throw new Exception("Erro ao acessar o banco");
+        }
+    }
+
 
     public boolean deletarPorCPFFuncionario(String cpf) throws SQLException {
         try {
