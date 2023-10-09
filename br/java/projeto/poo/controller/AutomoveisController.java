@@ -78,6 +78,23 @@ public class AutomoveisController extends BaseController{
         }
     }
 
+    void abrirModalEditar(VeiculoVO vo, int indice) throws Exception {
+        try {
+            Stage modalStage = new Stage();
+            modalStage.initModality(Modality.APPLICATION_MODAL);
+
+            FXMLLoader loader = new FXMLLoader(getClass().getResource("../views/Automoveis/EditarAutomoveis.fxml"));
+            Parent root = loader.load();
+            EditarAutomoveisController editarController = loader.getController();
+            editarController.setDados(vo, indice);
+            Scene modalScene = new Scene(root);
+            modalStage.setScene(modalScene);
+            modalStage.showAndWait();
+        } catch (Exception e) {
+            System.out.println(e.getMessage());
+        }
+    }
+
     // inicializa a tabela
     private void inicializarTabela() throws SQLException {
         placa.setCellValueFactory(new PropertyValueFactory<VeiculoVO, String>("placa"));
@@ -100,9 +117,8 @@ public class AutomoveisController extends BaseController{
                 btnDelete.getStyleClass().add("btn-delete");
                 btnEdit.setOnAction(event -> {
                     try {
-                        VeiculoVO veiculoVO = getTableView().getItems().get(getIndex());
-                        // abrirModalEditar(funcionario, getIndex());
-                        System.out.println(veiculoVO.getId());
+                        VeiculoVO veiculo = getTableView().getItems().get(getIndex());
+                        abrirModalEditar(veiculo, getIndex());
                     } catch (Exception e) {
                         System.out.println(e.getMessage());
                     }

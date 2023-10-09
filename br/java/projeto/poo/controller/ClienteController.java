@@ -141,7 +141,7 @@ public class ClienteController extends BaseController{
         try{
             if(!this.mensagemErroCad.isVisible()){
             ClienteVO novoClienteVO = new ClienteVO(id, nome, cpf, null);
-            VeiculoVO nVeiculoVO = new VeiculoVO(id, placa, cor, modelo, cpf, tipoVeic);
+            VeiculoVO nVeiculoVO = new VeiculoVO(id, placa, cor, modelo, cpf, tipoVeic, null, 0);
             Label labelSucesso = new Label("Cliente cadastrado com sucesso.");
             CancelarCadastro();
             AbrirModalSucess(labelSucesso);
