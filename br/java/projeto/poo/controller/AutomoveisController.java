@@ -17,7 +17,9 @@ import javafx.scene.control.Button;
 import javafx.scene.control.TableCell;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
+import javafx.scene.control.TextField;
 import javafx.scene.control.cell.PropertyValueFactory;
+import javafx.scene.input.KeyEvent;
 import javafx.scene.layout.HBox;
 import javafx.stage.Modality;
 import javafx.stage.Stage;
@@ -50,8 +52,12 @@ public class AutomoveisController extends BaseController{
     private TableColumn<VeiculoVO, Long> id;
 
     @FXML
+    private TextField buscar;
+
+    @FXML
     public void initialize () {
         try {
+            super.initialize();
             listaAutomoveis = this.veiculoB0.listar();
             automoveisDisponiveis = FXCollections.observableArrayList(listaAutomoveis);
             inicializarTabela();
@@ -149,5 +155,27 @@ public class AutomoveisController extends BaseController{
             }
         });
     }  
+
+    @FXML
+    void buscarVeiculo(KeyEvent event) {
+        try {
+            ArrayList<VeiculoVO> veiculos;
+           if(this.buscar.getText().length() > 2) {
+                if (this.buscar.getText().matches("^\\d{3}.*")) {
+                    veiculos = veiculoB0.buscarPorDono(buscar.getText());
+                } else {
+                    veiculos = veiculoB0.buscarPorPlaca(buscar.getText());
+                }
+                automoveisDisponiveis.setAll(veiculos);
+           } else {
+                automoveisDisponiveis.setAll(listaAutomoveis);
+           }
+
+            veiculos = veiculoB0.buscarPorDono(buscar.getText());
+            veiculos = veiculoB0.buscarPorPlaca(buscar.getText());
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+    }
 
 }

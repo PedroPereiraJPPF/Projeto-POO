@@ -49,6 +49,7 @@ public class EditarAutomoveisController {
 
     @FXML
     void initialize() {
+        this.id.setVisible(false);
         this.msgErro.setVisible(false);
         tipo.getItems().addAll("Carro", "Moto");
         tipo.setValue("Carro");

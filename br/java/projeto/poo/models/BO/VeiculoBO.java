@@ -34,9 +34,30 @@ public class VeiculoBO {
         }
     }
 
-     public ArrayList<VeiculoVO> buscarPorPlaca(String placa) throws Exception {
+    public ArrayList<VeiculoVO> buscarPorPlaca(String placa) throws Exception {
         try {
             ResultSet veiculosBuscados = veiculoDao.buscarPorPlaca(new VeiculoVO(0, placa, null, null, null, null, null, 0));
+            ArrayList<VeiculoVO> veiculos = new ArrayList<>();
+            while(veiculosBuscados.next()) {
+                veiculos.add(new VeiculoVO(veiculosBuscados.getLong("id"),
+                veiculosBuscados.getString("placa"),
+                veiculosBuscados.getString("cor"),
+                veiculosBuscados.getString("modelo"),
+                veiculosBuscados.getString("cpfDono"),
+                veiculosBuscados.getString("tipo"),
+                veiculosBuscados.getString("ano"),
+                veiculosBuscados.getDouble("km")));
+            }
+
+            return veiculos;
+        } catch (Exception e) {
+            throw new Exception("erro ao buscar veiculos");
+        }
+    }
+
+    public ArrayList<VeiculoVO> buscarPorDono(String cpf) throws Exception {
+        try {
+            ResultSet veiculosBuscados = veiculoDao.buscarPorCPFDono(new VeiculoVO(0, null, null, null, cpf, null, null, 0));
             ArrayList<VeiculoVO> veiculos = new ArrayList<>();
             while(veiculosBuscados.next()) {
                 veiculos.add(new VeiculoVO(veiculosBuscados.getLong("id"),

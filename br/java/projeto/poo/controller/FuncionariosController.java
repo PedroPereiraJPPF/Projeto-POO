@@ -73,7 +73,7 @@ public class FuncionariosController extends BaseController{
         try {
             ArrayList<FuncionarioVO> funcionarioVOs;
             if (this.buscar.getText().length() > 2) {
-                if (this.buscar.getText().matches("^\\n{3}.*")) {
+                if (this.buscar.getText().matches("^\\d{3}.*")) {
                     funcionarioVOs = funcionarioBO.buscarPorCPF(this.buscar.getText());
                     funcionariosDisponiveis.setAll(funcionarioVOs);
                 } else {
