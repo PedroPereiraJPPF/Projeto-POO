@@ -23,10 +23,6 @@ public class VeiculoVO {
     }
 
     public void setId(long id) throws InvalidIdException {
-        if(id < 0) {
-            throw new InvalidIdException();
-        }
-
         this.id = id;
     }
 
@@ -47,10 +43,6 @@ public class VeiculoVO {
     }
 
     public void setCor(String cor) throws InvalidCorException {
-        if (cor == null || cor.isEmpty()) {
-            throw new InvalidCorException("A cor do veiculo inválida");
-        }
-
         this.cor = cor;
     }
 
@@ -59,10 +51,6 @@ public class VeiculoVO {
     }
 
     public void setModelo(String modelo) throws InvalidModeloException {
-        if(modelo == null || modelo.isEmpty()) {   
-            throw new InvalidModeloException("modelo de veiculo inválido");
-        }
-
         this.modelo = modelo;
     }
 
@@ -71,10 +59,6 @@ public class VeiculoVO {
     }
 
     public void setTipo(String tipo) throws InvalidVeiculoException {
-        if(tipo == null || tipo.isEmpty()) {   
-            throw new InvalidVeiculoException("modelo de veiculo inválido");
-        }
-
         this.tipo = tipo;
     }
 

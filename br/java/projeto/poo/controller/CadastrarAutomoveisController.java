@@ -98,6 +98,9 @@ public class CadastrarAutomoveisController {
             VeiculoVO veiculoVO = new VeiculoVO(0, placa.getText(), cor.getText(), modelo.getText(), cpf.getText(), tipo.getValue());
             veiculoBO.inserir(veiculoVO);
 
+            AutomoveisController.listaAutomoveis.add(0, veiculoVO);
+            AutomoveisController.automoveisDisponiveis.add(0, veiculoVO);
+
             this.fecharModal();
 
         } catch (Exception e) {
