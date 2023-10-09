@@ -5,9 +5,17 @@ import br.java.projeto.poo.exceptions.InvalidIdException;
 public abstract class PessoaVO {
     private long id;
     private String nome, cpf;
+    private EnderecoVO endereco;
 
     public PessoaVO() {
 
+    }
+
+    public PessoaVO(long id, String nome, String cpf, EnderecoVO endereco) throws Exception {
+        setId(id);
+        setCpf(cpf);
+        setNome(nome);
+        setEndereco(endereco);
     }
 
     public PessoaVO(long id, String nome, String cpf) throws Exception {
@@ -42,5 +50,13 @@ public abstract class PessoaVO {
 
     public void setCpf(String cpf) {
         this.cpf = cpf;
+    }
+
+    public EnderecoVO getEndereco() {
+        return this.endereco;
+    }
+
+    public void setEndereco(EnderecoVO endereco) {
+        this.endereco = endereco;
     }
 }

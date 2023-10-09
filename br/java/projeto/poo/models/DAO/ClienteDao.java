@@ -7,14 +7,14 @@ import java.sql.SQLException;
 
 import br.java.projeto.poo.models.VO.ClienteVO;
 
-public class ClienteDao <VO extends ClienteVO> extends BaseDao <VO>{
+public class ClienteDao extends BaseDao <ClienteVO>{
     Connection db;
 
     public ClienteDao() {
         db = this.getConnection();
     }
 
-    public boolean inserir(VO cliente) throws SQLException {
+    public boolean inserir(ClienteVO cliente) throws SQLException {
         String query = "INSERT INTO clientes (nome, cpf) VALUES (?, ?)";
         PreparedStatement ps = null;
 
@@ -22,7 +22,15 @@ public class ClienteDao <VO extends ClienteVO> extends BaseDao <VO>{
             ps = this.db.prepareStatement(query);
             ps.setString(1, cliente.getNome());
             ps.setString(2, cliente.getCpf());
-            return ps.execute();
+            ps.execute();
+
+            if (cliente.getEndereco() != null) {
+                EnderecoDao endereco = new EnderecoDao();
+                cliente.getEndereco().setCpfCliente(cliente.getCpf());
+                endereco.inserir(cliente.getEndereco());    
+            }
+
+            return true;
 
         } catch (SQLException e) {
             throw e;
@@ -31,7 +39,7 @@ public class ClienteDao <VO extends ClienteVO> extends BaseDao <VO>{
         }
     }
 
-    public boolean deletar(VO cliente) throws SQLException {
+    public boolean deletar(ClienteVO cliente) throws SQLException {
         String query = "DELETE FROM clientes WHERE id = (?)";
         PreparedStatement ps = null;
         try {
@@ -46,7 +54,7 @@ public class ClienteDao <VO extends ClienteVO> extends BaseDao <VO>{
         }
     }
 
-    public boolean deletarPorCPF(VO cliente) throws SQLException {
+    public boolean deletarPorCPF(ClienteVO cliente) throws SQLException {
         String query = "DELETE FROM clientes WHERE cpf = (?)";
         PreparedStatement ps = null;
         try {
@@ -59,7 +67,7 @@ public class ClienteDao <VO extends ClienteVO> extends BaseDao <VO>{
         }
     }
 
-    public VO atualizar(VO cliente) throws SQLException {
+    public ClienteVO atualizar(ClienteVO cliente) throws SQLException {
         String query = "UPDATE clientes SET nome = ?, cpf = ? WHERE id = ?";
         PreparedStatement ps = null;
 
@@ -78,7 +86,7 @@ public class ClienteDao <VO extends ClienteVO> extends BaseDao <VO>{
         }
     }
 
-    public ResultSet buscarPorId(VO cliente) throws SQLException {
+    public ResultSet buscarPorId(ClienteVO cliente) throws SQLException {
         String query = "Select * from clientes where id = (?)";
         PreparedStatement ps = null;
         try {
@@ -91,7 +99,7 @@ public class ClienteDao <VO extends ClienteVO> extends BaseDao <VO>{
         }
     }
 
-    public ResultSet buscarPorCPF(VO cliente) throws SQLException {
+    public ResultSet buscarPorCPF(ClienteVO cliente) throws SQLException {
         String query = "Select * from clientes where cpf = (?)";
         PreparedStatement ps = null;
         try {
@@ -104,7 +112,7 @@ public class ClienteDao <VO extends ClienteVO> extends BaseDao <VO>{
         }
     }
 
-    public ResultSet buscarPorNome(VO cliente) throws SQLException {
+    public ResultSet buscarPorNome(ClienteVO cliente) throws SQLException {
         String query = "Select * from clientes where nome = (?)";
         PreparedStatement ps = null;
         try {

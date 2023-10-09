@@ -91,7 +91,6 @@ public class FuncionarioBO {
 
             return funcionarioDao.inserir(vo);
         } catch (SQLException e) {
-            System.out.println(e.getSQLState());
             if (e.getSQLState().equals("23505")) {
                 throw new Exception("Esse CPF já pertence a outro usuario");
             }

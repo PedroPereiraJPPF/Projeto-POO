@@ -26,7 +26,7 @@ public class App extends Application {
             janela.setMinHeight(800);
             janela.setMinWidth(1024);
             // Scene telaInicial = usuarioLogado != null ? gr.carregarNovaTela("funcionarios") : gr.carregarNovaTela("login"); // carrega a tela inicial logica comentada para testes
-            Scene telaInicial = gr.carregarNovaTela("funcionarios"); // usar essa por enquanto
+            Scene telaInicial = gr.carregarNovaTela("automoveis"); // usar essa por enquanto
             janela.setScene(telaInicial);
             janela.show();
         } catch (Exception e) {

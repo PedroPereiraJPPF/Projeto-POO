@@ -1,10 +1,8 @@
 package br.java.projeto.poo.models.VO;
 
 import br.java.projeto.poo.exceptions.InvalidCorException;
-import br.java.projeto.poo.exceptions.InvalidCpfException;
 import br.java.projeto.poo.exceptions.InvalidIdException;
 import br.java.projeto.poo.exceptions.InvalidModeloException;
-import br.java.projeto.poo.exceptions.InvalidPlacaException;
 import br.java.projeto.poo.exceptions.InvalidVeiculoException;
 
 public class VeiculoVO {
@@ -36,10 +34,10 @@ public class VeiculoVO {
         return this.placa;
     }
 
-    public void setPlaca(String placa) throws InvalidPlacaException {
-        if(!placa.matches("[A-Z]{3}-\\d{4}")) {
-            throw new InvalidPlacaException();
-        }
+    public void setPlaca(String placa) {
+        // if(!placa.matches("[A-Z]{3}-\\d{4}")) {
+        //     throw new InvalidPlacaException();
+        // }
 
         this.placa = placa;
     }
@@ -84,10 +82,10 @@ public class VeiculoVO {
         return this.cpfDono;
     }
 
-    public void setCpfDono(String cpfDono) throws InvalidCpfException {
-        if(!cpfDono.matches("\\b\\d{3}\\.\\d{3}\\.\\d{3}-\\d{2}\\b")) {
-            throw new InvalidCpfException("O CPF inserido é inválido");
-        }
+    public void setCpfDono(String cpfDono) {
+        // if(!cpfDono.matches("\\b\\d{3}\\.\\d{3}\\.\\d{3}-\\d{2}\\b")) {
+        //     throw new InvalidCpfException("O CPF inserido é inválido");
+        // }
 
         this.cpfDono = cpfDono;
     }

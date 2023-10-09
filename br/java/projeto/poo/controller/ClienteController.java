@@ -140,7 +140,7 @@ public class ClienteController extends BaseController{
 
         try{
             if(!this.mensagemErroCad.isVisible()){
-            ClienteVO novoClienteVO = new ClienteVO(id, nome, cpf);
+            ClienteVO novoClienteVO = new ClienteVO(id, nome, cpf, null);
             VeiculoVO nVeiculoVO = new VeiculoVO(id, placa, cor, modelo, cpf, tipoVeic);
             Label labelSucesso = new Label("Cliente cadastrado com sucesso.");
             CancelarCadastro();
@@ -197,7 +197,7 @@ public class ClienteController extends BaseController{
 
         try{
             if (!mensagemErroEdit.isVisible()) {
-                ClienteVO clienteVO = new ClienteVO(0, nome, cpf);
+                ClienteVO clienteVO = new ClienteVO(0, nome, cpf, null);
                 Label labelSucesso = new Label("Cliente editado com sucesso.");
                 cancelarEdicao();
                 AbrirModalSucess(labelSucesso);

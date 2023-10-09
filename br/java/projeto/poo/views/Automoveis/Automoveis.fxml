@@ -49,7 +49,7 @@
                               <Insets />
                            </HBox.margin>
                         </TextField>
-                        <Button maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" mnemonicParsing="false" prefHeight="36.0" prefWidth="148.0" styleClass="btn-primary" stylesheets="@../css/buttons.css" text="Novo Veiculo">
+                        <Button fx:id="cadastrar" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" mnemonicParsing="false" onAction="#abrirModalCadastro" prefHeight="36.0" prefWidth="148.0" styleClass="btn-primary" stylesheets="@../css/buttons.css" text="Novo Veiculo">
                            <HBox.margin>
                               <Insets />
                            </HBox.margin>

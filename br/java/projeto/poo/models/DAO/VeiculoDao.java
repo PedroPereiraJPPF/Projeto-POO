@@ -7,14 +7,14 @@ import java.sql.SQLException;
 
 import br.java.projeto.poo.models.VO.VeiculoVO;
 
-public class VeiculoDao <VO extends VeiculoVO> extends BaseDao <VO>{
+public class VeiculoDao extends BaseDao <VeiculoVO>{
     Connection db;
 
     public VeiculoDao() {
         db = this.getConnection();
     }
 
-    public boolean inserir(VO veiculo) throws SQLException {
+    public boolean inserir(VeiculoVO veiculo) throws SQLException {
         String query = "INSERT INTO veiculos (cor, modelo, placa, cpfDono, tipo) VALUES (?, ?, ?, ?, ?)";
         PreparedStatement ps = null;
 
@@ -34,12 +34,12 @@ public class VeiculoDao <VO extends VeiculoVO> extends BaseDao <VO>{
         }
     }
 
-    public boolean deletar(VO vo) throws SQLException {
+    public boolean deletar(VeiculoVO VeiculoVO) throws SQLException {
         String query = "DELETE FROM veiculos WHERE id = (?)";
         PreparedStatement ps = null;
         try {
             ps = this.db.prepareStatement(query);
-            ps.setLong(1, vo.getId());
+            ps.setLong(1, VeiculoVO.getId());
             return ps.execute();
 
         } catch (Exception e) {
@@ -49,7 +49,7 @@ public class VeiculoDao <VO extends VeiculoVO> extends BaseDao <VO>{
         }
     }
 
-    public VO atualizar(VO veiculo) throws SQLException {
+    public VeiculoVO atualizar(VeiculoVO veiculo) throws SQLException {
         String query = "UPDATE veiculos SET cor = ?, modelo = ?, placa = ?, cpfDono = ?, tipo = ? WHERE id = ?";
         PreparedStatement ps = null;
 
@@ -71,7 +71,7 @@ public class VeiculoDao <VO extends VeiculoVO> extends BaseDao <VO>{
         }
     }
 
-    public ResultSet buscarPorId(VO veiculo) throws SQLException {
+    public ResultSet buscarPorId(VeiculoVO veiculo) throws SQLException {
         String query = "Select * from veiculos where id = (?)";
         PreparedStatement ps = null;
         try {
@@ -84,8 +84,8 @@ public class VeiculoDao <VO extends VeiculoVO> extends BaseDao <VO>{
         }
     }
 
-    public ResultSet buscarPorCPFDono(VO veiculo) throws SQLException {
-        String query = "Select * from veiculos where cpfDono = (?)";
+    public ResultSet buscarPorCPFDono(VeiculoVO veiculo) throws SQLException {
+        String query = "Select * from veiculos where cpfDono like '%'|| ? ||'%'";
         PreparedStatement ps = null;
         try {
             ps = this.db.prepareStatement(query);
@@ -97,8 +97,8 @@ public class VeiculoDao <VO extends VeiculoVO> extends BaseDao <VO>{
         }
     }
 
-    public ResultSet buscarPorPlaca(VO veiculo) throws SQLException {
-        String query = "Select * from veiculos where placa = (?)";
+    public ResultSet buscarPorPlaca(VeiculoVO veiculo) throws SQLException {
+        String query = "Select * from veiculos where placa like '%'|| ? ||'%'";
         PreparedStatement ps = null;
         try {
             ps = this.db.prepareStatement(query);
