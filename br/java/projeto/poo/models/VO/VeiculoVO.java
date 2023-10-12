@@ -7,15 +7,18 @@ import br.java.projeto.poo.exceptions.InvalidVeiculoException;
 
 public class VeiculoVO {
     private long id;
-    private String placa, cor, modelo, cpfDono, tipo;
+    private String placa, cor, modelo, cpfDono, tipo, ano;
+    private double km;
 
-    public VeiculoVO(long id, String placa, String cor, String modelo, String cpfDono, String tipo) throws Exception{
+    public VeiculoVO(long id, String placa, String cor, String modelo, String cpfDono, String tipo, String ano, double km) throws Exception{
         setId(id);
         setPlaca(placa);
         setCor(cor);
         setModelo(modelo);
         setCpfDono(cpfDono);
         setTipo(tipo);
+        setAno(ano);
+        setKm(km);
     }
 
     public long getId() {
@@ -23,10 +26,6 @@ public class VeiculoVO {
     }
 
     public void setId(long id) throws InvalidIdException {
-        if(id < 0) {
-            throw new InvalidIdException();
-        }
-
         this.id = id;
     }
 
@@ -35,10 +34,6 @@ public class VeiculoVO {
     }
 
     public void setPlaca(String placa) {
-        // if(!placa.matches("[A-Z]{3}-\\d{4}")) {
-        //     throw new InvalidPlacaException();
-        // }
-
         this.placa = placa;
     }
 
@@ -47,10 +42,6 @@ public class VeiculoVO {
     }
 
     public void setCor(String cor) throws InvalidCorException {
-        if (cor == null || cor.isEmpty()) {
-            throw new InvalidCorException("A cor do veiculo inválida");
-        }
-
         this.cor = cor;
     }
 
@@ -59,10 +50,6 @@ public class VeiculoVO {
     }
 
     public void setModelo(String modelo) throws InvalidModeloException {
-        if(modelo == null || modelo.isEmpty()) {   
-            throw new InvalidModeloException("modelo de veiculo inválido");
-        }
-
         this.modelo = modelo;
     }
 
@@ -71,10 +58,6 @@ public class VeiculoVO {
     }
 
     public void setTipo(String tipo) throws InvalidVeiculoException {
-        if(tipo == null || tipo.isEmpty()) {   
-            throw new InvalidVeiculoException("modelo de veiculo inválido");
-        }
-
         this.tipo = tipo;
     }
 
@@ -83,11 +66,24 @@ public class VeiculoVO {
     }
 
     public void setCpfDono(String cpfDono) {
-        // if(!cpfDono.matches("\\b\\d{3}\\.\\d{3}\\.\\d{3}-\\d{2}\\b")) {
-        //     throw new InvalidCpfException("O CPF inserido é inválido");
-        // }
-
         this.cpfDono = cpfDono;
     }
+
+    public String getAno() {
+        return this.ano;
+    }
+
+    public void setAno(String ano) {
+        this.ano = ano;
+    }
+
+    public double getKm() {
+        return this.km;
+    }
+
+    public void setKm(double km) {
+        this.km = km;
+    }
+
 
 }

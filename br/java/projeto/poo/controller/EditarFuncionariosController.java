@@ -4,6 +4,7 @@ import br.java.projeto.poo.models.BO.EnderecoBO;
 import br.java.projeto.poo.models.BO.FuncionarioBO;
 import br.java.projeto.poo.models.VO.EnderecoVO;
 import br.java.projeto.poo.models.VO.FuncionarioVO;
+import br.java.projeto.poo.models.VO.TelefoneVO;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.control.Button;
@@ -50,6 +51,9 @@ public class EditarFuncionariosController {
     private TextField id;
 
     @FXML
+    private TextField telefone;
+
+    @FXML
     void initialize () {
         this.mensagemDeErro.setVisible(false);
         this.dataDeAdmissao.setVisible(false);
@@ -58,14 +62,19 @@ public class EditarFuncionariosController {
     @FXML
     void atualizarFuncionario(ActionEvent event) {
         try {
+            this.validarCamposVazios();
+
             EnderecoVO enderecoFuncionario = new EnderecoVO().pegarValoresComoString(endereco.getText());
+            TelefoneVO telefoneFuncionario = new TelefoneVO(0, null, null, telefone.getText());
             FuncionarioVO funcionario = new FuncionarioVO(Long.valueOf(id.getText()), 
             nome.getText(), 
             cpf.getText(), 
             Double.valueOf(salario.getText()), 
             this.dataDeAdmissao.getText(), 
             enderecoFuncionario, 
-            Integer.valueOf(nivel.getText()));
+            Integer.valueOf(nivel.getText()), 
+            telefoneFuncionario,
+            null);
 
             funcionarioBO.atualizar(funcionario);
             FuncionariosController.funcionariosDisponiveis.set(this.indice, funcionario);
@@ -103,9 +112,31 @@ public class EditarFuncionariosController {
             this.dataDeAdmissao.setText(vo.getDataDeAdimissao());
             this.indice = indice;
             this.endereco.setText(enderecoFuncionario.toString());
+            this.telefone.setText(vo.getTelefone().getNumero());
        } catch (Exception e) {
             System.out.println(e.getMessage());
        }
+    }
+
+    private void validarCamposVazios() throws Exception {
+        if (cpf.getText().isEmpty()) {
+            throw new Exception("CPF não pode ser vazio");
+        }
+        if (endereco.getText().isEmpty()) {
+            throw new Exception("Endereco não pode ser vazio");
+        }
+        if (nivel.getText().isEmpty()) {
+            throw new Exception("Nivel não pode ser vazio");
+        }
+        if (nome.getText().isEmpty()) {
+            throw new Exception("Nome não pode ser vazio");
+        }
+        if (salario.getText().isEmpty()) {
+            throw new Exception("Salario não pode ser vazio");
+        }
+        if (telefone.getText().isEmpty()) {
+            throw new Exception("O funcionario precisa ter um telefone");
+        }
     }
 
 }

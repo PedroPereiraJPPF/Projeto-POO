@@ -85,6 +85,15 @@
                                     <Label text="Salario" />
                                     <TextField fx:id="salario" prefHeight="40.0" prefWidth="420.0" promptText="Ex: 2000" />
                                     <TextField fx:id="dataDeAdmissao" minHeight="-Infinity" minWidth="-Infinity" prefHeight="0.0" prefWidth="0.0" />
+                                    <VBox spacing="3.0">
+                                       <children>
+                                          <Label text="Telefone" />
+                                          <TextField fx:id="telefone" prefHeight="40.0" prefWidth="420.0" promptText="Ex: 84 980028922" />
+                                       </children>
+                                       <padding>
+                                          <Insets bottom="5.0" />
+                                       </padding>
+                                    </VBox>
                                  </children>
                                  <padding>
                                     <Insets bottom="5.0" />

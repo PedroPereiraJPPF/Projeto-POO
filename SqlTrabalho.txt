@@ -26,7 +26,7 @@ create table telefones (
 	numero varchar(30),
 	
 	primary key(id),
-	foreign key(cpfCliente) references clientes(cpf)
+	foreign key(cpfCliente) references clientes(cpf) on delete cascade on update cascade
 );
 
 create table enderecos(
@@ -50,6 +50,8 @@ create table veiculos(
 	cor varchar(20),
 	modelo varchar(50) not null,
 	tipo varchar(15) not null,
+	ano varchar(10),
+	km float,
 	cpfDono varchar(20),
 	
 	primary key(placa),

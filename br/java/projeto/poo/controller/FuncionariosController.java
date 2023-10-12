@@ -58,6 +58,9 @@ public class FuncionariosController extends BaseController{
     private TableColumn<FuncionarioVO, String> funcEndereco;
 
     @FXML
+    private TableColumn<FuncionarioVO, String> funcTelefone;
+
+    @FXML
     private TextField buscar;
 
     @FXML
@@ -73,7 +76,7 @@ public class FuncionariosController extends BaseController{
         try {
             ArrayList<FuncionarioVO> funcionarioVOs;
             if (this.buscar.getText().length() > 2) {
-                if (this.buscar.getText().matches("^\\n{3}.*")) {
+                if (this.buscar.getText().matches("^\\d{3}.*")) {
                     funcionarioVOs = funcionarioBO.buscarPorCPF(this.buscar.getText());
                     funcionariosDisponiveis.setAll(funcionarioVOs);
                 } else {
@@ -128,6 +131,7 @@ public class FuncionariosController extends BaseController{
         funcSalario.setCellValueFactory(new PropertyValueFactory<FuncionarioVO, Double>("salario"));
         funcId.setCellValueFactory(new PropertyValueFactory<FuncionarioVO, Integer>("id"));
         funcEndereco.setCellValueFactory(new PropertyValueFactory<FuncionarioVO, String>("endereco"));
+        funcTelefone.setCellValueFactory(new PropertyValueFactory<FuncionarioVO, String>("telefone"));
         tabelaFuncionarios.setItems(funcionariosDisponiveis);
         this.inicializarBotoesDeAcao(funcionariosDisponiveis);
     }

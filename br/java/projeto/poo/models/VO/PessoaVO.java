@@ -6,6 +6,7 @@ public abstract class PessoaVO {
     private long id;
     private String nome, cpf;
     private EnderecoVO endereco;
+    private TelefoneVO telefone;
 
     public PessoaVO() {
 
@@ -58,5 +59,13 @@ public abstract class PessoaVO {
 
     public void setEndereco(EnderecoVO endereco) {
         this.endereco = endereco;
+    }
+
+    public TelefoneVO getTelefone() {
+        return this.telefone;
+    }
+
+    public void setTelefone(TelefoneVO telefone) {
+        this.telefone = telefone;
     }
 }

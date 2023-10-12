@@ -35,6 +35,14 @@ public class FuncionarioDao extends BaseDao <FuncionarioVO> {
                 endereco.inserir(funcionario.getEndereco());    
             }
 
+            // System.out.println(funcionario.);
+
+            if(funcionario.getTelefone() != null) {
+                TelefoneDao telefone = new TelefoneDao();
+                funcionario.getTelefone().setCpfFuncionario(funcionario.getCpf());
+                telefone.inserir(funcionario.getTelefone());
+            }
+
             return true;
         } catch (SQLException e) {
             throw e;
@@ -77,6 +85,13 @@ public class FuncionarioDao extends BaseDao <FuncionarioVO> {
                 funcionario.getEndereco().setCpfFuncionario(funcionario.getCpf());
                 endereco.deletarPorCPFFuncionario(funcionario);
                 endereco.inserir(funcionario.getEndereco());
+            }
+
+            if (ps.executeUpdate() > 0 && funcionario.getTelefone() != null) {
+                TelefoneDao telefoneDao = new TelefoneDao();
+                funcionario.getTelefone().setCpfFuncionario(funcionario.getCpf());
+                telefoneDao.deletarPorCPFFuncionario(funcionario);
+                telefoneDao.inserir(funcionario.getTelefone());
             }
 
             return funcionario;

@@ -26,7 +26,7 @@
                   <Insets left="40.0" right="10.0" />
                </HBox.margin>
             </ImageView>
-            <HBox fx:id="menu" alignment="CENTER_RIGHT" prefHeight="80.0" prefWidth="730.0" spacing="15.0">
+            <HBox fx:id="menu" alignment="CENTER_RIGHT" prefHeight="80.0" prefWidth="730.0" spacing="15.0" HBox.hgrow="ALWAYS">
                <children>
                   <Label fx:id="nClie" onMouseClicked="#carregarClientes" text="Clientes" textOverrun="CLIP">
                      <padding>
@@ -114,7 +114,7 @@
                   <Insets left="60.0" />
                </padding>
                <HBox.margin>
-                  <Insets />
+                  <Insets right="30.0" />
                </HBox.margin>
             </HBox>
          </children>

@@ -15,7 +15,7 @@ public class VeiculoDao extends BaseDao <VeiculoVO>{
     }
 
     public boolean inserir(VeiculoVO veiculo) throws SQLException {
-        String query = "INSERT INTO veiculos (cor, modelo, placa, cpfDono, tipo) VALUES (?, ?, ?, ?, ?)";
+        String query = "INSERT INTO veiculos (cor, modelo, placa, cpfDono, tipo, ano, km) VALUES (?, ?, ?, ?, ?, ?, ?)";
         PreparedStatement ps = null;
 
         try {
@@ -25,6 +25,8 @@ public class VeiculoDao extends BaseDao <VeiculoVO>{
             ps.setString(3, veiculo.getPlaca());
             ps.setString(4, veiculo.getCpfDono());
             ps.setString(5, veiculo.getTipo());
+            ps.setString(6, veiculo.getAno());
+            ps.setDouble(7, veiculo.getKm());
             return ps.execute();
 
         } catch (SQLException e) {
@@ -50,17 +52,19 @@ public class VeiculoDao extends BaseDao <VeiculoVO>{
     }
 
     public VeiculoVO atualizar(VeiculoVO veiculo) throws SQLException {
-        String query = "UPDATE veiculos SET cor = ?, modelo = ?, placa = ?, cpfDono = ?, tipo = ? WHERE id = ?";
+        String query = "UPDATE veiculos SET cor = ?, modelo = ?, placa = ?, cpfDono = ?, tipo = ?, ano = ?, km = ? WHERE id = ?";
         PreparedStatement ps = null;
 
         try {
             ps = this.db.prepareStatement(query);
-            ps.setLong(6, veiculo.getId());
+            ps.setLong(8, veiculo.getId());
             ps.setString(1, veiculo.getCor());
             ps.setString(2, veiculo.getModelo());
             ps.setString(3, veiculo.getPlaca());
             ps.setString(4, veiculo.getCpfDono());
             ps.setString(5, veiculo.getTipo());
+            ps.setString(6, veiculo.getAno());
+            ps.setDouble(7, veiculo.getKm());
             ps.executeUpdate();
             return veiculo; 
 
