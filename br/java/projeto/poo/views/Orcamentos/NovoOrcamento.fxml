@@ -4,7 +4,9 @@
 <?import javafx.scene.Cursor?>
 <?import javafx.scene.Group?>
 <?import javafx.scene.control.Button?>
+<?import javafx.scene.control.ContextMenu?>
 <?import javafx.scene.control.Label?>
+<?import javafx.scene.control.MenuItem?>
 <?import javafx.scene.control.ScrollPane?>
 <?import javafx.scene.control.TableColumn?>
 <?import javafx.scene.control.TableView?>
@@ -148,7 +150,7 @@
                   </VBox>
                   <HBox alignment="CENTER_RIGHT" prefHeight="42.0" prefWidth="620.0" spacing="15.0" HBox.hgrow="ALWAYS">
                      <children>
-                        <Button fx:id="voltarTelaInicial" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" mnemonicParsing="false" onAction="#voltaTelaInicial" prefHeight="40.0" prefWidth="110.0" styleClass="btn-back" stylesheets="@../css/buttons.css" text="Voltar">
+                        <Button fx:id="voltaTelaInicial" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" mnemonicParsing="false" onAction="#voltaTelaInicial" prefHeight="40.0" prefWidth="110.0" styleClass="btn-back" stylesheets="@../css/buttons.css" text="Voltar">
                            <HBox.margin>
                               <Insets right="8.0" />
                            </HBox.margin>
@@ -183,7 +185,7 @@
                                     <Font name="System Bold" size="18.0" />
                                  </font>
                               </Label>
-                              <TextField layoutX="128.0" layoutY="27.0" prefHeight="40.0" prefWidth="211.0" promptText="Placa do veículo" styleClass="searchField" stylesheets="@../css/buttons.css" />
+                              <TextField fx:id="buscarPlaca" layoutX="128.0" layoutY="27.0" prefHeight="40.0" prefWidth="211.0" promptText="Placa do veículo" styleClass="searchField" stylesheets="@../css/buttons.css" />
                            </children>
                            <VBox.margin>
                               <Insets bottom="15.0" top="15.0" />
@@ -191,7 +193,7 @@
                         </Group>
                         <Group>
                            <children>
-                              <Rectangle arcHeight="8.0" arcWidth="8.0" fill="WHITE" height="644.0" layoutY="17.0" stroke="#8d8d8d" strokeType="INSIDE" width="949.0" />
+                              <Rectangle arcHeight="8.0" arcWidth="8.0" fill="WHITE" height="500.0" layoutY="17.0" stroke="#8d8d8d" strokeType="INSIDE" width="949.0" />
                               <VBox layoutX="20.0" layoutY="31.0">
                                  <children>
                                     <Group id="Table_Pecas">
@@ -203,14 +205,22 @@
                                                       <Font name="System Bold" size="18.0" />
                                                    </font>
                                                 </Label>
-                                                <TextField prefHeight="33.0" prefWidth="201.0" promptText="Nome da peça" styleClass="searchField" stylesheets="@../css/buttons.css" />
+                                                <TextField fx:id="campoBuscaPeca" prefHeight="33.0" prefWidth="201.0" promptText="Nome da peça" styleClass="searchField" stylesheets="@../css/buttons.css">
+                                                   <contextMenu>
+                                                      <ContextMenu>
+                                                        <items>
+                                                          <MenuItem mnemonicParsing="false" text="Unspecified Action" />
+                                                        </items>
+                                                      </ContextMenu>
+                                                   </contextMenu></TextField>
                                              </children>
                                           </HBox>
                                           <TableView layoutY="39.0" prefHeight="155.0" prefWidth="910.0">
                                             <columns>
-                                              <TableColumn prefWidth="408.0" text="Peça" />
-                                              <TableColumn prefWidth="362.0" text="Valor" />
-                                                <TableColumn prefWidth="139.0" text="Ação" />
+                                              <TableColumn prefWidth="390.0" text="Peça" />
+                                              <TableColumn minWidth="0.0" prefWidth="220.0" text="Valor" />
+                                                <TableColumn prefWidth="180.0" text="Quantidade" />
+                                                <TableColumn prefWidth="120.0" text="Ação" />
                                             </columns>
                                           </TableView>
                                        </children>
@@ -227,14 +237,15 @@
                                                       <Font name="System Bold" size="18.0" />
                                                    </font>
                                                 </Label>
-                                                <TextField prefHeight="33.0" prefWidth="201.0" promptText="Nome do serviço" styleClass="searchField" stylesheets="@../css/buttons.css" />
+                                                <TextField fx:id="campoBuscaServ" prefHeight="33.0" prefWidth="201.0" promptText="Nome do serviço" styleClass="searchField" stylesheets="@../css/buttons.css" />
                                              </children>
                                           </HBox>
                                           <TableView layoutY="41.0" prefHeight="155.0" prefWidth="910.0">
                                              <columns>
-                                                <TableColumn prefWidth="408.0" text="Serviço" />
-                                                <TableColumn prefWidth="362.0" text="Valor" />
-                                                <TableColumn prefWidth="139.0" text="Ação" />
+                                                <TableColumn prefWidth="390.0" text="Serviço" />
+                                                <TableColumn prefWidth="220.0" text="Valor" />
+                                                <TableColumn prefWidth="180.0" text="Quantidade" />
+                                                <TableColumn prefWidth="120.0" text="Ação" />
                                              </columns>
                                           </TableView>
                                        </children>
@@ -242,13 +253,21 @@
                                           <Insets bottom="15.0" />
                                        </VBox.margin>
                                     </Group>
-                                    <HBox>
+                                    <HBox spacing="20.0">
                                        <children>
                                           <AnchorPane prefHeight="27.0" prefWidth="585.0" />
                                           <Label alignment="CENTER" text="Valor total">
                                              <font>
                                                 <Font name="System Bold" size="18.0" />
                                              </font>
+                                          </Label>
+                                          <Label fx:id="valorOrcamento" alignment="CENTER" layoutX="595.0" layoutY="10.0" text="R$ 1000" visible="false">
+                                             <font>
+                                                <Font name="System Bold" size="18.0" />
+                                             </font>
+                                             <HBox.margin>
+                                                <Insets left="50.0" />
+                                             </HBox.margin>
                                           </Label>
                                        </children>
                                     </HBox>

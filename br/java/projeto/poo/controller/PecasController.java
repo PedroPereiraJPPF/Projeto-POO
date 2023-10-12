@@ -184,5 +184,15 @@ public class PecasController extends BaseController {
         Stage palco = (Stage)this.cancelarCadastro.getScene().getWindow();
         palco.close();
     }
+
+    @FXML
+    void setInvisibleCad(){
+        this.mensagemErroCad.setVisible(false);
+    }
+
+    @FXML
+    void setInvisibleEdit(){
+        this.mensagemErroEdit.setVisible(false);
+    }
   
 }

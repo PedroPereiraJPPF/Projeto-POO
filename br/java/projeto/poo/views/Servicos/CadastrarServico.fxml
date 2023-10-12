@@ -26,13 +26,13 @@
             <VBox maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="60.0" prefWidth="300.0">
                <children>
                   <Label text="Nome" />
-                  <TextField fx:id="campoCadNome" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="40.0" prefWidth="300.0" promptText="Ex.: Troca de óleo" />
+                  <TextField fx:id="campoCadNome" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" onMouseClicked="#setInvisibleCad" prefHeight="40.0" prefWidth="300.0" promptText="Ex.: Troca de óleo" />
                </children>
             </VBox>
             <VBox maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="60.0" prefWidth="300.0">
                <children>
                   <Label text="Valor" />
-                  <TextField fx:id="campoCadValor" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="40.0" prefWidth="300.0" promptText="Ex.: 25" />
+                  <TextField fx:id="campoCadValor" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" onMouseClicked="#setInvisibleCad" prefHeight="40.0" prefWidth="300.0" promptText="Ex.: 25" />
                </children>
             </VBox>
          </children>

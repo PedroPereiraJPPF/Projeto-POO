@@ -144,7 +144,7 @@
                               <Insets />
                            </HBox.margin>
                         </TextField>
-                        <Button id="NovaPeca" fx:id="novaPeca" maxHeight="-Infinity" maxWidth="150.0" minHeight="-Infinity" minWidth="-Infinity" mnemonicParsing="false" onAction="#abrirCadastro" prefHeight="40.0" prefWidth="150.0" styleClass="btn-primary" stylesheets="@../css/buttons.css" text="Nova Peça">
+                        <Button id="NovaPeca" fx:id="novaPeca" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" mnemonicParsing="false" onAction="#abrirCadastro" prefHeight="40.0" prefWidth="120.0" styleClass="btn-primary" stylesheets="@../css/buttons.css" text="Nova Peça">
                            <HBox.margin>
                               <Insets />
                            </HBox.margin>

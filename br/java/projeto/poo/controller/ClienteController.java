@@ -154,7 +154,8 @@ public class ClienteController extends BaseController{
     @FXML
     void cadastrarCliente() throws Exception{
         
-        String ano = null, cor = null, cpf = null, endereco = null, modelo = null, nome = null, placa = null, quilometragem = null, tipoVeic = null;
+        String ano = null, cor = null, cpf = null, endereco = null, modelo = null, nome = null, placa = null, tipoVeic = null;
+        double quilometragem = 0;
         long id = 0;
         DropShadow ErrorStyle = new DropShadow();
         ErrorStyle.setBlurType(BlurType.THREE_PASS_BOX);
@@ -184,7 +185,7 @@ public class ClienteController extends BaseController{
         else placa = campoPlacCliente.getText();
 
         if (this.campoKMVeic.getText().isEmpty()) {this.mensagemErroCad.setVisible(true);} 
-        else quilometragem = campoKMVeic.getText();
+        else quilometragem = Double.parseDouble(campoKMVeic.getText());
 
         if (this.tipoVeic.getValue() == null){this.mensagemErroCad.setVisible(true);}
         else tipoVeic = this.tipoVeic.getValue();
@@ -198,7 +199,7 @@ public class ClienteController extends BaseController{
                 //nEnderecoBO.inserir(nEnderecoVO);
 
                 ClienteVO nClienteVO = new ClienteVO(id, nome, cpf, nEnderecoVO);
-                VeiculoVO nVeiculoVO = new VeiculoVO(id, placa, cor, modelo, cpf, tipoVeic);
+                VeiculoVO nVeiculoVO = new VeiculoVO(id, placa, cor, modelo, cpf, tipoVeic, ano, quilometragem);
 
                 ClienteBO clienteBO = new ClienteBO();
                 clienteBO.inserir(nClienteVO);

@@ -135,4 +135,14 @@ public class ServicosController extends BaseController{
         palco.close();
     }
 
+    @FXML
+    void setInvisibleCad(){
+        this.mensagemErroCad.setVisible(false);
+    }
+
+    @FXML
+    void setInvisibleEdit(){
+        this.mensagemErroEdit.setVisible(false);
+    }
+
 }

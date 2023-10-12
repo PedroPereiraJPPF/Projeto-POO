@@ -151,7 +151,7 @@
                               <Insets />
                            </HBox.margin>
                         </TextField>
-                        <Button fx:id="novoCliente" alignment="CENTER_RIGHT" mnemonicParsing="false" onAction="#abrirCadastro" prefHeight="40.0" stylesheets="@../css/buttons.css" text="Novo Cliente" textAlignment="RIGHT" textFill="#064eb9">
+                        <Button fx:id="novoCliente" alignment="CENTER_RIGHT" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" mnemonicParsing="false" onAction="#abrirCadastro" prefHeight="40.0" prefWidth="125.0" stylesheets="@../css/buttons.css" text="Novo Cliente" textAlignment="RIGHT" textFill="#064eb9">
                            <padding>
                               <Insets bottom="10.0" left="35.0" right="10.0" top="10.0" />
                            </padding>

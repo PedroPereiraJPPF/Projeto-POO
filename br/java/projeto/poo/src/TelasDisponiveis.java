@@ -15,13 +15,13 @@ public class TelasDisponiveis {
     public TelasDisponiveis() {
         this.telasDisponiveis = new HashMap<String, String>();
         this.telasDisponiveis.put("orcamentos", "Orcamentos/Orcamentos.fxml");
+        this.telasDisponiveis.put("novoOrcamento", "Orcamentos/NovoOrcamento.fxml");
         this.telasDisponiveis.put("clientes", "Clientes/Clientes.fxml");
         this.telasDisponiveis.put("automoveis", "Automoveis/Automoveis.fxml");
         this.telasDisponiveis.put("login", "Login/Login.fxml");
         this.telasDisponiveis.put("pecas", "Pecas/Pecas.fxml");
         this.telasDisponiveis.put("servicos", "Servicos/Servicos.fxml");
         this.telasDisponiveis.put("funcionarios", "Funcionarios/Funcionarios.fxml");
-        this.telasDisponiveis.put("cadastrarCliente", "/Clientes/CadastrarCliente.fxml");
         this.telasDisponiveis.put("exibirClientes", "/Clientes/ExibirCliente.fxml");
     }
 
