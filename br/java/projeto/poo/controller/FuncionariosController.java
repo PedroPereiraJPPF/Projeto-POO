@@ -58,6 +58,9 @@ public class FuncionariosController extends BaseController{
     private TableColumn<FuncionarioVO, String> funcEndereco;
 
     @FXML
+    private TableColumn<FuncionarioVO, String> funcTelefone;
+
+    @FXML
     private TextField buscar;
 
     @FXML
@@ -128,6 +131,7 @@ public class FuncionariosController extends BaseController{
         funcSalario.setCellValueFactory(new PropertyValueFactory<FuncionarioVO, Double>("salario"));
         funcId.setCellValueFactory(new PropertyValueFactory<FuncionarioVO, Integer>("id"));
         funcEndereco.setCellValueFactory(new PropertyValueFactory<FuncionarioVO, String>("endereco"));
+        funcTelefone.setCellValueFactory(new PropertyValueFactory<FuncionarioVO, String>("telefone"));
         tabelaFuncionarios.setItems(funcionariosDisponiveis);
         this.inicializarBotoesDeAcao(funcionariosDisponiveis);
     }

@@ -43,4 +43,8 @@ public class TelefoneVO {
         this.cpfFuncionario = cpfFuncionario;
     }
 
+    public String toString() {
+        return this.numero; 
+    }
+
 }

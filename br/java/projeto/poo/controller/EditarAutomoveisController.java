@@ -1,8 +1,6 @@
 package br.java.projeto.poo.controller;
 
-import br.java.projeto.poo.models.BO.EnderecoBO;
 import br.java.projeto.poo.models.BO.VeiculoBO;
-import br.java.projeto.poo.models.VO.EnderecoVO;
 import br.java.projeto.poo.models.VO.VeiculoVO;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;

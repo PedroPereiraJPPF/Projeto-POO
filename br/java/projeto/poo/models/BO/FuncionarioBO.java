@@ -10,25 +10,31 @@ import br.java.projeto.poo.exceptions.UsuarioNaoEncontradoException;
 import br.java.projeto.poo.models.DAO.FuncionarioDao;
 import br.java.projeto.poo.models.VO.EnderecoVO;
 import br.java.projeto.poo.models.VO.FuncionarioVO;
+import br.java.projeto.poo.models.VO.TelefoneVO;
 
 public class FuncionarioBO {
     private FuncionarioDao funcionarioDao = new FuncionarioDao();
-    private EnderecoBO endereco = new EnderecoBO();
+    private EnderecoBO enderecoBO = new EnderecoBO();
+    private TelefoneBO telefoneBO = new TelefoneBO();
 
     public ArrayList<FuncionarioVO> listar() throws Exception {
         try {
             ArrayList<FuncionarioVO> funcionarios = new ArrayList<FuncionarioVO>();
             ResultSet selectFuncionarios = funcionarioDao.listar();
             while(selectFuncionarios.next()) {
-                EnderecoVO selectEndereco = endereco.buscarPorFuncionario(selectFuncionarios.getString("cpf"));
+                EnderecoVO selectEndereco = enderecoBO.buscarPorFuncionario(selectFuncionarios.getString("cpf"));
+                TelefoneVO selectTelefone = telefoneBO.buscarPorFuncionario(selectFuncionarios.getString("cpf"));
+
                 funcionarios.add(new FuncionarioVO(
                     selectFuncionarios.getInt("id"), 
                     selectFuncionarios.getString("nome"),
-                    selectFuncionarios.getString("cpf"), 
-                    selectFuncionarios.getDouble("salario"), 
-                    selectFuncionarios.getString("dataDeAdmissao"), 
+                    selectFuncionarios.getString("cpf"),
+                    selectFuncionarios.getDouble("salario"),
+                    selectFuncionarios.getString("dataDeAdmissao"),
                     selectEndereco,
-                    selectFuncionarios.getInt("funcao")));
+                    selectFuncionarios.getInt("funcao"),
+                    selectTelefone,
+                    null));
             }
             
             return funcionarios;
@@ -89,6 +95,10 @@ public class FuncionarioBO {
                 throw new InvalidCpfException("CPF inválido o formato deve ser ***.***.***-**");
             }
 
+            if(!this.validarNumero(vo.getTelefone().getNumero())) {
+                throw new Exception("Numero inválido o formato deve ser ***********");
+            }
+
             return funcionarioDao.inserir(vo);
         } catch (SQLException e) {
             if (e.getSQLState().equals("23505")) {
@@ -110,6 +120,10 @@ public class FuncionarioBO {
 
             if (!this.validarCpf(vo.getCpf())) {
                 throw new InvalidCpfException("CPF inválido o formato deve ser ***.***.***-**");
+            }
+
+            if(!this.validarNumero(vo.getTelefone().getNumero())) {
+                throw new Exception("Numero inválido o formato deve ser ***********");
             }
 
             return funcionarioDao.atualizar(vo);
@@ -164,5 +178,9 @@ public class FuncionarioBO {
 
     private boolean validarCpf(String cpf) {
         return cpf.matches("\\b\\d{3}\\.\\d{3}\\.\\d{3}-\\d{2}\\b");
+    }
+
+    private boolean validarNumero(String numero) {
+        return numero.matches("\\b\\d{11}");
     }
 }

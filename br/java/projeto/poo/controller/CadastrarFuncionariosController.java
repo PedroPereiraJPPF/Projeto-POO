@@ -6,6 +6,7 @@ import java.text.SimpleDateFormat;
 import br.java.projeto.poo.models.BO.FuncionarioBO;
 import br.java.projeto.poo.models.VO.EnderecoVO;
 import br.java.projeto.poo.models.VO.FuncionarioVO;
+import br.java.projeto.poo.models.VO.TelefoneVO;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.control.Button;
@@ -48,6 +49,9 @@ public class CadastrarFuncionariosController {
     private TextField senha;
 
     @FXML
+    private TextField telefone;
+
+    @FXML
     void initialize () {
         this.mensagemDeErro.setVisible(false);
     }
@@ -58,9 +62,11 @@ public class CadastrarFuncionariosController {
             this.validarCamposVazios();
             Date dataAtual = new Date();
             SimpleDateFormat formato = new SimpleDateFormat("dd/MM/yyyy");
-            String dataAtualString = formato.format(dataAtual); // pega a data em que o usuario esta sendo criado
+            String dataAtualString = formato.format(dataAtual); // pega a data em que o funcionario esta sendo criado
             EnderecoVO enderecoFuncionario = new EnderecoVO().pegarValoresComoString(endereco.getText()); // envia a string com os dados do endereco
             enderecoFuncionario.setCpfFuncionario(cpf.getText());
+            TelefoneVO telefoneFuncionario = new TelefoneVO(0, null, cpf.getText(), telefone.getText());
+            
 
             FuncionarioVO funcionario = new FuncionarioVO(0, 
             nome.getText(), 
@@ -69,6 +75,7 @@ public class CadastrarFuncionariosController {
             dataAtualString, 
             enderecoFuncionario, 
             Integer.valueOf(nivel.getText()),
+            telefoneFuncionario,
             senha.getText());
 
             if(funcionarioBO.inserir(funcionario)) {
@@ -112,6 +119,9 @@ public class CadastrarFuncionariosController {
         }
         if (senha.getText().isEmpty()) {
             throw new Exception("Senha não pode ser vazio");
+        }
+        if (telefone.getText().isEmpty()) {
+            throw new Exception("O funcionario precisa ter um telefone");
         }
     }
 

@@ -4,7 +4,6 @@ import java.sql.SQLException;
 import java.util.ArrayList;
 
 import br.java.projeto.poo.models.BO.VeiculoBO;
-import br.java.projeto.poo.models.VO.FuncionarioVO;
 import br.java.projeto.poo.models.VO.VeiculoVO;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
