@@ -20,5 +20,5 @@
     -fx-border-color: #b6b6b6;
     -fx-border-radius: 5px;
     -fx-background-color: #ffffff;
-    -fx-effect: dropshadow(GAUSSIAN, #636363,);
+    /*-fx-effect: dropshadow(GAUSSIAN, #636363,);*/
 }

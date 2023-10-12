@@ -148,12 +148,12 @@
                   </VBox>
                   <HBox alignment="CENTER_RIGHT" prefHeight="42.0" prefWidth="620.0" spacing="15.0" HBox.hgrow="ALWAYS">
                      <children>
-                        <Button maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" mnemonicParsing="false" prefHeight="40.0" prefWidth="110.0" styleClass="btn-back" stylesheets="@../css/buttons.css" text="Voltar">
+                        <Button fx:id="voltarTelaInicial" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" mnemonicParsing="false" onAction="#voltaTelaInicial" prefHeight="40.0" prefWidth="110.0" styleClass="btn-back" stylesheets="@../css/buttons.css" text="Voltar">
                            <HBox.margin>
                               <Insets right="8.0" />
                            </HBox.margin>
                         </Button>
-                        <Button minHeight="-Infinity" minWidth="-Infinity" mnemonicParsing="false" prefHeight="40.0" prefWidth="110.0" styleClass="btn-primary" stylesheets="@../css/buttons.css" text="Salvar">
+                        <Button fx:id="salvarNovoOrcamento" minHeight="-Infinity" minWidth="-Infinity" mnemonicParsing="false" prefHeight="40.0" prefWidth="110.0" styleClass="btn-primary" stylesheets="@../css/buttons.css" text="Salvar">
                            <HBox.margin>
                               <Insets left="8.0" />
                            </HBox.margin>

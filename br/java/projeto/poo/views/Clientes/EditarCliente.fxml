@@ -17,19 +17,19 @@
             <VBox alignment="CENTER_LEFT" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="80.0" prefWidth="400.0" spacing="15.0">
                <children>
                   <Label text="Nome" />
-                  <TextField fx:id="campoNome" minHeight="-Infinity" minWidth="-Infinity" onMouseClicked="#SetInvisibleEdit" prefHeight="40.0" prefWidth="400.0" />
+                  <TextField fx:id="campoNome" minHeight="-Infinity" minWidth="-Infinity" onMouseClicked="#setInvisibleEdit" prefHeight="40.0" prefWidth="400.0" promptText="Ex.: João Pedro" />
                </children>
             </VBox>
             <VBox alignment="CENTER_LEFT" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="80.0" prefWidth="400.0" spacing="15.0">
                <children>
                   <Label text="Endereço" />
-                  <TextField fx:id="campoEndereco" minHeight="-Infinity" minWidth="-Infinity" onMouseClicked="#SetInvisibleEdit" prefHeight="40.0" prefWidth="400.0" />
+                  <TextField fx:id="campoEndereco" minHeight="-Infinity" minWidth="-Infinity" onMouseClicked="#setInvisibleEdit" prefHeight="40.0" prefWidth="400.0" promptText="Ex.: Rua, número, bairro, cidade" />
                </children>
             </VBox>
             <VBox alignment="CENTER_LEFT" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="80.0" prefWidth="400.0" spacing="15.0">
                <children>
                   <Label text="CPF" />
-                  <TextField fx:id="campoCPF" minHeight="-Infinity" minWidth="-Infinity" onMouseClicked="#SetInvisibleEdit" prefHeight="40.0" prefWidth="400.0" />
+                  <TextField fx:id="campoCPF" minHeight="-Infinity" minWidth="-Infinity" onMouseClicked="#setInvisibleEdit" prefHeight="40.0" prefWidth="400.0" promptText="Ex.: 123.456.789-10" />
                </children>
             </VBox>
          </children>
@@ -38,23 +38,23 @@
          <children>
             <Label text="Editar dados do cliente">
                <font>
-                  <Font name="System Bold" size="20.0" />
+                  <Font size="20.0" />
                </font>
                <padding>
                   <Insets left="20.0" />
                </padding>
             </Label>
-            <Separator prefWidth="500.0" />
+            <Separator maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="0.0" prefWidth="500.0" />
          </children>
          <padding>
             <Insets top="10.0" />
          </padding>
       </VBox>
-      <Separator layoutY="366.0" prefWidth="500.0" />
+      <Separator layoutY="366.0" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" prefWidth="500.0" />
       <HBox alignment="CENTER" layoutY="369.0" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="80.0" prefWidth="500.0" spacing="20.0">
          <children>
-            <Button fx:id="cancelarEdicao" alignment="CENTER" contentDisplay="CENTER" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" mnemonicParsing="false" onAction="#CancelarEdicao" prefHeight="45.0" prefWidth="190.0" styleClass="btn-back" stylesheets="@../css/buttons.css" text="Cancelar" />
-            <Button fx:id="salvarEdicao" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" mnemonicParsing="false" prefHeight="45.0" prefWidth="190.0" styleClass="btn-primary" stylesheets="@../css/buttons.css" text="Salvar Alterações" />
+            <Button fx:id="cancelarEdicao" alignment="CENTER" contentDisplay="CENTER" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" mnemonicParsing="false" onAction="#cancelarEdicao" prefHeight="45.0" prefWidth="190.0" styleClass="btn-back" stylesheets="@../css/buttons.css" text="Cancelar" />
+            <Button fx:id="salvarEdicao" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" mnemonicParsing="false" onAction="#editarCliente" prefHeight="45.0" prefWidth="190.0" styleClass="btn-primary" stylesheets="@../css/buttons.css" text="Salvar Alterações" />
          </children>
       </HBox>
       <Label fx:id="mensagemErroEdit" alignment="CENTER" contentDisplay="CENTER" layoutX="117.0" layoutY="337.0" text="Os campos não podem ser vazios" textFill="RED" visible="false">

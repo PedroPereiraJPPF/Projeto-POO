@@ -4,7 +4,7 @@ import br.java.projeto.poo.exceptions.InvalidEnderecoException;
 
 public class EnderecoVO {
     private long id;
-    private String cpfCliente, cpfFuncionario, rua, bairro, cidade, estado, cep;
+    private String cpfCliente, cpfFuncionario, rua, bairro, cidade, numero;
 
     public EnderecoVO() {
 
@@ -15,14 +15,14 @@ public class EnderecoVO {
         setCpfFuncionario(cpfFuncionario);
     }
 
-    public EnderecoVO(int id, String cpfCliente, String cpfFuncionario, String rua, String bairro, String cidade, String estado) {
+    public EnderecoVO(int id, String cpfCliente, String cpfFuncionario, String rua, String numero, String bairro, String cidade) {
         setId(id);
         setCpfCliente(cpfCliente);
         setCpfFuncionario(cpfFuncionario);
         setRua(rua);
         setBairro(bairro);
         setCidade(cidade);
-        setEstado(estado);
+        setNumero(numero);
     }
 
 
@@ -74,24 +74,16 @@ public class EnderecoVO {
         this.cidade = cidade;
     }
 
-    public String getEstado() {
-        return this.estado;
+    public String getNumero() {
+        return this.numero;
     }
 
-    public void setEstado(String estado) {
-        this.estado = estado;
-    }
-
-    public String getCep() {
-        return this.cep;
-    }
-
-    public void setCep(String cep) {
-        this.cep = cep;
+    public void setNumero(String numero) {
+        this.numero = numero;
     }
 
     public String toString() {
-        return this.rua + ", " + this.bairro + ", " + this.cidade + ", " + this.estado; 
+        return this.rua + ", " + this.numero + ", " + this.bairro + ", " + this.cidade; 
     }
 
     public EnderecoVO pegarValoresComoString(String enderecoCompleto) throws InvalidEnderecoException {
@@ -101,9 +93,9 @@ public class EnderecoVO {
             throw new InvalidEnderecoException("formato de endereço invalido");
         }
         this.rua = partes[0];
-        this.bairro = partes[1];
-        this.cidade = partes[2];
-        this.estado = partes[3];
+        this.numero = partes[1];
+        this.bairro = partes[2];
+        this.cidade = partes[3];
 
         return this;
     }

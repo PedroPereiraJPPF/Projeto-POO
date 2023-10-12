@@ -2,18 +2,21 @@ package br.java.projeto.poo.models.VO;
 
 import br.java.projeto.poo.exceptions.InvalidIdException;
 import br.java.projeto.poo.exceptions.InvalidNomeException;
+import br.java.projeto.poo.exceptions.InvalidQuantidadeException;
 import br.java.projeto.poo.exceptions.InvalidValorException;
 
 public class PecaVo {
     private long id;
     private String nome, fabricante;
     private double valor;
+    private int quantidade;
 
-    public PecaVo(long id, String nome, String fabricante, double valor) throws Exception {
+    public PecaVo(long id, String nome, String fabricante, double valor, int quantidade) throws Exception {
         setId(id);
         setNome(nome);
         setFabricante(fabricante);
         setValor(valor);
+        setQuantidade(quantidade);
     }
 
     public long getId() {
@@ -60,5 +63,15 @@ public class PecaVo {
         }
 
         this.valor = valor;
+    }
+
+    public int getQuantidade(){
+        return this.quantidade;
+    }
+
+    public void setQuantidade(int quantidade)throws InvalidQuantidadeException{
+        if(this.quantidade <= 0){
+            throw new InvalidQuantidadeException("O valor dever maior que 0");
+        }
     }
 }

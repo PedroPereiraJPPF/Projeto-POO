@@ -1,0 +1,65 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.Separator?>
+<?import javafx.scene.control.TextField?>
+<?import javafx.scene.layout.HBox?>
+<?import javafx.scene.layout.Pane?>
+<?import javafx.scene.layout.VBox?>
+<?import javafx.scene.text.Font?>
+
+<Pane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="400.0" styleClass="pane" stylesheets="@../css/Modals.css" xmlns="http://javafx.com/javafx/20.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="br.java.projeto.poo.controller.PecasController">
+   <children>
+      <Label contentDisplay="CENTER" layoutY="14.0" text="Cadastrar peça">
+         <font>
+            <Font size="18.0" />
+         </font>
+         <padding>
+            <Insets left="25.0" />
+         </padding>
+      </Label>
+      <Separator layoutY="50.0" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="5.0" prefWidth="400.0" />
+      <VBox layoutX="50.0" layoutY="55.0" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="200.0" prefWidth="300.0" spacing="5.0">
+         <children>
+            <VBox>
+               <children>
+                  <Label text="Nome" />
+                  <TextField fx:id="campoCadNome" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="40.0" prefWidth="300.0" promptText="Ex.: Freio " />
+               </children>
+            </VBox>
+            <VBox>
+               <children>
+                  <Label text="Fabricante" />
+                  <TextField fx:id="campoCadFabricante" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="40.0" prefWidth="300.0" promptText="Ex.: Toyota" />
+               </children>
+            </VBox>
+            <VBox layoutX="10.0" layoutY="77.0">
+               <children>
+                  <Label text="Quantidade" />
+                  <TextField fx:id="campoCadQuantidade" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="40.0" prefWidth="300.0" promptText="Ex.: 500" />
+               </children>
+            </VBox>
+            <VBox layoutX="10.0" layoutY="144.0">
+               <children>
+                  <Label text="Valor" />
+                  <TextField fx:id="campoCadValor" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="40.0" prefWidth="300.0" promptText="Ex.: 2000" />
+               </children>
+            </VBox>
+         </children>
+      </VBox>
+      <Label fx:id="mensagemErroCad" alignment="CENTER" contentDisplay="CENTER" layoutX="89.0" layoutY="299.0" text="Os campos não podem ser vazios" textFill="RED" visible="false">
+         <font>
+            <Font size="15.0" />
+         </font>
+      </Label>
+      <Separator layoutY="320.0" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="5.0" prefWidth="400.0" />
+      <HBox layoutX="50.0" layoutY="340.0" spacing="20.0">
+         <children>
+            <Button fx:id="cancelarCadastro" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" mnemonicParsing="false" onAction="#cancelarCadastro" prefHeight="40.0" prefWidth="140.0" styleClass="btn-back" stylesheets="@../css/buttons.css" text="Cancelar" />
+            <Button fx:id="cadastrarPeca" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" mnemonicParsing="false" onAction="#cadastrarPeca" prefHeight="40.0" prefWidth="140.0" styleClass="btn-primary" stylesheets="@../css/buttons.css" text="Cadastrar peça" />
+         </children>
+      </HBox>
+   </children>
+</Pane>

@@ -139,12 +139,12 @@
                   </VBox>
                   <HBox alignment="CENTER_RIGHT" spacing="25.0" HBox.hgrow="ALWAYS">
                      <children>
-                        <TextField prefHeight="40.0" prefWidth="300.0" promptText="Buscar por fabricante ou nome" styleClass="searchField" stylesheets="@../css/buttons.css">
+                        <TextField fx:id="buscarPeca" onAction="#buscarPeca" prefHeight="40.0" prefWidth="300.0" promptText="Buscar por fabricante ou nome" styleClass="searchField" stylesheets="@../css/buttons.css">
                            <HBox.margin>
                               <Insets />
                            </HBox.margin>
                         </TextField>
-                        <Button id="NovaPeca" maxHeight="-Infinity" maxWidth="150.0" minHeight="-Infinity" minWidth="-Infinity" mnemonicParsing="false" prefHeight="40.0" prefWidth="150.0" styleClass="btn-primary" stylesheets="@../css/buttons.css" text="Nova Peça">
+                        <Button id="NovaPeca" fx:id="novaPeca" maxHeight="-Infinity" maxWidth="150.0" minHeight="-Infinity" minWidth="-Infinity" mnemonicParsing="false" onAction="#abrirCadastro" prefHeight="40.0" prefWidth="150.0" styleClass="btn-primary" stylesheets="@../css/buttons.css" text="Nova Peça">
                            <HBox.margin>
                               <Insets />
                            </HBox.margin>
@@ -168,10 +168,11 @@
             </HBox>
             <TableView prefHeight="200.0" prefWidth="200.0" stylesheets="@../css/tabela.css">
                <columns>
-                  <TableColumn maxWidth="500.0" prefWidth="274.0" text="Peça" />
-                  <TableColumn maxWidth="400.0" prefWidth="171.0" text="Fabricante" />
-                  <TableColumn maxWidth="800.0" prefWidth="353.0" text="Valor" />
-                  <TableColumn maxWidth="185.0" prefWidth="114.0" text="Açoes" />
+                  <TableColumn maxWidth="500.0" prefWidth="252.0" text="Peça" />
+                  <TableColumn maxWidth="400.0" prefWidth="230.0" text="Fabricante" />
+                  <TableColumn maxWidth="800.0" prefWidth="158.0" text="Valor" />
+                  <TableColumn prefWidth="162.0" text="Quantidade" />
+                  <TableColumn maxWidth="185.0" prefWidth="110.0" text="Açoes" />
                </columns>
                <columnResizePolicy>
                   <TableView fx:constant="CONSTRAINED_RESIZE_POLICY" />
