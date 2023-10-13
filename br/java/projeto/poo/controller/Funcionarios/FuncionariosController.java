@@ -1,4 +1,4 @@
-package br.java.projeto.poo.controller;
+package br.java.projeto.poo.controller.Funcionarios;
 
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
@@ -22,6 +22,8 @@ import javafx.stage.StageStyle;
 import java.io.IOException;
 import java.sql.SQLException;
 import java.util.ArrayList;
+
+import br.java.projeto.poo.controller.BaseController;
 import br.java.projeto.poo.models.BO.FuncionarioBO;
 import br.java.projeto.poo.models.VO.FuncionarioVO;
 
@@ -98,7 +100,7 @@ public class FuncionariosController extends BaseController{
         modalStage.initStyle(StageStyle.UNDECORATED);
         modalStage.setResizable(false);
 
-        FXMLLoader loader = new FXMLLoader(getClass().getResource("../views/Funcionarios/CadastrarFuncionario.fxml"));
+        FXMLLoader loader = new FXMLLoader(getClass().getResource("../../views/Funcionarios/CadastrarFuncionario.fxml"));
         Parent root = loader.load();
         Scene modalScene = new Scene(root);
         modalStage.setScene(modalScene);
@@ -110,7 +112,7 @@ public class FuncionariosController extends BaseController{
             Stage modalStage = new Stage();
             modalStage.initModality(Modality.APPLICATION_MODAL);
 
-            FXMLLoader loader = new FXMLLoader(getClass().getResource("../views/Funcionarios/EditarFuncionario.fxml"));
+            FXMLLoader loader = new FXMLLoader(getClass().getResource("../../views/Funcionarios/EditarFuncionario.fxml"));
             Parent root = loader.load();
             EditarFuncionariosController editarController = loader.getController();
             editarController.setDados(vo, indice);
@@ -127,7 +129,7 @@ public class FuncionariosController extends BaseController{
             Stage modalStage = new Stage();
             modalStage.initModality(Modality.APPLICATION_MODAL);
 
-            FXMLLoader loader = new FXMLLoader(getClass().getResource("../views/Funcionarios/ConfirmarDelete.fxml"));
+            FXMLLoader loader = new FXMLLoader(getClass().getResource("../../views/Funcionarios/ConfirmarDelete.fxml"));
             Parent root = loader.load();
             DeletarFuncionarioController deletar = loader.getController();
             deletar.setDados(id, indice);

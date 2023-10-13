@@ -152,4 +152,30 @@ public class OrcamentoDao extends BaseDao <OrcamentoVO>{
             throw e;
         }
     }
+
+    public ResultSet listarPecas(OrcamentoVO orcamento) throws SQLException {
+        String query = "Select * from pecas where id in (select idPeca from pecas_orcamentos where idOrcamento = ?)";
+        PreparedStatement ps = null;
+        try {
+            ps = this.db.prepareStatement(query);
+            ps.setLong(1, orcamento.getId());
+            return ps.executeQuery();
+
+        } catch (SQLException e) {
+            throw e;
+        }
+    }
+
+    public ResultSet listarServicos(OrcamentoVO orcamento) throws SQLException {
+        String query = "Select * from servicos where id in (select idServico from servicos_orcamentos where idOrcamento = ?)";
+        PreparedStatement ps = null;
+        try {
+            ps = this.db.prepareStatement(query);
+            ps.setLong(1, orcamento.getId());
+            return ps.executeQuery();
+
+        } catch (SQLException e) {
+            throw e;
+        }
+    }
 }

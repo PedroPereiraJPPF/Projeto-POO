@@ -1,5 +1,6 @@
-package br.java.projeto.poo.controller;
+package br.java.projeto.poo.controller.Orcamentos;
 
+import br.java.projeto.poo.controller.BaseController;
 import br.java.projeto.poo.src.App;
 import javafx.fxml.FXML;
 import javafx.scene.control.Button;

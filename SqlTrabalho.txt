@@ -78,6 +78,7 @@ create table orcamentos (
 	valor float,
 	placaVeiculo varchar(10),
 	dataDeCriacao Date,
+	dataDeEncerramento Date,
 	cpfResponsavel varchar(20),
 	
 	primary key(id),

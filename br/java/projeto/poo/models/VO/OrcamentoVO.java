@@ -1,13 +1,15 @@
 package br.java.projeto.poo.models.VO;
 
+import java.sql.Date;
 import java.util.ArrayList;
 
 public class OrcamentoVO {
     long id;
     String placaVeiculo, cpfCliente;
-    float valor;
+    double valor;
     ArrayList<PecaVo> pecas;
     ArrayList<ServicoVO> Servicos;
+    Date dataDeCriação, dataDeEncerramento;
 
     public long getId() {
         return this.id;
@@ -25,11 +27,11 @@ public class OrcamentoVO {
         this.placaVeiculo = placaVeiculo;
     }
 
-    public float getValor() {
+    public double getValor() {
         return this.valor;
     }
 
-    public void setValor(float valor) {
+    public void setValor(double valor) {
         this.valor = valor;
     }
 
@@ -49,7 +51,23 @@ public class OrcamentoVO {
         this.Servicos = Servicos;
     }
 
-    public String getCpfCliente() {
+    public Date getDataDeCriação() {
+        return this.dataDeCriação;
+    }
+
+    public void setDataDeCriação(Date dataDeCriação) {
+        this.dataDeCriação = dataDeCriação;
+    }
+
+    public Date getDataDeEncerramento() {
+        return this.dataDeEncerramento;
+    }
+
+    public void setDataDeEncerramento(Date dataDeEncerramento) {
+        this.dataDeEncerramento = dataDeEncerramento;
+    }
+
+    public String getCpfCliente() { // campo que não existe no banco usado para facilitar queries
         return this.cpfCliente;
     }
 
