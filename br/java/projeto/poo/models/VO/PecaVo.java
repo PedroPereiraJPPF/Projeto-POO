@@ -34,7 +34,7 @@ public class PecaVo {
     }
 
     public void setNome(String nome) throws InvalidNomeException {
-        if(nome == null || nome.isEmpty()) {
+        if(nome.isBlank() || nome.isEmpty()) {
             throw new InvalidNomeException("O nome não pode ser vazio");
         }
 
@@ -46,7 +46,7 @@ public class PecaVo {
     }
 
     public void setFabricante(String fabricante) throws InvalidNomeException {
-        if(fabricante == null || fabricante.isEmpty()) {
+        if(fabricante.isBlank() || fabricante.isEmpty()) {
             throw new InvalidNomeException("O fabricante é inválido");
         }
 
@@ -73,5 +73,6 @@ public class PecaVo {
         if(this.quantidade <= 0){
             throw new InvalidQuantidadeException("O valor dever maior que 0");
         }
+        this.quantidade = quantidade;
     }
 }

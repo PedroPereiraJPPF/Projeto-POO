@@ -18,6 +18,41 @@
     -fx-font-size: 13px;
 }
 
+.btn-serv-icon {
+    -fx-background-image:url('../../public/ServAdd-Symbol.png');
+    -fx-background-repeat: no-repeat;
+    -fx-background-position: left 10px center;
+    -fx-font-size: 13px;
+}
+
+.btn-tool-icon {
+    -fx-background-image:url('../../public/ToolAdd-symbol.png');
+    -fx-background-repeat: no-repeat;
+    -fx-background-position: left 10px center;
+    -fx-font-size: 13px;
+}
+
+.btn-doc-icon {
+    -fx-background-image:url('../../public/docAdd-symbol.png');
+    -fx-background-repeat: no-repeat;
+    -fx-background-position: left 10px center;
+    -fx-font-size: 13px;
+}
+
+.btn-cash-icon {
+    -fx-background-image:url('../../public/cashAdd-symbol.png');
+    -fx-background-repeat: no-repeat;
+    -fx-background-position: left 10px center;
+    -fx-font-size: 13px;
+}
+
+.btn-car-icon {
+    -fx-background-image:url('../../public/carAdd-symbol.png');
+    -fx-background-repeat: no-repeat;
+    -fx-background-position: left 10px center;
+    -fx-font-size: 13px;
+}
+
 .btn-back{
     -fx-background-color: transparent;
     -fx-text-fill: #064eb9;

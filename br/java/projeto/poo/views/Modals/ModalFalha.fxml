@@ -8,7 +8,7 @@
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Font?>
 
-<Pane fx:id="ModalFail" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" onMouseClicked="#CloseModalF" onMouseMoved="#CloseModalF" prefHeight="200.0" prefWidth="400.0" styleClass="pane" stylesheets="@../css/Modals.css" xmlns="http://javafx.com/javafx/20.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="br.java.projeto.poo.controller.ModalsController">
+<Pane fx:id="ModalFail" minHeight="-Infinity" minWidth="-Infinity" onMouseClicked="#CloseModalF" onMouseMoved="#CloseModalF" prefHeight="200.0" prefWidth="400.0" styleClass="pane" stylesheets="@../css/Modals.css" xmlns="http://javafx.com/javafx/20.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="br.java.projeto.poo.controller.ModalsController">
    <children>
       <VBox alignment="CENTER" prefHeight="200.0" prefWidth="400.0">
          <children>

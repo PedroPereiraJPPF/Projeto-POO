@@ -2,6 +2,7 @@ package br.java.projeto.poo.controller;
 
 import java.io.IOException;
 
+import br.java.projeto.poo.models.BO.PecaBO;
 import br.java.projeto.poo.models.VO.PecaVo;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
@@ -136,7 +137,8 @@ public class PecasController extends BaseController {
         try {
             if(!mensagemErroCad.isVisible()){
                 PecaVo novaPeca = new PecaVo(0, nome, fabricante, valor, quantidade);
-                
+                PecaBO pecaBO = new PecaBO();
+                pecaBO.inserir(novaPeca);
             }
         } catch (Exception ex) {
             Label labelFalha = new Label(ex.getMessage());
