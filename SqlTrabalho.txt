@@ -59,14 +59,14 @@ create table veiculos(
 );
 
 create table servicos (
-	id integer primary key,
+	id serial primary key,
 	nome varchar(50),
 	preco float
 );
 
 @teste ok
 create table pecas (
-	id integer primary key,
+	id serial primary key,
 	nome varchar(50),
 	preco float,
 	fabricante varchar(50)
@@ -77,9 +77,12 @@ create table orcamentos (
 	id serial,
 	valor float,
 	placaVeiculo varchar(10),
+	dataDeCriacao Date,
+	cpfResponsavel varchar(20),
 	
 	primary key(id),
-	foreign key(placaVeiculo) references veiculos(placa) on delete cascade on update cascade
+	foreign key(placaVeiculo) references veiculos(placa) on delete cascade on update cascade,
+	foreign key(cpfResponsavel) references funcionarios(cpf) on delete cascade on update cascade
 );
 
 create table pecas_orcamentos (

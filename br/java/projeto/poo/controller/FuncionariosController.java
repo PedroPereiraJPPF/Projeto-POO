@@ -122,6 +122,23 @@ public class FuncionariosController extends BaseController{
         }
     }
 
+    void abrirModalDeletar(long id, int indice) throws Exception {
+        try {
+            Stage modalStage = new Stage();
+            modalStage.initModality(Modality.APPLICATION_MODAL);
+
+            FXMLLoader loader = new FXMLLoader(getClass().getResource("../views/Funcionarios/ConfirmarDelete.fxml"));
+            Parent root = loader.load();
+            DeletarFuncionarioController deletar = loader.getController();
+            deletar.setDados(id, indice);
+            Scene modalScene = new Scene(root);
+            modalStage.setScene(modalScene);
+            modalStage.showAndWait();
+        } catch (Exception e) {
+            System.out.println(e.getMessage());
+        }
+    }
+
     // inicializa a tabela
     private void inicializarTabela() throws SQLException {
         funcNome.setCellValueFactory(new PropertyValueFactory<FuncionarioVO, String>("nome"));
@@ -156,9 +173,12 @@ public class FuncionariosController extends BaseController{
                 });
 
                 btnDelete.setOnAction(event -> {
-                    FuncionarioVO funcionario = getTableView().getItems().get(getIndex());
-                    if (!funcionarioBO.deletar(funcionario.getId())) {
-                        funcs.remove(funcionario);
+                    try {
+                        FuncionarioVO funcionario = getTableView().getItems().get(getIndex());
+                        System.out.println(getIndex());
+                        abrirModalDeletar(funcionario.getId(), getIndex());
+                    } catch (Exception e) {
+                        e.printStackTrace();
                     }
                 });
             }

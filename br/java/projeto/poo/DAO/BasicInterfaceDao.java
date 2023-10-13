@@ -1,4 +1,4 @@
-package br.java.projeto.poo.models.DAO;
+package br.java.projeto.poo.DAO;
 
 import java.sql.ResultSet;
 import java.sql.SQLException;
