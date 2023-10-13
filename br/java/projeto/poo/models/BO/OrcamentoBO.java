@@ -54,7 +54,7 @@ public class OrcamentoBO {
             return listarOrcamentos;
 
         } catch (Exception e) {
-            throw new Exception("Erro ao buscar orcamentos");
+            throw e;
         }
     }
 
