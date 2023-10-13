@@ -109,6 +109,7 @@ public class FuncionariosController extends BaseController{
         try {
             Stage modalStage = new Stage();
             modalStage.initModality(Modality.APPLICATION_MODAL);
+            modalStage.initStyle(StageStyle.UNDECORATED);
 
             FXMLLoader loader = new FXMLLoader(getClass().getResource("../views/Funcionarios/EditarFuncionario.fxml"));
             Parent root = loader.load();
@@ -166,6 +167,7 @@ public class FuncionariosController extends BaseController{
                 btnEdit.setOnAction(event -> {
                     try {
                         FuncionarioVO funcionario = getTableView().getItems().get(getIndex());
+                        System.out.println(funcionario.getId());
                         abrirModalEditar(funcionario, getIndex());
                     } catch (Exception e) {
                         System.out.println(e.getMessage());

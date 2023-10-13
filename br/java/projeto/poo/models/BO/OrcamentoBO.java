@@ -2,7 +2,8 @@ package br.java.projeto.poo.models.BO;
 
 import java.sql.SQLException;
 import java.util.ArrayList;
-import br.java.projeto.poo.DAO.OrcamentoDao;
+
+import br.java.projeto.poo.models.DAO.OrcamentoDao;
 import br.java.projeto.poo.models.VO.OrcamentoVO;
 
 public class OrcamentoBO {

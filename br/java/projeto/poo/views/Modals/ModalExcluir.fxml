@@ -36,7 +36,7 @@
       </VBox>
       <HBox layoutX="92.0" layoutY="233.0" spacing="25.0">
          <children>
-            <Button fx:id="cancelarExclusao" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" mnemonicParsing="false" onAction="#cancelarExclusao" prefHeight="45.0" prefWidth="120.0" styleClass="btn-back" stylesheets="@../css/buttons.css" text="Não">
+            <Button fx:id="cancelarExclusao" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" mnemonicParsing="false" onAction="#CloseModalE" prefHeight="45.0" prefWidth="120.0" styleClass="btn-back" stylesheets="@../css/buttons.css" text="Não">
                <font>
                   <Font size="15.0" />
                </font>

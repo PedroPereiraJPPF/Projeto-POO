@@ -14,7 +14,6 @@ import javafx.scene.control.ChoiceBox;
 import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
 import javafx.scene.input.KeyEvent;
-import javafx.scene.layout.VBox;
 import javafx.stage.Stage;
 
 public class CadastrarAutomoveisController {
@@ -22,41 +21,18 @@ public class CadastrarAutomoveisController {
     ClienteBO clienteBO = new ClienteBO();
     private boolean clienteExisteFlag = false;
 
-    @FXML
-    private TextField ano;
-
-    @FXML
-    private Button cadastrar;
-
-    @FXML
-    private Button cancelar;
-
-    @FXML
-    private TextField cor;
-
-    @FXML
-    private TextField cpf;
-
-    @FXML
-    private TextField endereco;
-
-    @FXML
-    private TextField km;
-
-    @FXML
-    private TextField modelo;
-
-    @FXML
-    private Label msgErro;
-
-    @FXML
-    private TextField nome;
-
-    @FXML
-    private TextField placa;
-
-    @FXML
-    private ChoiceBox<String> tipo;
+    @FXML private TextField ano;
+    @FXML private Button cadastrar;
+    @FXML private Button cancelar;
+    @FXML private TextField cor;
+    @FXML private TextField cpf;
+    @FXML private TextField endereco;
+    @FXML private TextField km;
+    @FXML private TextField modelo;
+    @FXML private Label msgErro;
+    @FXML private TextField nome;
+    @FXML private TextField placa;
+    @FXML private ChoiceBox<String> tipo;
     
     @FXML
     void initialize() {
@@ -89,13 +65,17 @@ public class CadastrarAutomoveisController {
         try {
             this.validarCamposVazios();
             EnderecoVO enderecoCliente = new EnderecoVO().pegarValoresComoString(endereco.getText());
-            ClienteVO ClienteVO = new ClienteVO(0, nome.getText(), cpf.getText(), enderecoCliente);
+            
+            VeiculoVO veiculoVO = new VeiculoVO(0, placa.getText(), cor.getText(), modelo.getText(), cpf.getText(), tipo.getValue(), ano.getText(), Double.valueOf(km.getText()));
+            ArrayList<VeiculoVO> listaVeiculos = new ArrayList<VeiculoVO>();
+            listaVeiculos.add(veiculoVO);
+
+            ClienteVO ClienteVO = new ClienteVO(0, nome.getText(), cpf.getText(), enderecoCliente, listaVeiculos);
 
             if (!clienteExisteFlag) {
                 clienteBO.inserir(ClienteVO);
             }
 
-            VeiculoVO veiculoVO = new VeiculoVO(0, placa.getText(), cor.getText(), modelo.getText(), cpf.getText(), tipo.getValue(), ano.getText(), Double.valueOf(km.getText()));
             veiculoBO.inserir(veiculoVO);
 
             AutomoveisController.listaAutomoveis.add(0, veiculoVO);

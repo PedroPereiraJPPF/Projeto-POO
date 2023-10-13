@@ -1,28 +1,32 @@
 package br.java.projeto.poo.controller;
 
 import java.io.IOException;
+import java.sql.SQLException;
+import java.util.ArrayList;
 
 import br.java.projeto.poo.models.BO.ClienteBO;
 import br.java.projeto.poo.models.BO.EnderecoBO;
 import br.java.projeto.poo.models.BO.VeiculoBO;
 import br.java.projeto.poo.models.VO.ClienteVO;
 import br.java.projeto.poo.models.VO.EnderecoVO;
+import br.java.projeto.poo.models.VO.FuncionarioVO;
 import br.java.projeto.poo.models.VO.VeiculoVO;
+import javafx.collections.FXCollections;
+import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
-import javafx.scene.control.ChoiceBox;
-import javafx.scene.control.Label;
+import javafx.scene.control.TableCell;
+import javafx.scene.control.TableColumn;
+import javafx.scene.control.TableView;
 import javafx.scene.control.TextField;
-import javafx.scene.effect.BlurType;
-import javafx.scene.effect.DropShadow;
+import javafx.scene.control.cell.PropertyValueFactory;
+import javafx.scene.layout.HBox;
 import javafx.scene.layout.Pane;
-import javafx.scene.paint.Color;
 import javafx.stage.Modality;
-import javafx.stage.Popup;
 import javafx.stage.Stage;
 import javafx.stage.StageStyle;
 import javafx.stage.Window;
@@ -31,36 +35,33 @@ import javafx.stage.Window;
 public class ClienteController extends BaseController{
 
     // ====== campos da tela principal de clientes ======
+    private ClienteBO clienteBO = new ClienteBO();
+    static ArrayList<ClienteVO> listaClientes;
+    static ObservableList<ClienteVO> clientesDisponiveis;
+
     @FXML protected Button novoCliente;
     @FXML private TextField campoBusca;
-    protected Popup popUpCadCliente = new Popup();
+    @FXML private TableView<ClienteVO> tabelaClientes;
+    @FXML private TableColumn<ClienteVO, String>  columnBut;
+    @FXML private TableColumn<ClienteVO, String>  columnCPF;
+    @FXML private TableColumn<ClienteVO, EnderecoVO>  columnEnd;
+    @FXML private TableColumn<ClienteVO, Integer> columnIdCliente;
+    @FXML private TableColumn<ClienteVO, String>  columnNome;
+    @FXML private TableColumn<ClienteVO, VeiculoVO>  columnVeic;
     // ==================================================
 
-    // ====== campos da tela de cadastro de clientes ======
-    @FXML private Button cadastrarCliente;
-    @FXML private Button cancelarCadastro;
-    @FXML private ChoiceBox<String> tipoVeic = new ChoiceBox<>();
-    @FXML private Label mensagemErroCad;
-    @FXML private Pane cadastroCliente;
-    private String[] tipoVeic_Array = {"Carro","Moto"};
-    @FXML private TextField campoAnoVeic;
-    @FXML private TextField campoCPFCliente;
-    @FXML private TextField campoCorVeic;
-    @FXML private TextField campoEndCliente;
-    @FXML private TextField campoKMVeic;
-    @FXML private TextField campoModVeic;
-    @FXML private TextField campoNomeCliente;
-    @FXML private TextField campoPlacCliente;
-    // ====================================================
 
-    // ====== cmapos da tela de edição de clientes ======
-    @FXML private TextField campoCPF;
-    @FXML private TextField campoEndereco;
-    @FXML private TextField campoNome;
-    @FXML private Button cancelarEdicao;
-    @FXML private Label mensagemErroEdit;
-    @FXML private Button salvarEdicao;
-    // ==================================================
+    @Override
+    public void initialize() throws Exception{
+        
+        
+        listaClientes = this.clienteBO.listar();
+        clientesDisponiveis = FXCollections.observableArrayList(listaClientes);
+        this.inicializarTabela(); 
+        
+    }
+
+
 
 
     @FXML
@@ -80,9 +81,18 @@ public class ClienteController extends BaseController{
         
     }
 
-    void abrirEdicao() throws Exception {
+
+
+
+    
+    void abrirEdicao(ClienteVO cliente, int i) throws Exception {
+
         FXMLLoader loader = new FXMLLoader(getClass().getResource("../views/Clientes/EditarCliente.fxml"));
         Parent root = loader.load();
+
+        ClienteSubController controller = loader.getController();
+        controller.initialize(cliente, i);
+
         Scene janelaEdit = new Scene(root);
         Stage palco = new Stage();
         palco.setResizable(false);
@@ -99,173 +109,113 @@ public class ClienteController extends BaseController{
     }
 
 
-    @FXML
-    void abrirModalFail(Label mensagem) throws Exception{
-        FXMLLoader loader = new FXMLLoader(getClass().getResource("../views/Modals/ModalFalha.fxml"));
+
+    void abrirExclusao(ClienteVO cliente, int index) throws Exception {
+        FXMLLoader loader = new FXMLLoader(getClass().getResource("../views/Modals/ModalExcluir.fxml"));
         Parent root = loader.load();
 
-        ModalsController controller = loader.getController();
-        controller.ExibirMensagemFalha(mensagem.getText());
-
-        Scene popup = new Scene(root);
+        Scene janelaEdit = new Scene(root);
         Stage palco = new Stage();
-        palco.setScene(popup);
         palco.setResizable(false);
+        palco.setScene(janelaEdit);
         palco.initModality(Modality.APPLICATION_MODAL);
         palco.initStyle(StageStyle.UNDECORATED);
-        Window wCC = cadastrarCliente.getScene().getWindow();
-        double centralizarEixoX = (wCC.getX() + wCC.getWidth()/2) - 200;
-        double centralizarEixoY = (wCC.getY() + wCC.getHeight()/2) - 100;
+        Window wNC = novoCliente.getScene().getWindow();
+        double centralizarEixoX, centralizarEixoY;
+        centralizarEixoX = (wNC.getX() + wNC.getWidth()/2) - 225;
+        centralizarEixoY = (wNC.getY() + wNC.getHeight()/2) - 150;
         palco.setX(centralizarEixoX);
         palco.setY(centralizarEixoY);
         palco.showAndWait();
 
-    }
+        ModalsController modalExc = loader.getController();
 
-    @FXML
-    void abrirModalSucess(Label mensagem) throws IOException{
-        FXMLLoader loader = new FXMLLoader(getClass().getResource("../views/Modals/ModalSucesso.fxml"));
-        Parent root = loader.load();
-        
-        ModalsController controller = loader.getController();
-        controller.ExibirMensagemSucesso(mensagem.getText());
-        
-        Scene popup = new Scene(root);
-        Stage palco = new Stage();
-        palco.setScene(popup);
-        palco.setResizable(false);
-        palco.initModality(Modality.APPLICATION_MODAL);
-        palco.initStyle(StageStyle.UNDECORATED);
-        Window wCC = cadastrarCliente.getScene().getWindow();
-        double centralizarEixoX = (wCC.getX() + wCC.getWidth()/2) - 200;
-        double centralizarEixoY = (wCC.getY() + wCC.getHeight()/2) - 100;
-        palco.setX(centralizarEixoX);
-        palco.setY(centralizarEixoY);
-        palco.showAndWait();
-        
-    }
-
-    @FXML
-    void buscarCliente() {
-
+        if(modalExc.getExclusaoValid()){
+            ClienteBO clienteExcluido = new ClienteBO();
+            clienteExcluido.deletar(cliente);
+        }
     }
 
 
     @FXML
-    void cadastrarCliente() throws Exception{
-        
-        String ano = null, cor = null, cpf = null, endereco = null, modelo = null, nome = null, placa = null, tipoVeic = null;
-        double quilometragem = 0;
-        long id = 0;
-        DropShadow ErrorStyle = new DropShadow();
-        ErrorStyle.setBlurType(BlurType.THREE_PASS_BOX);
-        ErrorStyle.setColor(Color.RED);
-        ErrorStyle.setRadius(10);
-        this.mensagemErroCad.setVisible(false);
-
-        if(campoAnoVeic.getText().isEmpty()) {this.mensagemErroCad.setVisible(true);}
-        else ano = campoAnoVeic.getText();
-
-        if (this.campoCorVeic.getText().isEmpty()) {this.mensagemErroCad.setVisible(true);} 
-        else cor = campoCorVeic.getText();
-
-        if (this.campoCPFCliente.getText().isEmpty()) {this.mensagemErroCad.setVisible(true);} 
-        else cpf = campoCPFCliente.getText();
-        
-        if (this.campoEndCliente.getText().isEmpty()) {this.mensagemErroCad.setVisible(true);} 
-        else endereco = campoEndCliente.getText();
-        
-        if (this.campoModVeic.getText().isEmpty()) {this.mensagemErroCad.setVisible(true);} 
-        else modelo = campoModVeic.getText();
-
-        if (this.campoNomeCliente.getText().isEmpty()) {this.mensagemErroCad.setVisible(true);} 
-        else nome = campoNomeCliente.getText();
-
-        if (this.campoPlacCliente.getText().isEmpty()) {this.mensagemErroCad.setVisible(true);} 
-        else placa = campoPlacCliente.getText();
-
-        if (this.campoKMVeic.getText().isEmpty()) {this.mensagemErroCad.setVisible(true);} 
-        else quilometragem = Double.parseDouble(campoKMVeic.getText());
-
-        if (this.tipoVeic.getValue() == null){this.mensagemErroCad.setVisible(true);}
-        else tipoVeic = this.tipoVeic.getValue();
-
-        try{
-            if(!this.mensagemErroCad.isVisible()){
-                EnderecoVO nEnderecoVO = new EnderecoVO();
-                nEnderecoVO.pegarValoresComoString(endereco);
-
-                //EnderecoBO nEnderecoBO = new EnderecoBO();
-                //nEnderecoBO.inserir(nEnderecoVO);
-
-                ClienteVO nClienteVO = new ClienteVO(id, nome, cpf, nEnderecoVO);
-                VeiculoVO nVeiculoVO = new VeiculoVO(id, placa, cor, modelo, cpf, tipoVeic, ano, quilometragem);
-
-                ClienteBO clienteBO = new ClienteBO();
-                clienteBO.inserir(nClienteVO);
-
-                VeiculoBO nVeiculoBO = new VeiculoBO();
-                nVeiculoBO.inserir(nVeiculoVO);
-
-
-                Label labelSucesso = new Label("Cliente cadastrado com sucesso.");
-                cancelarCadastro();
-                abrirModalSucess(labelSucesso);
+    void buscarCliente(){
+        try {
+            ArrayList<ClienteVO> clienteVOs;
+            if (this.campoBusca.getText().length() > 2) {
+                if (this.campoBusca.getText().matches("^\\d{3}.*")) {
+                    clienteVOs = clienteBO.buscarPorCPF(this.campoBusca.getText());
+                    clientesDisponiveis.setAll(clienteVOs);
+                } else {
+                    clienteVOs = clienteBO.buscarPorNome(this.campoBusca.getText());
+                    clientesDisponiveis.setAll(clienteVOs);
+                }
+            } else {
+               clientesDisponiveis.setAll(listaClientes);
             }
-        }
-        catch (Exception ex){
-            Label labelFalha = new Label();
-            labelFalha.setText(ex.getMessage());
-            cancelarCadastro();
-            abrirModalFail(labelFalha);
-            
-        }
-    }
-    
-    @FXML
-    void cancelarCadastro() throws Exception{
-        Stage palco = (Stage) this.cancelarCadastro.getScene().getWindow();
-        palco.close();
-    }
-    
-
-    @FXML
-    void editarCliente() throws Exception{
-        
-        String nome = null, cpf = null, endereco = null;
-        try{
-            
-
-
-        }
-        catch(Exception ex){
-            Label labelFalha = new Label();
-            labelFalha.setText(ex.getMessage());
-            cancelarEdicao();
-            abrirModalFail(labelFalha);
+        } catch (Exception e) {
+            System.out.println(e.getMessage());
         }
     }
 
-    @FXML
-    void cancelarEdicao() throws Exception{
-        Stage palco = (Stage) this.cancelarEdicao.getScene().getWindow();
-        palco.close();
+    private void inicializarTabela() throws SQLException {
+        columnNome.setCellValueFactory(new PropertyValueFactory<ClienteVO, String>("nome"));
+        columnCPF.setCellValueFactory(new PropertyValueFactory<ClienteVO, String>("cpf"));
+        columnIdCliente.setCellValueFactory(new PropertyValueFactory<ClienteVO, Integer>("id"));
+        //columnEnd.setCellValueFactory(new PropertyValueFactory<ClienteVO, EnderecoVO>("endereco"));
+        columnVeic.setCellValueFactory(new PropertyValueFactory<ClienteVO, VeiculoVO>("veiculo"));
+        tabelaClientes.setItems(clientesDisponiveis);
+        this.inicializarBotoesDeAcao(clientesDisponiveis);
     }
 
-    @FXML
-    public void initialize(){
-        tipoVeic.getItems().addAll(tipoVeic_Array);
-        
+    private void inicializarBotoesDeAcao (ObservableList<ClienteVO> funcs) {
+        columnBut.setCellFactory(param -> new TableCell<>() {
+            private final Button btnEdit = new Button();
+            private final Button btnDelete = new Button();
+            private final HBox btnContainer = new HBox(btnEdit, btnDelete);
+
+            {
+                btnEdit.getStyleClass().add("btn-edit");
+                btnDelete.getStyleClass().add("btn-delete");
+                btnEdit.setOnAction(event -> {
+                    try {
+                        ClienteVO cliente = getTableView().getItems().get(getIndex());
+                        abrirEdicao(cliente, getIndex());
+                    } catch (Exception e) {
+                        System.out.println(e.getMessage());
+                    }
+                });
+
+                btnDelete.setOnAction(event -> {
+                    try{
+                        ClienteVO cliente = getTableView().getItems().get(getIndex());
+                        if (clienteBO.deletar(cliente)) {
+                            funcs.remove(cliente);
+                            //abrirExclusao(cliente, getIndex());
+                        }
+                    } catch(Exception e){
+                        System.out.println(e.getMessage());
+                    }
+                });
+            }
+
+            protected void updateItem(String item, boolean empty) {
+                super.updateItem(item, empty);
+                if (empty) {
+                    setGraphic(null);
+                } else {
+                    btnContainer.setStyle("-fx-padding: 0 20 0 20;");
+                    btnContainer.setSpacing(10);
+                    setGraphic(btnContainer);
+                }
+            }
+        });
     }
 
-    @FXML
-    void setInvisibleCad(){
-        this.mensagemErroCad.setVisible(false);
-    }
 
-    @FXML
-    void setInvisibleEdit(){
-        this.mensagemErroEdit.setVisible(false);
+
+
+    void realizarExclusao() throws Exception {
+
     }
 
 }
