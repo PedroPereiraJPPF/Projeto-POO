@@ -3,7 +3,7 @@ package br.java.projeto.poo.models.BO;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 
-import br.java.projeto.poo.models.DAO.EnderecoDao;
+import br.java.projeto.poo.DAO.EnderecoDao;
 import br.java.projeto.poo.models.VO.EnderecoVO;
 
 public class EnderecoBO {

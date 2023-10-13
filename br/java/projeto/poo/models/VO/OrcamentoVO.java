@@ -1,13 +1,13 @@
 package br.java.projeto.poo.models.VO;
 
-import java.util.List;
+import java.util.ArrayList;
 
 public class OrcamentoVO {
     long id;
-    String placaVeiculo;
+    String placaVeiculo, cpfCliente;
     float valor;
-    List<PecaVo> pecas;
-    List<ServicoVO> Servicos;
+    ArrayList<PecaVo> pecas;
+    ArrayList<ServicoVO> Servicos;
 
     public long getId() {
         return this.id;
@@ -33,19 +33,28 @@ public class OrcamentoVO {
         this.valor = valor;
     }
 
-    public List<PecaVo> getPecas() {
+    public ArrayList<PecaVo> getPecas() {
         return this.pecas;
     }
 
-    public void setPecas(List<PecaVo> pecas) {
+    public void setPecas(ArrayList<PecaVo> pecas) {
         this.pecas = pecas;
     }
 
-    public List<ServicoVO> getServicos() {
+    public ArrayList<ServicoVO> getServicos() {
         return this.Servicos;
     }
 
-    public void setServicos(List<ServicoVO> Servicos) {
+    public void setServicos(ArrayList<ServicoVO> Servicos) {
         this.Servicos = Servicos;
     }
+
+    public String getCpfCliente() {
+        return this.cpfCliente;
+    }
+
+    public void setCpfCliente(String cpfCliente) {
+        this.cpfCliente = cpfCliente;
+    }
+
 }

@@ -1,4 +1,4 @@
-package br.java.projeto.poo.models.DAO;
+package br.java.projeto.poo.DAO;
 
 import java.sql.Connection;
 import java.sql.PreparedStatement;
@@ -10,14 +10,14 @@ import br.java.projeto.poo.models.VO.OrcamentoVO;
 import br.java.projeto.poo.models.VO.PecaVo;
 import br.java.projeto.poo.models.VO.ServicoVO;
 
-public class OrcamentoDao <VO extends OrcamentoVO> extends BaseDao <VO>{
+public class OrcamentoDao extends BaseDao <OrcamentoVO>{
     Connection db;
 
     public OrcamentoDao() {
         db = this.getConnection();
     }
 
-    public boolean inserir(VO orcamento) throws SQLException {
+    public boolean inserir(OrcamentoVO orcamento) throws SQLException {
         String query = "INSERT INTO orcamentos (placaVeiculo, valor) VALUES (?, ?)";
         String queryPecas = "INSERT INTO pecas_orcamentos (idOrcamento, idPeca) VALUES (?, ?)";
         String queryServicos = "INSERT INTO servicos_orcamentos (idOrcamento, idServico) values (?, ?)";
@@ -68,7 +68,7 @@ public class OrcamentoDao <VO extends OrcamentoVO> extends BaseDao <VO>{
         }
     }
 
-    public boolean deletar(VO orcamento) throws SQLException {
+    public boolean deletar(OrcamentoVO orcamento) throws SQLException {
         String query = "DELETE FROM orcamentos WHERE id = (?)";
         PreparedStatement ps = null;
         try {
@@ -83,7 +83,7 @@ public class OrcamentoDao <VO extends OrcamentoVO> extends BaseDao <VO>{
         }
     }
 
-    public VO atualizar(VO orcamento) throws SQLException {
+    public OrcamentoVO atualizar(OrcamentoVO orcamento) throws SQLException {
         String query = "UPDATE orcamentos SET placaAutomovel = ?, valor = ? WHERE id = ?";
         PreparedStatement ps = null;
 
@@ -102,12 +102,38 @@ public class OrcamentoDao <VO extends OrcamentoVO> extends BaseDao <VO>{
         }
     }
 
-    public ResultSet buscarPorId(VO orcamento) throws SQLException {
+    public ResultSet buscarPorId(OrcamentoVO orcamento) throws SQLException {
         String query = "Select * from orcamentos where id = (?)";
         PreparedStatement ps = null;
         try {
             ps = this.db.prepareStatement(query);
             ps.setLong(1, orcamento.getId());
+            return ps.executeQuery();
+
+        } catch (SQLException e) {
+            throw e;
+        }
+    }
+
+    public ResultSet buscarPorVeiculo(OrcamentoVO orcamento) throws SQLException {
+        String query = "Select * from orcamentos where placa like '%'|| ? ||'%'";
+        PreparedStatement ps = null;
+        try {
+            ps = this.db.prepareStatement(query);
+            ps.setString(1, orcamento.getPlacaVeiculo());
+            return ps.executeQuery();
+
+        } catch (SQLException e) {
+            throw e;
+        }
+    }
+
+    public ResultSet buscarPorCPFCliente(OrcamentoVO orcamento) throws SQLException {
+        String query = "select * from orcamentos where placaVeiculo in (select placa from veiculos where cpfDono like '%' || ? || '%')";
+        PreparedStatement ps = null;
+        try {
+            ps = this.db.prepareStatement(query);
+            ps.setString(1, orcamento.getCpfCliente());
             return ps.executeQuery();
 
         } catch (SQLException e) {
