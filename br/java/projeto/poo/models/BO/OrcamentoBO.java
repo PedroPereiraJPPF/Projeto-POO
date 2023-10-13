@@ -27,6 +27,8 @@ public class OrcamentoBO {
                 orcamento.setValor(orcamentos.getDouble("valor"));
                 orcamento.setDataDeCriação(orcamentos.getDate("dataDeCriacao"));
                 orcamento.setDataDeEncerramento(orcamentos.getDate("dataDeEncerramento"));
+                orcamento.setCpfCliente(orcamentos.getString("cpfCliente"));
+                orcamento.setCpfFuncionario(orcamentos.getString("cpfResponsavel"));
                 pecasBuscadas = orcamentoDao.listarPecas(orcamento);
                 servicosBuscados = orcamentoDao.listarServicos(orcamento);
 

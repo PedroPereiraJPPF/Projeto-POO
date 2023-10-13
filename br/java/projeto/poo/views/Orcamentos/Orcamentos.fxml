@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
+<?import java.net.URL?>
 <?import javafx.geometry.Insets?>
 <?import javafx.scene.Cursor?>
 <?import javafx.scene.control.Button?>
@@ -185,12 +186,13 @@
                   <Insets left="20.0" right="30.0" />
                </VBox.margin>
             </HBox>
-            <TableView stylesheets="@../css/tabela.css">
+            <TableView fx:id="tbOrcamentos">
               <columns>
-                <TableColumn maxWidth="500.0" prefWidth="274.0" text="Proprietário" />
-                <TableColumn maxWidth="400.0" prefWidth="171.0" text="Placa" />
-                  <TableColumn maxWidth="800.0" prefWidth="334.0" text="Valor" />
-                  <TableColumn maxWidth="185.0" prefWidth="128.0" text="Açoes" />
+                  <TableColumn fx:id="funcionario" maxWidth="500.0" prefWidth="274.0" text="Funcionario Responsavel" />
+                <TableColumn fx:id="proprietario" maxWidth="500.0" prefWidth="274.0" text="Proprietário" />
+                <TableColumn fx:id="placa" maxWidth="400.0" prefWidth="171.0" text="Placa" />
+                  <TableColumn fx:id="valor" maxWidth="250.0" prefWidth="334.0" text="Valor" />
+                  <TableColumn fx:id="acoes" maxWidth="185.0" prefWidth="128.0" text="Açoes" />
               </columns>
                <columnResizePolicy>
                   <TableView fx:constant="CONSTRAINED_RESIZE_POLICY" />
@@ -198,6 +200,10 @@
                <VBox.margin>
                   <Insets left="20.0" right="30.0" top="25.0" />
                </VBox.margin>
+               <stylesheets>
+                  <URL value="@../css/tabela.css" />
+                  <URL value="@../css/buttons.css" />
+               </stylesheets>
             </TableView>
          </children>
       </VBox>

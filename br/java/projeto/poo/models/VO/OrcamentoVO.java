@@ -5,7 +5,7 @@ import java.util.ArrayList;
 
 public class OrcamentoVO {
     long id;
-    String placaVeiculo, cpfCliente;
+    String placaVeiculo, cpfCliente, cpfFuncionario;
     double valor;
     ArrayList<PecaVo> pecas;
     ArrayList<ServicoVO> Servicos;
@@ -67,12 +67,20 @@ public class OrcamentoVO {
         this.dataDeEncerramento = dataDeEncerramento;
     }
 
-    public String getCpfCliente() { // campo que não existe no banco usado para facilitar queries
+    public String getCpfCliente() {
         return this.cpfCliente;
     }
 
     public void setCpfCliente(String cpfCliente) {
         this.cpfCliente = cpfCliente;
+    }
+
+    public String getCpfFuncionario() {
+        return this.cpfFuncionario;
+    }
+
+    public void setCpfFuncionario(String cpfFuncionario) {
+        this.cpfFuncionario = cpfFuncionario;
     }
 
 }
