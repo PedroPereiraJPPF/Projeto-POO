@@ -1,7 +1,7 @@
 package br.java.projeto.poo.models.BO;
 
 import java.sql.ResultSet;
-import java.sql.SQLException;
+// import java.sql.SQLException;
 import java.util.ArrayList;
 
 import br.java.projeto.poo.models.DAO.PecaDao;
@@ -9,10 +9,10 @@ import br.java.projeto.poo.models.VO.PecaVo;
 
 public class PecaBO implements BaseInterfaceBO<PecaVo>{
 
-    PecaDao pecaDao = new PecaDao<PecaVo>();
+    PecaDao<PecaVo> pecaDao = new PecaDao<PecaVo>();
 
     @Override
-    public ArrayList listar() throws Exception {
+    public ArrayList<PecaVo> listar() throws Exception {
         ArrayList<PecaVo> listaDePecas = new ArrayList<PecaVo>();
         ResultSet pecasDoBanco = pecaDao.listar();
         String nomePecaBanco = pecasDoBanco.getString("nome");
@@ -34,7 +34,7 @@ public class PecaBO implements BaseInterfaceBO<PecaVo>{
     }
 
     public ArrayList<PecaVo> buscarPorFabricante(PecaVo vo) throws Exception {
-        PecaDao pecaDao = new PecaDao<PecaVo>();
+        PecaDao<PecaVo> pecaDao = new PecaDao<PecaVo>();
         try{
             ResultSet resultBusca = pecaDao.buscarPorFabricante(vo);
             ArrayList<PecaVo> resultado = new ArrayList<PecaVo>();
@@ -56,7 +56,7 @@ public class PecaBO implements BaseInterfaceBO<PecaVo>{
     }
 
     public ArrayList<PecaVo> buscarPorNome(PecaVo vo) throws Exception {
-        PecaDao pecaDao = new PecaDao<PecaVo>();
+        PecaDao<PecaVo> pecaDao = new PecaDao<PecaVo>();
         try{
             ResultSet resultBusca = pecaDao.buscarPorNome(vo);
             ArrayList<PecaVo> resultado = new ArrayList<PecaVo>();
@@ -88,13 +88,13 @@ public class PecaBO implements BaseInterfaceBO<PecaVo>{
     @Override
     public PecaVo atualizar(PecaVo vo) throws Exception{
         
-        PecaDao pecaDao = new PecaDao<PecaVo>();
+        PecaDao<PecaVo> pecaDao = new PecaDao<PecaVo>();
         return pecaDao.atualizar(vo);
     }
 
     @Override
     public Boolean deletar(PecaVo vo) throws Exception{
-        PecaDao pecaDao = new PecaDao<PecaVo>();
+        PecaDao<PecaVo> pecaDao = new PecaDao<PecaVo>();
         try {return pecaDao.deletar(vo);}
         catch(Exception e) {e.printStackTrace();}
         return false;
