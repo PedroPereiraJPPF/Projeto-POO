@@ -7,7 +7,7 @@ import java.util.ArrayList;
 import br.java.projeto.poo.exceptions.ErroDeAuthenticacaoException;
 import br.java.projeto.poo.exceptions.InvalidCpfException;
 import br.java.projeto.poo.exceptions.UsuarioNaoEncontradoException;
-import br.java.projeto.poo.models.DAO.FuncionarioDao;
+import br.java.projeto.poo.DAO.FuncionarioDao;
 import br.java.projeto.poo.models.VO.EnderecoVO;
 import br.java.projeto.poo.models.VO.FuncionarioVO;
 import br.java.projeto.poo.models.VO.TelefoneVO;

@@ -78,7 +78,9 @@ create table orcamentos (
 	valor float,
 	placaVeiculo varchar(10),
 	dataDeCriacao Date,
+	dataDeEncerramento Date,
 	cpfResponsavel varchar(20),
+	cpfCliente varchar(20),
 	
 	primary key(id),
 	foreign key(placaVeiculo) references veiculos(placa) on delete cascade on update cascade,

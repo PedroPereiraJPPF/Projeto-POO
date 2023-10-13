@@ -7,7 +7,7 @@ import java.util.ArrayList;
 import br.java.projeto.poo.exceptions.InvalidCpfException;
 import br.java.projeto.poo.exceptions.InvalidPlacaException;
 import br.java.projeto.poo.exceptions.UsuarioNaoEncontradoException;
-import br.java.projeto.poo.models.DAO.VeiculoDao;
+import br.java.projeto.poo.DAO.VeiculoDao;
 import br.java.projeto.poo.models.VO.VeiculoVO;
 
 public class VeiculoBO {

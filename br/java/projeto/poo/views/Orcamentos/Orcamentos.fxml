@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
 <?import java.lang.String?>
+<?import java.net.URL?>
 <?import javafx.geometry.Insets?>
 <?import javafx.scene.Cursor?>
 <?import javafx.scene.control.Button?>
@@ -15,7 +16,7 @@
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Font?>
 
-<BorderPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="800.0" prefWidth="1024.0" styleClass="celulaTabela" xmlns="http://javafx.com/javafx/20.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="br.java.projeto.poo.controller.OrcamentosController">
+<BorderPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="800.0" prefWidth="1024.0" styleClass="celulaTabela" xmlns="http://javafx.com/javafx/20.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="br.java.projeto.poo.controller.Orcamentos.OrcamentosController">
    <top>
       <HBox alignment="CENTER_LEFT" prefHeight="100.0" prefWidth="200.0" BorderPane.alignment="CENTER">
          <children>
@@ -158,17 +159,23 @@
                               <Insets left="10.0" right="10.0" />
                            </HBox.margin>
                         </TextField>
-                        <Button id="NovoOrcamento" fx:id="novoOrcamento" alignment="CENTER_RIGHT" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" mnemonicParsing="false" onAction="#novoOrcamento" prefHeight="40.0" prefWidth="140.0" stylesheets="@../css/buttons.css" text="Novo Orcamento">
+                        <Button id="NovoOrcamento" fx:id="novoOrcamento" alignment="CENTER_RIGHT" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" mnemonicParsing="false" onAction="#novoOrcamento" prefHeight="40.0" stylesheets="@../css/buttons.css" text="Novo Orcamento">
                            <styleClass>
                               <String fx:value="btn-primary" />
                               <String fx:value="btn-cash-icon" />
                            </styleClass>
+                           <padding>
+                              <Insets left="30.0" right="5.0" />
+                           </padding>
                         </Button>
                         <Button id="GerarRelatorio" fx:id="gerarRelatorio" alignment="CENTER_RIGHT" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" mnemonicParsing="false" onAction="#gerarRelatorio" prefHeight="40.0" prefWidth="140.0" stylesheets="@../css/buttons.css" text="Gerar Relatorio  ">
                            <styleClass>
                               <String fx:value="btn-primary" />
                               <String fx:value="btn-doc-icon" />
                            </styleClass>
+                           <padding>
+                              <Insets left="30.0" />
+                           </padding>
                         </Button>
                      </children>
                      <HBox.margin>
@@ -183,12 +190,13 @@
                   <Insets left="10.0" right="20.0" />
                </padding>
             </HBox>
-            <TableView stylesheets="@../css/tabela.css">
+            <TableView fx:id="tbOrcamentos">
               <columns>
-                <TableColumn maxWidth="500.0" prefWidth="274.0" text="Proprietário" />
-                <TableColumn maxWidth="400.0" prefWidth="171.0" text="Placa" />
-                  <TableColumn maxWidth="800.0" prefWidth="334.0" text="Valor" />
-                  <TableColumn maxWidth="185.0" prefWidth="128.0" text="Açoes" />
+                  <TableColumn fx:id="funcionario" maxWidth="500.0" prefWidth="274.0" text="Funcionario Responsavel" />
+                <TableColumn fx:id="proprietario" maxWidth="500.0" prefWidth="274.0" text="Proprietário" />
+                <TableColumn fx:id="placa" maxWidth="400.0" prefWidth="171.0" text="Placa" />
+                  <TableColumn fx:id="valor" maxWidth="250.0" prefWidth="334.0" text="Valor" />
+                  <TableColumn fx:id="acoes" maxWidth="185.0" prefWidth="128.0" text="Açoes" />
               </columns>
                <columnResizePolicy>
                   <TableView fx:constant="CONSTRAINED_RESIZE_POLICY" />
@@ -196,6 +204,10 @@
                <VBox.margin>
                   <Insets left="20.0" right="30.0" top="25.0" />
                </VBox.margin>
+               <stylesheets>
+                  <URL value="@../css/tabela.css" />
+                  <URL value="@../css/buttons.css" />
+               </stylesheets>
             </TableView>
          </children>
       </VBox>

@@ -1,6 +1,8 @@
-package br.java.projeto.poo.controller;
+package br.java.projeto.poo.controller.Funcionarios;
 
-import br.java.projeto.poo.models.BO.EnderecoBO;
+import java.util.Date;
+import java.text.SimpleDateFormat;
+
 import br.java.projeto.poo.models.BO.FuncionarioBO;
 import br.java.projeto.poo.models.VO.EnderecoVO;
 import br.java.projeto.poo.models.VO.FuncionarioVO;
@@ -13,30 +15,23 @@ import javafx.scene.control.TextField;
 import javafx.scene.layout.Pane;
 import javafx.stage.Stage;
 
-public class EditarFuncionariosController {
+public class CadastrarFuncionariosController {
     private FuncionarioBO funcionarioBO = new FuncionarioBO();
-    private int indice;
 
     @FXML
-    private Pane EditarFuncionario;
+    private Pane CadastrarFuncionario;
 
     @FXML
     private Button cadastrar;
 
     @FXML
-    private Button fechar;
-
-    @FXML
     private TextField cpf;
-
-    @FXML
-    private TextField dataDeAdmissao;
 
     @FXML
     private TextField endereco;
 
     @FXML
-    private Label mensagemDeErro;
+    private Button fechar;
 
     @FXML
     private TextField nivel;
@@ -48,7 +43,10 @@ public class EditarFuncionariosController {
     private TextField salario;
 
     @FXML
-    private TextField id;
+    private Label mensagemDeErro;
+
+    @FXML
+    private TextField senha;
 
     @FXML
     private TextField telefone;
@@ -56,35 +54,41 @@ public class EditarFuncionariosController {
     @FXML
     void initialize () {
         this.mensagemDeErro.setVisible(false);
-        this.dataDeAdmissao.setVisible(false);
     }
 
     @FXML
-    void atualizarFuncionario(ActionEvent event) {
+    void cadastrarFuncionario(ActionEvent event) throws Exception {
         try {
             this.validarCamposVazios();
+            Date dataAtual = new Date();
+            SimpleDateFormat formato = new SimpleDateFormat("dd/MM/yyyy");
+            String dataAtualString = formato.format(dataAtual); // pega a data em que o funcionario esta sendo criado
+            EnderecoVO enderecoFuncionario = new EnderecoVO().pegarValoresComoString(endereco.getText()); // envia a string com os dados do endereco
+            enderecoFuncionario.setCpfFuncionario(cpf.getText());
+            TelefoneVO telefoneFuncionario = new TelefoneVO(0, null, cpf.getText(), telefone.getText());
+            
 
-            EnderecoVO enderecoFuncionario = new EnderecoVO().pegarValoresComoString(endereco.getText());
-            TelefoneVO telefoneFuncionario = new TelefoneVO(0, null, null, telefone.getText());
-            FuncionarioVO funcionario = new FuncionarioVO(Long.valueOf(id.getText()), 
+            FuncionarioVO funcionario = new FuncionarioVO(0, 
             nome.getText(), 
             cpf.getText(), 
             Double.valueOf(salario.getText()), 
-            this.dataDeAdmissao.getText(), 
+            dataAtualString, 
             enderecoFuncionario, 
-            Integer.valueOf(nivel.getText()), 
+            Integer.valueOf(nivel.getText()),
             telefoneFuncionario,
-            null);
+            senha.getText());
 
-            funcionarioBO.atualizar(funcionario);
-            FuncionariosController.funcionariosDisponiveis.set(this.indice, funcionario);
-            FuncionariosController.listaFuncionarios.set(this.indice, funcionario);
-            this.fecharModal();
+            if(funcionarioBO.inserir(funcionario)) {
+                FuncionariosController.funcionariosDisponiveis.add(0, funcionario);
+                FuncionariosController.listaFuncionarios.add(0, funcionario);
+                this.fecharModal();
+            } else {
+                this.mensagemDeErro.setVisible(true);
+            }
         } catch (Exception e) {
-            e.printStackTrace();
             this.mensagemDeErro.setText(e.getMessage());
             this.mensagemDeErro.setVisible(true);
-        } 
+        }
     }
 
     @FXML
@@ -95,27 +99,6 @@ public class EditarFuncionariosController {
     private void fecharModal() {
         Stage stage = (Stage) this.fechar.getScene().getWindow();
         stage.close();
-    }
-
-    public void setDados(FuncionarioVO vo, int indice) throws Exception {
-       try {
-            EnderecoVO enderecoFuncionario = new EnderecoBO().buscarPorFuncionario(vo.getCpf());
-            if (Long.valueOf(vo.getId()) <= 0) { // verifica se o funcionario possui um id válido
-                this.id.setText(String.valueOf(funcionarioBO.buscarPorCPF(vo.getCpf()).get(0).getId()));
-            } else {
-                this.id.setText(String.valueOf(vo.getId()));   
-            }
-            this.cpf.setText(vo.getCpf());
-            this.nome.setText(vo.getNome());
-            this.salario.setText(String.valueOf(vo.getSalario()));
-            this.nivel.setText(String.valueOf(vo.getNivel()));
-            this.dataDeAdmissao.setText(vo.getDataDeAdimissao());
-            this.indice = indice;
-            this.endereco.setText(enderecoFuncionario.toString());
-            this.telefone.setText(vo.getTelefone().getNumero());
-       } catch (Exception e) {
-            System.out.println(e.getMessage());
-       }
     }
 
     private void validarCamposVazios() throws Exception {
@@ -133,6 +116,9 @@ public class EditarFuncionariosController {
         }
         if (salario.getText().isEmpty()) {
             throw new Exception("Salario não pode ser vazio");
+        }
+        if (senha.getText().isEmpty()) {
+            throw new Exception("Senha não pode ser vazio");
         }
         if (telefone.getText().isEmpty()) {
             throw new Exception("O funcionario precisa ter um telefone");

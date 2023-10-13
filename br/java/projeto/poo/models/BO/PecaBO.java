@@ -4,7 +4,7 @@ import java.sql.ResultSet;
 // import java.sql.SQLException;
 import java.util.ArrayList;
 
-import br.java.projeto.poo.models.DAO.PecaDao;
+import br.java.projeto.poo.DAO.PecaDao;
 import br.java.projeto.poo.models.VO.PecaVo;
 
 public class PecaBO implements BaseInterfaceBO<PecaVo>{

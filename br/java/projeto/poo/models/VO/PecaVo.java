@@ -27,6 +27,7 @@ public class PecaVo {
         if(id < 0) {
             throw new InvalidIdException();
         }
+        this.id = id;
     }
 
     public String getNome() {
@@ -58,9 +59,9 @@ public class PecaVo {
     }
 
     public void setValor(double valor) throws InvalidValorException {
-        if(this.valor <= 0) {
-            throw new InvalidValorException("O valor deve ser maior que 0");
-        }
+        // if(this.valor <= 0) {
+        //     throw new InvalidValorException("O valor deve ser maior que 0");
+        // }
 
         this.valor = valor;
     }
@@ -70,9 +71,16 @@ public class PecaVo {
     }
 
     public void setQuantidade(int quantidade)throws InvalidQuantidadeException{
-        if(this.quantidade <= 0){
-            throw new InvalidQuantidadeException("O valor dever maior que 0");
-        }
+        // if(this.quantidade <= 0){
+        //     throw new InvalidQuantidadeException("O valor dever maior que 0");
+        // }
+
         this.quantidade = quantidade;
     }
+
+    @Override
+    public String toString() {
+        return getId() + " - " + getNome();
+    }
+
 }
