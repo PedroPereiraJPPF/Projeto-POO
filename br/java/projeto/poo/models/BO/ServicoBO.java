@@ -37,11 +37,11 @@ public class ServicoBO implements BaseInterfaceBO<ServicoVO>{
         try{
             ResultSet resultBusca = servicoDao.buscarPorNome(vo);
             ArrayList<ServicoVO> resultado = new ArrayList<ServicoVO>();
-            long idResult = resultBusca.getLong("id");
-            String nomeResult = resultBusca.getString("nome");
-            double valorResult = resultBusca.getDouble("preco");
 
             while (resultBusca.next()) {
+                long idResult = resultBusca.getLong("id");
+                String nomeResult = resultBusca.getString("nome");
+                double valorResult = resultBusca.getDouble("preco");
                 resultado.add(new ServicoVO(idResult, nomeResult, valorResult));
             }
 

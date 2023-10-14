@@ -15,7 +15,6 @@
 <?import javafx.scene.control.TextField?>
 <?import javafx.scene.image.Image?>
 <?import javafx.scene.image.ImageView?>
-<?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.layout.BorderPane?>
 <?import javafx.scene.layout.HBox?>
 <?import javafx.scene.layout.VBox?>
@@ -175,117 +174,144 @@
                </padding>
             </HBox>
             <ScrollPane fitToWidth="true" prefWidth="960.0">
-               <content>
-                  <VBox prefHeight="876.0">
-                     <children>
-                        <Group>
-                           <children>
-                              <HBox alignment="CENTER" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" spacing="10.0">
-                                 <children>
-                                    <Label text="Veículo">
-                                       <font>
-                                          <Font name="System Bold" size="18.0" />
-                                       </font>
-                                    </Label>
-                                    <TextField fx:id="buscarVeiculo" onKeyReleased="#buscarDadosDoVeiculo" prefHeight="40.0" prefWidth="211.0" promptText="Placa do veículo" styleClass="searchField" stylesheets="@../css/buttons.css" />
-                                    <Label fx:id="dadosCliente" minHeight="-Infinity" minWidth="-Infinity" />
-                                 </children>
-                              </HBox>
-                           </children>
-                           <VBox.margin>
-                              <Insets />
-                           </VBox.margin>
-                        </Group>
-                        <VBox spacing="15.0">
-                           <children>
-                              <HBox alignment="CENTER_LEFT" spacing="70.0">
-                                 <children>
-                                    <TextField fx:id="campoBuscaPeca" onKeyReleased="#buscarPecasPorNome" prefHeight="33.0" prefWidth="201.0" promptText="Nome da peça" styleClass="searchField" stylesheets="@../css/buttons.css">
-                                       <contextMenu>
-                                          <ContextMenu>
-                                            <items>
-                                              <MenuItem mnemonicParsing="false" text="Unspecified Action" />
-                                            </items>
-                                          </ContextMenu>
-                                       </contextMenu>
-                                    </TextField>
-                                    <Label fx:id="msgErro" text="Novo " textFill="#bf0c0c" visible="false" />
-                                 </children>
-                                 <VBox.margin>
-                                    <Insets top="10.0" />
-                                 </VBox.margin>
-                              </HBox>
-                              <Group id="Table_Pecas">
-                                 <children>
-                                    <ListView fx:id="pecasBuscadas" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" prefHeight="200.0" prefWidth="200.0" />
-                                    <TableView fx:id="tbPecas" editable="true" layoutX="240.0" maxHeight="1.7976931348623157E308" maxWidth="-Infinity" prefHeight="198.0" prefWidth="650.0">
-                                      <columns>
-                                        <TableColumn fx:id="nomePeca" prefWidth="220.0" text="Peça" />
-                                        <TableColumn fx:id="valorPeca" maxWidth="150.0" minWidth="0.0" prefWidth="220.0" text="Valor" />
-                                          <TableColumn fx:id="quantidade" maxWidth="1.7976931348623157E308" minWidth="80.0" prefWidth="200.0" text="Quantidade" />
-                                          <TableColumn fx:id="acaoPeca" maxWidth="1.7976931348623157E308" text="Ação" />
-                                          <TableColumn fx:id="quantidadeBanco" maxWidth="1.7976931348623157E308" minWidth="80.0" prefWidth="200.0" text="QuantidadeNoBanco" visible="false" />
-                                      </columns>
-                                       <stylesheets>
-                                          <URL value="@../css/tabela.css" />
-                                          <URL value="@../css/buttons.css" />
-                                       </stylesheets>
-                                    </TableView>
-                                 </children>
-                                 <VBox.margin>
-                                    <Insets bottom="15.0" />
-                                 </VBox.margin>
-                              </Group>
-                              <HBox spacing="50.0">
-                                 <children>
-                                    <TextField fx:id="campoBuscaServ" prefHeight="33.0" prefWidth="201.0" promptText="Nome do serviço" styleClass="searchField" stylesheets="@../css/buttons.css" />
-                                 </children>
-                              </HBox>
-                              <Group id="Table_Serv" VBox.vgrow="ALWAYS">
-                                 <children>
-                                    <ListView fx:id="servicosBuscados" prefHeight="200.0" prefWidth="200.0" />
-                                    <TableView fx:id="tbServicos" layoutX="222.0" prefHeight="198.0" prefWidth="732.0">
-                                       <columns>
-                                          <TableColumn fx:id="servicoNome" prefWidth="390.0" text="Serviço" />
-                                          <TableColumn fx:id="servicoValor" prefWidth="220.0" text="Valor" />
-                                          <TableColumn fx:id="servicoAcao" prefWidth="120.0" text="Ação" />
-                                       </columns>
-                                       <stylesheets>
-                                          <URL value="@../css/tabela.css" />
-                                          <URL value="@../css/buttons.css" />
-                                       </stylesheets>
-                                    </TableView>
-                                 </children>
-                                 <VBox.margin>
-                                    <Insets bottom="15.0" />
-                                 </VBox.margin>
-                              </Group>
-                              <HBox spacing="20.0">
-                                 <children>
-                                    <AnchorPane prefHeight="27.0" prefWidth="585.0" />
-                                    <Label alignment="CENTER" text="Valor total">
-                                       <font>
-                                          <Font name="System Bold" size="18.0" />
-                                       </font>
-                                    </Label>
-                                    <Label fx:id="valorOrcamento" alignment="CENTER" layoutX="595.0" layoutY="10.0" text="R$ 1000" visible="false">
-                                       <font>
-                                          <Font name="System Bold" size="18.0" />
-                                       </font>
-                                       <HBox.margin>
-                                          <Insets left="50.0" />
-                                       </HBox.margin>
-                                    </Label>
-                                 </children>
-                              </HBox>
-                           </children>
-                        </VBox>
-                     </children>
-                  </VBox>
-               </content>
                <opaqueInsets>
                   <Insets />
                </opaqueInsets>
+               <content>
+                  <HBox alignment="CENTER">
+                     <children>
+                        <VBox prefHeight="876.0">
+                           <children>
+                              <Group>
+                                 <children>
+                                    <HBox alignment="CENTER_LEFT" fillHeight="false" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" prefHeight="56.0" prefWidth="902.0" spacing="10.0" styleClass="orcamentosContainer" stylesheets="@../css/style.css">
+                                       <children>
+                                          <Label text="Veículo">
+                                             <font>
+                                                <Font name="System Bold" size="18.0" />
+                                             </font>
+                                          </Label>
+                                          <TextField fx:id="buscarVeiculo" onKeyReleased="#buscarDadosDoVeiculo" prefHeight="40.0" prefWidth="211.0" promptText="Placa do veículo" styleClass="searchField" stylesheets="@../css/buttons.css">
+                                             <padding>
+                                                <Insets bottom="10.0" left="10.0" right="10.0" top="10.0" />
+                                             </padding>
+                                          </TextField>
+                                          <Label fx:id="dadosCliente" minHeight="-Infinity" minWidth="-Infinity" />
+                                          <HBox alignment="CENTER_RIGHT" prefHeight="36.0" prefWidth="201.0" HBox.hgrow="ALWAYS">
+                                             <children>
+                                                <Label alignment="CENTER" text="Valor total:">
+                                                   <font>
+                                                      <Font size="18.0" />
+                                                   </font>
+                                                </Label>
+                                                <Label fx:id="valorOrcamento" alignment="CENTER" text="R$ 1000" visible="false">
+                                                   <font>
+                                                      <Font name="System Bold" size="18.0" />
+                                                   </font>
+                                                </Label>
+                                             </children>
+                                          </HBox>
+                                       </children>
+                                       <padding>
+                                          <Insets bottom="10.0" left="20.0" right="10.0" top="10.0" />
+                                       </padding>
+                                    </HBox>
+                                 </children>
+                                 <VBox.margin>
+                                    <Insets />
+                                 </VBox.margin>
+                              </Group>
+                              <HBox alignment="CENTER" prefHeight="100.0">
+                                 <children>
+                                    <VBox prefHeight="572.0" prefWidth="902.0" spacing="15.0" styleClass="orcamentosContainer" stylesheets="@../css/style.css">
+                                       <children>
+                                          <HBox alignment="CENTER_LEFT" spacing="70.0">
+                                             <children>
+                                                <TextField fx:id="campoBuscaPeca" onKeyReleased="#buscarPecasPorNome" prefHeight="33.0" prefWidth="201.0" promptText="Nome da peça" styleClass="searchField" stylesheets="@../css/buttons.css">
+                                                   <contextMenu>
+                                                      <ContextMenu>
+                                                        <items>
+                                                          <MenuItem mnemonicParsing="false" text="Unspecified Action" />
+                                                        </items>
+                                                      </ContextMenu>
+                                                   </contextMenu>
+                                                </TextField>
+                                                <Label fx:id="msgErroPecas" text="Novo " textFill="#bf0c0c" visible="false" />
+                                             </children>
+                                             <VBox.margin>
+                                                <Insets top="10.0" />
+                                             </VBox.margin>
+                                          </HBox>
+                                          <Group id="Table_Pecas">
+                                             <children>
+                                                <ListView fx:id="pecasBuscadas" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" prefHeight="200.0" prefWidth="200.0" />
+                                                <TableView fx:id="tbPecas" editable="true" layoutX="220.0" layoutY="1.0" maxHeight="1.7976931348623157E308" maxWidth="-Infinity" prefHeight="198.0" prefWidth="650.0">
+                                                  <columns>
+                                                    <TableColumn fx:id="nomePeca" prefWidth="220.0" text="Peça" />
+                                                    <TableColumn fx:id="valorPeca" maxWidth="150.0" minWidth="0.0" prefWidth="220.0" text="Valor" />
+                                                      <TableColumn fx:id="quantidade" maxWidth="1.7976931348623157E308" minWidth="80.0" prefWidth="200.0" text="Quantidade" />
+                                                      <TableColumn fx:id="acaoPeca" maxWidth="1.7976931348623157E308" text="Ação" />
+                                                      <TableColumn fx:id="quantidadeBanco" maxWidth="1.7976931348623157E308" minWidth="80.0" prefWidth="200.0" text="QuantidadeNoBanco" visible="false" />
+                                                  </columns>
+                                                   <stylesheets>
+                                                      <URL value="@../css/tabela.css" />
+                                                      <URL value="@../css/buttons.css" />
+                                                   </stylesheets>
+                                                </TableView>
+                                             </children>
+                                             <VBox.margin>
+                                                <Insets bottom="15.0" />
+                                             </VBox.margin>
+                                          </Group>
+                                          <HBox alignment="CENTER_LEFT" spacing="50.0">
+                                             <children>
+                                                <TextField fx:id="campoBuscaServ" onKeyReleased="#buscarServicosPorNome" prefHeight="33.0" prefWidth="201.0" promptText="Nome do serviço" styleClass="searchField" stylesheets="@../css/buttons.css" />
+                                                <Label fx:id="msgErroServicos" alignment="CENTER_RIGHT" text="Novo " textFill="#bf0c0c" visible="false" />
+                                             </children>
+                                          </HBox>
+                                          <Group id="Table_Serv" VBox.vgrow="ALWAYS">
+                                             <children>
+                                                <ListView fx:id="servicosBuscados" prefHeight="200.0" prefWidth="200.0" />
+                                                <TableView fx:id="tbServicos" layoutX="222.0" prefHeight="198.0" prefWidth="650.0">
+                                                   <columns>
+                                                      <TableColumn fx:id="servicoNome" prefWidth="390.0" text="Serviço" />
+                                                      <TableColumn fx:id="servicoValor" prefWidth="180.0" text="Valor" />
+                                                      <TableColumn fx:id="acaoServico" text="Ação" />
+                                                   </columns>
+                                                   <stylesheets>
+                                                      <URL value="@../css/tabela.css" />
+                                                      <URL value="@../css/buttons.css" />
+                                                   </stylesheets>
+                                                </TableView>
+                                             </children>
+                                             <VBox.margin>
+                                                <Insets bottom="15.0" />
+                                             </VBox.margin>
+                                          </Group>
+                                       </children>
+                                       <padding>
+                                          <Insets left="10.0" />
+                                       </padding>
+                                    </VBox>
+                                 </children>
+                                 <VBox.margin>
+                                    <Insets top="20.0" />
+                                 </VBox.margin>
+                              </HBox>
+                           </children>
+                           <VBox.margin>
+                              <Insets top="20.0" />
+                           </VBox.margin>
+                        </VBox>
+                     </children>
+                     <VBox.margin>
+                        <Insets />
+                     </VBox.margin>
+                  </HBox>
+               </content>
+               <padding>
+                  <Insets top="10.0" />
+               </padding>
             </ScrollPane>
          </children>
       </VBox>

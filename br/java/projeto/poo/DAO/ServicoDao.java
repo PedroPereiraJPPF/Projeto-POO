@@ -79,11 +79,11 @@ public class ServicoDao <VO extends ServicoVO> extends BaseDao <VO>{
     }
 
     public ResultSet buscarPorNome(VO servico) throws SQLException {
-        String query = "select * from servico where nome = (?)";
+        String query = "select * from servicos where nome like '%'|| ? ||'%'";
         PreparedStatement ps = null;
         try {
             ps = this.db.prepareStatement(query);
-            ps.setString(0, servico.getNome());
+            ps.setString(1, servico.getNome());
             return ps.executeQuery();
         } catch (Exception e) {
             throw e;

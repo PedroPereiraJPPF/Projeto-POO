@@ -6,6 +6,7 @@ import java.util.ArrayList;
 import br.java.projeto.poo.controller.BaseController;
 import br.java.projeto.poo.exceptions.InvalidQuantidadeException;
 import br.java.projeto.poo.models.BO.PecaBO;
+import br.java.projeto.poo.models.BO.ServicoBO;
 import br.java.projeto.poo.models.BO.VeiculoBO;
 import br.java.projeto.poo.models.VO.PecaVo;
 import br.java.projeto.poo.models.VO.ServicoVO;
@@ -28,6 +29,7 @@ import javafx.scene.layout.HBox;
 public class CriarOrcamentosController extends BaseController{
     PecaBO pecaBo = new PecaBO();
     VeiculoBO veiculoBO = new VeiculoBO();
+    ServicoBO servicoBO = new ServicoBO();
     @FXML private TableView<PecaVo> tbPecas;
     @FXML private TableColumn<PecaVo, String> acaoPeca;
     @FXML private TableColumn<PecaVo, String> nomePeca;
@@ -41,22 +43,30 @@ public class CriarOrcamentosController extends BaseController{
     @FXML private ListView<PecaVo> pecasBuscadas;
     @FXML private Label dadosCliente;
     @FXML private TableView<ServicoVO> tbServicos;
-    @FXML private TableColumn<?, ?> servicoAcao;
-    @FXML private TableColumn<?, ?> servicoNome;
-    @FXML private TableColumn<?, ?> servicoValor;
+    @FXML private TableColumn<ServicoVO, String> acaoServico;
+    @FXML private TableColumn<ServicoVO, String> servicoNome;
+    @FXML private TableColumn<ServicoVO, Double> servicoValor;
     @FXML private ListView<ServicoVO> servicosBuscados;
-    @FXML private Label msgErro;
+    @FXML private Label msgErroPecas;
+    @FXML private Label msgErroServicos;
 
-    ObservableList<PecaVo> itens = FXCollections.observableArrayList();
+    ObservableList<PecaVo> itensPecas = FXCollections.observableArrayList();
     ObservableList<PecaVo> pecasEscolhidas = FXCollections.observableArrayList();
+    ObservableList<ServicoVO> itensServicos = FXCollections.observableArrayList();
+    ObservableList<ServicoVO> servicosEscolhidos = FXCollections.observableArrayList();
 
     @FXML
     public void initialize() throws Exception {
+        tbServicos.setItems(servicosEscolhidos);
         tbPecas.setItems(pecasEscolhidas);
         pecasBuscadas.setVisible(false);
         servicosBuscados.setVisible(false);
         salvarNovoOrcamento.setDisable(true);
-        pecasBuscadas.setItems(itens);
+        servicosBuscados.setItems(itensServicos);
+        servicosBuscados.setOnMouseClicked(event -> {
+            this.atualizarValoresServicos();
+        });
+        pecasBuscadas.setItems(itensPecas);
         pecasBuscadas.setOnMouseClicked(event -> {
             this.atualizarValoresPecas();
         });
@@ -70,7 +80,8 @@ public class CriarOrcamentosController extends BaseController{
             if(buscarVeiculo.getText().length() > 7) {
                 ArrayList<VeiculoVO> veiculos = veiculoBO.buscarPorPlaca(buscarVeiculo.getText());
                 if(veiculos.get(0).getId() > 0) {
-                    dadosCliente.setText("Modelo: " + veiculos.get(0).getModelo() + " - CPF dono: " + veiculos.get(0).getCpfDono());
+                    dadosCliente.setText("Veiculo existe");
+                    dadosCliente.setStyle("-fx-text-fill: green;");
                     salvarNovoOrcamento.setDisable(false);
                 }
             } else {
@@ -78,6 +89,7 @@ public class CriarOrcamentosController extends BaseController{
                 dadosCliente.setText("");
             }
         } catch (Exception e) {
+            dadosCliente.setStyle("-fx-text-fill: red;");
             dadosCliente.setText("Veiculo não encontrado");
         } 
     }
@@ -86,14 +98,15 @@ public class CriarOrcamentosController extends BaseController{
     @FXML
     void buscarPecasPorNome(KeyEvent event) {
         try {
+            msgErroPecas.setVisible(false);
             if (campoBuscaPeca.getText().length() > 0) {
                 PecaVo vo = new PecaVo();
                 vo.setNome(campoBuscaPeca.getText());
-                itens.setAll(pecaBo.buscarPorNome(vo));
+                itensPecas.setAll(pecaBo.buscarPorNome(vo));
                 pecasBuscadas.setVisible(true);
             } else {
                 pecasBuscadas.setVisible(false);
-                itens.removeAll();
+                itensPecas.removeAll();
             }
         } catch (Exception e) {
             System.out.println(e.getMessage());
@@ -102,7 +115,6 @@ public class CriarOrcamentosController extends BaseController{
 
     void atualizarValoresPecas() {
         try {
-            msgErro.setVisible(false);
             PecaVo peca = pecasBuscadas.getSelectionModel().getSelectedItem();
             int indice = pecasEscolhidas.indexOf(peca);
             
@@ -121,8 +133,8 @@ public class CriarOrcamentosController extends BaseController{
                 pecasEscolhidas.set(indice, pecaAdicionada);
             }
         } catch (Exception e) {
-            msgErro.setText(e.getMessage());
-            msgErro.setVisible(true);
+            msgErroPecas.setText(e.getMessage());
+            msgErroPecas.setVisible(true);
         }
     }
 
@@ -162,11 +174,78 @@ public class CriarOrcamentosController extends BaseController{
         });
     }
 
+    // funçoes para configurar a tabela de Servicos
+    @FXML
+    void buscarServicosPorNome(KeyEvent event) {
+        try {
+            msgErroServicos.setVisible(false);
+            if (campoBuscaServ.getText().length() > 0) {
+                ServicoVO vo = new ServicoVO();
+                vo.setNome(campoBuscaServ.getText());
+                itensServicos.setAll(servicoBO.buscarPorNome(vo));
+                servicosBuscados.setVisible(true);
+            } else {
+                servicosBuscados.setVisible(false);
+                itensServicos.removeAll();
+            }
+        } catch (Exception e) {
+            System.out.println(e.getMessage());
+        }
+    }
+
+    void atualizarValoresServicos() {
+        try {
+            ServicoVO servico = servicosBuscados.getSelectionModel().getSelectedItem();
+        
+            if (!servicosEscolhidos.contains(servico)) {
+                servicosEscolhidos.add(servico);
+            } else {
+                throw new InvalidQuantidadeException("Esse serviço ja foi adicionado");
+            }
+        } catch (Exception e) {
+            msgErroServicos.setText(e.getMessage());
+            msgErroServicos.setVisible(true);
+        }
+    }
+
+    private void inicializarBotoesDeAcaoServico (ObservableList<ServicoVO> funcs) {
+        acaoServico.setCellFactory(param -> new TableCell<>() {
+            private final Button btnDelete = new Button();
+            private final HBox btnContainer = new HBox(btnDelete);
+
+            {
+                btnDelete.getStyleClass().add("btn-delete");
+                btnDelete.setOnAction(event -> {
+                    try {
+                        servicosEscolhidos.remove(getIndex());
+                    } catch (Exception e) {
+                        e.printStackTrace();
+                    }
+                });
+            }
+
+            @Override
+            protected void updateItem(String item, boolean empty) {
+                super.updateItem(item, empty);
+                if (empty) {
+                    setGraphic(null);
+                } else {
+                    btnContainer.setStyle("-fx-padding: 0 20 0 20;");
+                    btnContainer.setSpacing(10);
+                    setGraphic(btnContainer);
+                }
+            }
+        });
+    }
+
     private void inicializarTabelas() throws SQLException {
         nomePeca.setCellValueFactory(new PropertyValueFactory<PecaVo, String>("nome"));
         valorPeca.setCellValueFactory(new PropertyValueFactory<PecaVo, Double>("valor"));
         quantidade.setCellValueFactory(new PropertyValueFactory<PecaVo, Integer>("quantidade"));
-        this.inicializarBotoesDeAcaoPeca(itens);
+        servicoNome.setCellValueFactory(new PropertyValueFactory<ServicoVO, String>("nome"));
+        servicoValor.setCellValueFactory(new PropertyValueFactory<ServicoVO, Double>("valor"));
+        this.inicializarBotoesDeAcaoPeca(itensPecas);
+        this.inicializarBotoesDeAcaoServico(itensServicos);
     }
 
     @FXML
