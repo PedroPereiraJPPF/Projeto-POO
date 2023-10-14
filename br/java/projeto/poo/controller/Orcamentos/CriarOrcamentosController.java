@@ -1,11 +1,15 @@
 package br.java.projeto.poo.controller.Orcamentos;
 
 import java.sql.SQLException;
+import java.util.ArrayList;
 
 import br.java.projeto.poo.controller.BaseController;
+import br.java.projeto.poo.exceptions.InvalidQuantidadeException;
 import br.java.projeto.poo.models.BO.PecaBO;
+import br.java.projeto.poo.models.BO.VeiculoBO;
 import br.java.projeto.poo.models.VO.PecaVo;
 import br.java.projeto.poo.models.VO.ServicoVO;
+import br.java.projeto.poo.models.VO.VeiculoVO;
 import br.java.projeto.poo.src.App;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
@@ -23,7 +27,7 @@ import javafx.scene.layout.HBox;
 
 public class CriarOrcamentosController extends BaseController{
     PecaBO pecaBo = new PecaBO();
-    
+    VeiculoBO veiculoBO = new VeiculoBO();
     @FXML private TableView<PecaVo> tbPecas;
     @FXML private TableColumn<PecaVo, String> acaoPeca;
     @FXML private TableColumn<PecaVo, String> nomePeca;
@@ -31,7 +35,7 @@ public class CriarOrcamentosController extends BaseController{
     @FXML private TableColumn<PecaVo, Integer> quantidade;
     @FXML private Button voltaTelaInicial;
     @FXML private Button salvarNovoOrcamento;
-    @FXML private TextField buscarPlaca;
+    @FXML private TextField buscarVeiculo;
     @FXML private TextField campoBuscaPeca;
     @FXML private TextField campoBuscaServ;
     @FXML private ListView<PecaVo> pecasBuscadas;
@@ -41,6 +45,7 @@ public class CriarOrcamentosController extends BaseController{
     @FXML private TableColumn<?, ?> servicoNome;
     @FXML private TableColumn<?, ?> servicoValor;
     @FXML private ListView<ServicoVO> servicosBuscados;
+    @FXML private Label msgErro;
 
     ObservableList<PecaVo> itens = FXCollections.observableArrayList();
     ObservableList<PecaVo> pecasEscolhidas = FXCollections.observableArrayList();
@@ -49,14 +54,34 @@ public class CriarOrcamentosController extends BaseController{
     public void initialize() throws Exception {
         tbPecas.setItems(pecasEscolhidas);
         pecasBuscadas.setVisible(false);
+        salvarNovoOrcamento.setDisable(true);
         pecasBuscadas.setItems(itens);
         pecasBuscadas.setOnMouseClicked(event -> {
             this.atualizarValoresPecas();
         });
 
-        inicializarTabela();
+        inicializarTabelas();
     }
-    
+
+    @FXML
+    void buscarDadosDoVeiculo(KeyEvent event) {
+        try {
+            if(buscarVeiculo.getText().length() > 7) {
+                ArrayList<VeiculoVO> veiculos = veiculoBO.buscarPorPlaca(buscarVeiculo.getText());
+                if(veiculos.get(0).getId() > 0) {
+                    dadosCliente.setText("Modelo: " + veiculos.get(0).getModelo() + " - CPF dono: " + veiculos.get(0).getCpfDono());
+                    salvarNovoOrcamento.setDisable(false);
+                }
+            } else {
+                salvarNovoOrcamento.setDisable(true);
+                dadosCliente.setText("");
+            }
+        } catch (Exception e) {
+            dadosCliente.setText("Veiculo não encontrado");
+        } 
+    }
+
+    // funçoes para configurar a tabela de peças
     @FXML
     void buscarPecasPorNome(KeyEvent event) {
         try {
@@ -77,22 +102,30 @@ public class CriarOrcamentosController extends BaseController{
     void atualizarValoresPecas() {
         try {
             PecaVo peca = pecasBuscadas.getSelectionModel().getSelectedItem();
+            int indice = pecasEscolhidas.indexOf(peca);
+            
+            if(peca.getQuantidade() == 0) {
+                throw new InvalidQuantidadeException("Sem estoque para essa peça");
+            }
+
             if (!pecasEscolhidas.contains(peca)) {
                 peca.setQuantidade(1);
                 pecasEscolhidas.add(peca);
             } else {
-                int indice = pecasEscolhidas.indexOf(peca);
                 PecaVo pecaAdicionada = pecasEscolhidas.get(indice);
+                if (peca.getQuantidade() == pecaAdicionada.getQuantidade()) {
+                    throw new InvalidQuantidadeException("Sem estoque para essa peça");
+                }
                 pecaAdicionada.setQuantidade(pecaAdicionada.getQuantidade() + 1);
-                
                 pecasEscolhidas.set(indice, pecaAdicionada);
             }
         } catch (Exception e) {
-            System.out.println(e.getMessage());
+            msgErro.setText(e.getMessage());
+            msgErro.setVisible(true);
         }
     }
 
-    private void inicializarTabela() throws SQLException {
+    private void inicializarTabelas() throws SQLException {
         nomePeca.setCellValueFactory(new PropertyValueFactory<PecaVo, String>("nome"));
         valorPeca.setCellValueFactory(new PropertyValueFactory<PecaVo, Double>("valor"));
         quantidade.setCellValueFactory(new PropertyValueFactory<PecaVo, Integer>("quantidade"));

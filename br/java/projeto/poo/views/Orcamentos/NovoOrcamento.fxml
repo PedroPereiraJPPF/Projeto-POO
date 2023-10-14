@@ -151,7 +151,7 @@
                   </VBox>
                   <HBox alignment="CENTER_RIGHT" prefHeight="42.0" prefWidth="620.0" spacing="15.0" HBox.hgrow="ALWAYS">
                      <children>
-                        <Button fx:id="voltaTelaInicial" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" mnemonicParsing="false" onAction="#voltaTelaInicial" prefHeight="40.0" prefWidth="110.0" styleClass="btn-back" stylesheets="@../css/buttons.css" text="Voltar">
+                        <Button fx:id="voltaTelaInicial" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" mnemonicParsing="false" onAction="#voltaTelaInicial" onMouseClicked="#carregarOrcamentos" prefHeight="40.0" prefWidth="110.0" styleClass="btn-back" stylesheets="@../css/buttons.css" text="Voltar">
                            <HBox.margin>
                               <Insets right="8.0" />
                            </HBox.margin>
@@ -187,12 +187,8 @@
                                           <Font name="System Bold" size="18.0" />
                                        </font>
                                     </Label>
-                                    <TextField fx:id="buscarPlaca" prefHeight="40.0" prefWidth="211.0" promptText="Placa do veículo" styleClass="searchField" stylesheets="@../css/buttons.css" />
-                                    <Label fx:id="dadosCliente" minHeight="-Infinity" minWidth="-Infinity">
-                                       <font>
-                                          <Font name="System Bold" size="18.0" />
-                                       </font>
-                                    </Label>
+                                    <TextField fx:id="buscarVeiculo" onKeyReleased="#buscarDadosDoVeiculo" prefHeight="40.0" prefWidth="211.0" promptText="Placa do veículo" styleClass="searchField" stylesheets="@../css/buttons.css" />
+                                    <Label fx:id="dadosCliente" minHeight="-Infinity" minWidth="-Infinity" />
                                  </children>
                               </HBox>
                            </children>
@@ -202,7 +198,7 @@
                         </Group>
                         <VBox spacing="15.0">
                            <children>
-                              <HBox spacing="70.0">
+                              <HBox alignment="CENTER_LEFT" spacing="70.0">
                                  <children>
                                     <TextField fx:id="campoBuscaPeca" onKeyReleased="#buscarPecasPorNome" prefHeight="33.0" prefWidth="201.0" promptText="Nome da peça" styleClass="searchField" stylesheets="@../css/buttons.css">
                                        <contextMenu>
@@ -213,6 +209,7 @@
                                           </ContextMenu>
                                        </contextMenu>
                                     </TextField>
+                                    <Label fx:id="msgErro" text="Novo " textFill="#bf0c0c" visible="false" />
                                  </children>
                                  <VBox.margin>
                                     <Insets top="10.0" />

@@ -76,7 +76,7 @@ public class PecaVo {
 
     @Override
     public String toString() {
-        return getId() + " - " + getNome();
+        return getNome() + " - " + getValor();
     }
 
 }
