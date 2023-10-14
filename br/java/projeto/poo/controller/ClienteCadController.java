@@ -25,11 +25,12 @@ import javafx.stage.Stage;
 import javafx.stage.StageStyle;
 import javafx.stage.Window;
 
-public class ClienteSubController {
-    // ====== campos da tela de cadastro de clientes ======
+public class ClienteCadController {
+    
+    
     @FXML private Button cadastrarCliente;
     @FXML private Button cancelarCadastro;
-    @FXML private ChoiceBox<String> tipoVeic = new ChoiceBox<>();
+    @FXML private ChoiceBox<String> tipoVeic;
     @FXML private Label mensagemErroCad;
     @FXML private Pane cadastroCliente;
     private String[] tipoVeic_Array = {"Carro","Moto"};
@@ -41,34 +42,15 @@ public class ClienteSubController {
     @FXML private TextField campoModVeic;
     @FXML private TextField campoNomeCliente;
     @FXML private TextField campoPlacCliente;
-    // ====================================================
-
-    // ====== campos da tela de edição de clientes ======
-    private ClienteVO clienteEditar;
-    @FXML private TextField campoEditCPF;
-    @FXML private TextField campoEditEnd;
-    @FXML private TextField campoEditNome;
-    @FXML private TextField idCliente;
-    @FXML private Button cancelarEdicao;
-    @FXML private Label mensagemErroEdit;
-    @FXML private Button salvarEdicao;
-    // ==================================================
-
-
-
-
-
+    
 
 
     @FXML
-    void initialize(ClienteVO cliente, int index){
-        tipoVeic.getItems().addAll(tipoVeic_Array);
-        clienteEditar = new ClienteVO();
-        clienteEditar = cliente;
-        this.preencherCampos(cliente, index);
-        //System.out.println(clienteEditar.getNome() + "\n" + clienteEditar.getCpf() + "\n" + clienteEditar.getId());
-    }
+    void initialize(){
 
+        tipoVeic.getItems().addAll(tipoVeic_Array);
+    
+    }
 
 
 
@@ -103,7 +85,7 @@ public class ClienteSubController {
 
 
     @FXML
-    void abrirModalSucess(Label mensagem, Button b) throws IOException{
+    void abrirModalSucess(Label mensagem, Button b, ClienteVO cliente) throws IOException{
         FXMLLoader loader = new FXMLLoader(getClass().getResource("../views/Modals/ModalSucesso.fxml"));
         Parent root = loader.load();
         
@@ -122,6 +104,8 @@ public class ClienteSubController {
         palco.setX(centralizarEixoX);
         palco.setY(centralizarEixoY);
         palco.showAndWait();
+
+        ClienteController.clientesDisponiveis.add(cliente);
         
     }
 
@@ -188,7 +172,7 @@ public class ClienteSubController {
 
                 Label labelSucesso = new Label("Cliente cadastrado com sucesso.");
                 cancelarCadastro();
-                abrirModalSucess(labelSucesso, cadastrarCliente);
+                abrirModalSucess(labelSucesso, cadastrarCliente, nClienteVO);
             }
         }
         catch (Exception ex){
@@ -211,76 +195,10 @@ public class ClienteSubController {
 
 
     @FXML
-    void editarCliente() throws Exception{
-        
-        String nome = null, cpf = null, endereco = null;
-
-        //System.out.println(clienteEditar.getNome() + "\n" + clienteEditar.getCpf());
-        
-        if (campoEditNome.getText().isEmpty()) {mensagemErroEdit.setVisible(true);} 
-        else nome = campoEditNome.getText();
-
-        if (campoEditCPF.getText().isEmpty()) {mensagemErroEdit.setVisible(true);} 
-        else cpf = campoEditCPF.getText();
-        
-        try{
-            
-            
-            clienteEditar.setNome(nome);
-            clienteEditar.setCpf(cpf);
-            clienteEditar.setEndereco(null);
-            ClienteBO bo = new ClienteBO();
-            bo.atualizar(clienteEditar);
-            Label labelSucesso = new Label("Cliente editado com sucesso.");
-            cancelarEdicao();
-            abrirModalSucess(labelSucesso, salvarEdicao);
-
-        }
-        catch(Exception ex){
-            Label labelFalha = new Label();
-            labelFalha.setText(ex.getMessage());
-            System.out.println(ex.getMessage());
-            cancelarEdicao();
-            abrirModalFail(labelFalha, salvarEdicao);
-        }
-    }
-
-    @FXML
-    void cancelarEdicao() throws Exception{
-        Stage palco = (Stage) this.cancelarEdicao.getScene().getWindow();
-        palco.close();
-    }
-
-    
-
-
-
-
-    void preencherCampos(ClienteVO cliente, int index){
-        try{
-
-            campoEditNome.setText(cliente.getNome());
-            campoEditCPF.setText(cliente.getCpf());
-            //idCliente.setText(String.valueOf(cliente.getId()));
-            //campoEditEnd.setText(cliente.getEndereco().toString());
-        } catch(Exception ex){
-            System.out.println(ex.getMessage());
-        }
-    }
-
-
-
-
-
-
-    @FXML
     void setInvisibleCad(){
         this.mensagemErroCad.setVisible(false);
     }
 
-    @FXML
-    void setInvisibleEdit(){
-        this.mensagemErroEdit.setVisible(false);
-    }
+    
 
 }

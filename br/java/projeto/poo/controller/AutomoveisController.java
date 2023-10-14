@@ -87,6 +87,7 @@ public class AutomoveisController extends BaseController{
         try {
             Stage modalStage = new Stage();
             modalStage.initModality(Modality.APPLICATION_MODAL);
+            modalStage.initStyle(StageStyle.UNDECORATED);
 
             FXMLLoader loader = new FXMLLoader(getClass().getResource("../views/Automoveis/EditarAutomoveis.fxml"));
             Parent root = loader.load();
