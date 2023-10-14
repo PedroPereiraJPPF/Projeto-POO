@@ -79,4 +79,12 @@ public class PecaVo {
         return getNome() + " - " + getValor();
     }
 
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        PecaVo outraPeca = (PecaVo) o;
+        return id == outraPeca.id;
+    }
+
 }

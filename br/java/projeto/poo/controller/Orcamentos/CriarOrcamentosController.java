@@ -54,6 +54,7 @@ public class CriarOrcamentosController extends BaseController{
     public void initialize() throws Exception {
         tbPecas.setItems(pecasEscolhidas);
         pecasBuscadas.setVisible(false);
+        servicosBuscados.setVisible(false);
         salvarNovoOrcamento.setDisable(true);
         pecasBuscadas.setItems(itens);
         pecasBuscadas.setOnMouseClicked(event -> {
@@ -101,6 +102,7 @@ public class CriarOrcamentosController extends BaseController{
 
     void atualizarValoresPecas() {
         try {
+            msgErro.setVisible(false);
             PecaVo peca = pecasBuscadas.getSelectionModel().getSelectedItem();
             int indice = pecasEscolhidas.indexOf(peca);
             
@@ -109,8 +111,7 @@ public class CriarOrcamentosController extends BaseController{
             }
 
             if (!pecasEscolhidas.contains(peca)) {
-                peca.setQuantidade(1);
-                pecasEscolhidas.add(peca);
+                pecasEscolhidas.add(new PecaVo(peca.getId(), peca.getNome(), peca.getFabricante(), peca.getValor(), 1));
             } else {
                 PecaVo pecaAdicionada = pecasEscolhidas.get(indice);
                 if (peca.getQuantidade() == pecaAdicionada.getQuantidade()) {
@@ -125,14 +126,7 @@ public class CriarOrcamentosController extends BaseController{
         }
     }
 
-    private void inicializarTabelas() throws SQLException {
-        nomePeca.setCellValueFactory(new PropertyValueFactory<PecaVo, String>("nome"));
-        valorPeca.setCellValueFactory(new PropertyValueFactory<PecaVo, Double>("valor"));
-        quantidade.setCellValueFactory(new PropertyValueFactory<PecaVo, Integer>("quantidade"));
-        this.inicializarBotoesDeAcao(itens);
-    }
-
-    private void inicializarBotoesDeAcao (ObservableList<PecaVo> funcs) {
+    private void inicializarBotoesDeAcaoPeca (ObservableList<PecaVo> funcs) {
         acaoPeca.setCellFactory(param -> new TableCell<>() {
             private final Button btnDelete = new Button();
             private final HBox btnContainer = new HBox(btnDelete);
@@ -166,6 +160,13 @@ public class CriarOrcamentosController extends BaseController{
                 }
             }
         });
+    }
+
+    private void inicializarTabelas() throws SQLException {
+        nomePeca.setCellValueFactory(new PropertyValueFactory<PecaVo, String>("nome"));
+        valorPeca.setCellValueFactory(new PropertyValueFactory<PecaVo, Double>("valor"));
+        quantidade.setCellValueFactory(new PropertyValueFactory<PecaVo, Integer>("quantidade"));
+        this.inicializarBotoesDeAcaoPeca(itens);
     }
 
     @FXML
