@@ -1,8 +1,9 @@
-package br.java.projeto.poo.controller;
+package br.java.projeto.poo.controller.Clientes;
 
 import java.io.IOException;
 import java.util.ArrayList;
 
+import br.java.projeto.poo.controller.ModalsController;
 import br.java.projeto.poo.models.BO.ClienteBO;
 import br.java.projeto.poo.models.BO.VeiculoBO;
 import br.java.projeto.poo.models.VO.ClienteVO;

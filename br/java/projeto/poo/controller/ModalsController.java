@@ -24,15 +24,15 @@ public class ModalsController {
         CloseModalE();
     }
 
-    void ExibirMensagemExcluir(String mensagem){
+    public void ExibirMensagemExcluir(String mensagem){
         mensagemExclusao.setText(mensagem);
     }
 
-    void ExibirMensagemFalha(String mensagem){
+    public void ExibirMensagemFalha(String mensagem){
         mensagemFalha.setText(mensagem);
     }
     
-    void ExibirMensagemSucesso(String mensagem){
+    public void ExibirMensagemSucesso(String mensagem){
         mensagemSucesso.setText(mensagem);
     }
 
