@@ -11,10 +11,10 @@
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Font?>
 
-<Pane id="editarCliente" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="450.0" prefWidth="500.0" stylesheets="@../css/Modals.css" xmlns="http://javafx.com/javafx/20.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="br.java.projeto.poo.controller.ClienteSubController">
+<Pane id="editarCliente" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="450.0" prefWidth="500.0" stylesheets="@../css/Modals.css" xmlns="http://javafx.com/javafx/20.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="br.java.projeto.poo.controller.ClienteEditController">
    <children>
       <TextField fx:id="idCliente" layoutX="494.0" layoutY="14.0" prefHeight="1.0" prefWidth="1.0" visible="false" />
-      <VBox alignment="CENTER_LEFT" layoutX="-1.0" layoutY="1.0" prefHeight="52.0" prefWidth="500.0" spacing="10.0" styleClass="pane" stylesheets="@../css/Modals.css">
+      <VBox alignment="CENTER_LEFT" layoutX="1.0" layoutY="1.0" prefHeight="52.0" prefWidth="500.0" spacing="10.0" stylesheets="@../css/Modals.css">
          <children>
             <Label prefHeight="30.0" prefWidth="284.0" text="Editar informações do cliente">
                <font>
@@ -33,7 +33,7 @@
             <Point3D />
          </rotationAxis>
       </VBox>
-      <VBox alignment="CENTER" layoutY="50.0" prefHeight="300.0" prefWidth="500.0" spacing="20.0">
+      <VBox alignment="CENTER" layoutY="50.0" prefHeight="300.0" prefWidth="500.0" spacing="20.0" stylesheets="@../css/Modals.css">
          <children>
             <VBox alignment="CENTER_LEFT" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="80.0" prefWidth="400.0" spacing="15.0">
                <children>

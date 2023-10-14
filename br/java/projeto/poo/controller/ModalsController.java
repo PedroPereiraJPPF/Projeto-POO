@@ -21,6 +21,7 @@ public class ModalsController {
     @FXML
     private void confirmarExclusao(){
         setExclusaoValid();
+        CloseModalE();
     }
 
     void ExibirMensagemExcluir(String mensagem){
