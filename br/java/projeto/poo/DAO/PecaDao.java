@@ -83,11 +83,11 @@ public class PecaDao <VO extends PecaVo> extends BaseDao <VO>{
     }
     
     public ResultSet buscarPorNome(VO peca) throws SQLException {
-        String query = "select * from pecas where id = (?)";
+        String query = "select * from pecas where nome like '%'|| ? ||'%'";
         PreparedStatement ps = null;
         try {
             ps = this.db.prepareStatement(query);
-            ps.setString(0, peca.getNome());
+            ps.setString(1, peca.getNome());
             return ps.executeQuery();
         } catch (Exception e) {
             throw e;

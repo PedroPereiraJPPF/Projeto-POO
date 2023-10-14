@@ -15,13 +15,13 @@ public class PecaBO implements BaseInterfaceBO<PecaVo>{
     public ArrayList<PecaVo> listar() throws Exception {
         ArrayList<PecaVo> listaDePecas = new ArrayList<PecaVo>();
         ResultSet pecasDoBanco = pecaDao.listar();
-        String nomePecaBanco = pecasDoBanco.getString("nome");
-        String nomeFabrBanco = pecasDoBanco.getString("fabricante");
-        int quantPecaBanco = pecasDoBanco.getInt("quantidade"); 
-        double valorPecaBanco = pecasDoBanco.getDouble("preco");
-
         while(pecasDoBanco.next()){
-            listaDePecas.add(new PecaVo(0,nomePecaBanco,nomeFabrBanco,valorPecaBanco,quantPecaBanco));
+            long pecaId = pecasDoBanco.getLong("id");
+            String nomePecaBanco = pecasDoBanco.getString("nome");
+            String nomeFabrBanco = pecasDoBanco.getString("fabricante");
+            int quantPecaBanco = pecasDoBanco.getInt("quantidade"); 
+            double valorPecaBanco = pecasDoBanco.getDouble("preco");
+            listaDePecas.add(new PecaVo(pecaId,nomePecaBanco,nomeFabrBanco,valorPecaBanco,quantPecaBanco));
         }
 
         return listaDePecas;
@@ -38,19 +38,19 @@ public class PecaBO implements BaseInterfaceBO<PecaVo>{
         try{
             ResultSet resultBusca = pecaDao.buscarPorFabricante(vo);
             ArrayList<PecaVo> resultado = new ArrayList<PecaVo>();
-            String nomeResult = resultBusca.getString("nome");
-            String fabResult = resultBusca.getString("fabricante");
-            double valorResult = resultBusca.getDouble("preco");
-            int quantResult = resultBusca.getInt("quantidade");
-
+            
             while (resultBusca.next()) {
-                resultado.add(new PecaVo(0, nomeResult, fabResult, valorResult, quantResult));
+                String nomeResult = resultBusca.getString("nome");
+                String fabResult = resultBusca.getString("fabricante");
+                double valorResult = resultBusca.getDouble("preco");
+                int quantResult = resultBusca.getInt("quantidade");
+                resultado.add(new PecaVo(resultBusca.getLong("id"), nomeResult, fabResult, valorResult, quantResult));
             }
 
             return resultado;
 
         } catch(Exception e) {
-            e.printStackTrace();
+            System.out.println(e.getMessage());
             throw new Exception("Erro ao buscar peça.");
         }
     }
@@ -60,13 +60,13 @@ public class PecaBO implements BaseInterfaceBO<PecaVo>{
         try{
             ResultSet resultBusca = pecaDao.buscarPorNome(vo);
             ArrayList<PecaVo> resultado = new ArrayList<PecaVo>();
-            String nomeResult = resultBusca.getString("nome");
-            String fabResult = resultBusca.getString("fabricante");
-            double valorResult = resultBusca.getDouble("preco");
-            int quantResult = resultBusca.getInt("quantidade");
 
             while (resultBusca.next()) {
-                resultado.add(new PecaVo(0, nomeResult, fabResult, valorResult, quantResult));
+                String nomeResult = resultBusca.getString("nome");
+                String fabResult = resultBusca.getString("fabricante");
+                double valorResult = resultBusca.getDouble("preco");
+                int quantResult = resultBusca.getInt("quantidade");
+                resultado.add(new PecaVo(resultBusca.getLong("id"), nomeResult, fabResult, valorResult, quantResult));
             }
 
             return resultado;

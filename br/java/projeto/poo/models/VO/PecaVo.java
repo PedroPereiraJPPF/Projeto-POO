@@ -11,6 +11,10 @@ public class PecaVo {
     private double valor;
     private int quantidade;
 
+    public PecaVo() {
+        
+    }
+
     public PecaVo(long id, String nome, String fabricante, double valor, int quantidade) throws Exception {
         setId(id);
         setNome(nome);
@@ -35,10 +39,6 @@ public class PecaVo {
     }
 
     public void setNome(String nome) throws InvalidNomeException {
-        if(nome.isBlank() || nome.isEmpty()) {
-            throw new InvalidNomeException("O nome não pode ser vazio");
-        }
-
         this.nome = nome;
     }
 
@@ -47,10 +47,6 @@ public class PecaVo {
     }
 
     public void setFabricante(String fabricante) throws InvalidNomeException {
-        if(fabricante.isBlank() || fabricante.isEmpty()) {
-            throw new InvalidNomeException("O fabricante é inválido");
-        }
-
         this.fabricante = fabricante;
     }
 
@@ -59,9 +55,9 @@ public class PecaVo {
     }
 
     public void setValor(double valor) throws InvalidValorException {
-        // if(this.valor <= 0) {
-        //     throw new InvalidValorException("O valor deve ser maior que 0");
-        // }
+        if(valor <= 0) {
+            throw new InvalidValorException("O valor deve ser maior que 0");
+        }
 
         this.valor = valor;
     }
@@ -71,9 +67,9 @@ public class PecaVo {
     }
 
     public void setQuantidade(int quantidade)throws InvalidQuantidadeException{
-        // if(this.quantidade <= 0){
-        //     throw new InvalidQuantidadeException("O valor dever maior que 0");
-        // }
+        if(quantidade < 0){
+            throw new InvalidQuantidadeException("O valor dever maior que 0");
+        }
 
         this.quantidade = quantidade;
     }
