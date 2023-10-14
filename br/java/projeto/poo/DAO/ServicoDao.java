@@ -78,6 +78,18 @@ public class ServicoDao <VO extends ServicoVO> extends BaseDao <VO>{
         }
     }
 
+    public ResultSet buscarPorNome(VO servico) throws SQLException {
+        String query = "select * from servico where nome = (?)";
+        PreparedStatement ps = null;
+        try {
+            ps = this.db.prepareStatement(query);
+            ps.setString(0, servico.getNome());
+            return ps.executeQuery();
+        } catch (Exception e) {
+            throw e;
+        }
+    }
+
     public ResultSet listar() throws SQLException {
         String query = "Select * from servicos";
         PreparedStatement ps = null;

@@ -83,7 +83,7 @@ public class PecaDao <VO extends PecaVo> extends BaseDao <VO>{
     }
     
     public ResultSet buscarPorNome(VO peca) throws SQLException {
-        String query = "select * from pecas where id = (?)";
+        String query = "select * from pecas where nome = (?)";
         PreparedStatement ps = null;
         try {
             ps = this.db.prepareStatement(query);

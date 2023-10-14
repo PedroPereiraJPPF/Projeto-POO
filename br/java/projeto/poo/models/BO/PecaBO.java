@@ -15,13 +15,14 @@ public class PecaBO implements BaseInterfaceBO<PecaVo>{
     public ArrayList<PecaVo> listar() throws Exception {
         ArrayList<PecaVo> listaDePecas = new ArrayList<PecaVo>();
         ResultSet pecasDoBanco = pecaDao.listar();
+        long idPecaBanco = pecasDoBanco.getLong("id");
         String nomePecaBanco = pecasDoBanco.getString("nome");
         String nomeFabrBanco = pecasDoBanco.getString("fabricante");
         int quantPecaBanco = pecasDoBanco.getInt("quantidade"); 
         double valorPecaBanco = pecasDoBanco.getDouble("preco");
 
         while(pecasDoBanco.next()){
-            listaDePecas.add(new PecaVo(0,nomePecaBanco,nomeFabrBanco,valorPecaBanco,quantPecaBanco));
+            listaDePecas.add(new PecaVo(idPecaBanco,nomePecaBanco,nomeFabrBanco,valorPecaBanco,quantPecaBanco));
         }
 
         return listaDePecas;
@@ -38,13 +39,14 @@ public class PecaBO implements BaseInterfaceBO<PecaVo>{
         try{
             ResultSet resultBusca = pecaDao.buscarPorFabricante(vo);
             ArrayList<PecaVo> resultado = new ArrayList<PecaVo>();
+            long idResult = resultBusca.getLong("id");
             String nomeResult = resultBusca.getString("nome");
             String fabResult = resultBusca.getString("fabricante");
             double valorResult = resultBusca.getDouble("preco");
             int quantResult = resultBusca.getInt("quantidade");
 
             while (resultBusca.next()) {
-                resultado.add(new PecaVo(0, nomeResult, fabResult, valorResult, quantResult));
+                resultado.add(new PecaVo(idResult, nomeResult, fabResult, valorResult, quantResult));
             }
 
             return resultado;
@@ -60,13 +62,14 @@ public class PecaBO implements BaseInterfaceBO<PecaVo>{
         try{
             ResultSet resultBusca = pecaDao.buscarPorNome(vo);
             ArrayList<PecaVo> resultado = new ArrayList<PecaVo>();
+            long idResult = resultBusca.getLong("id");
             String nomeResult = resultBusca.getString("nome");
             String fabResult = resultBusca.getString("fabricante");
             double valorResult = resultBusca.getDouble("preco");
             int quantResult = resultBusca.getInt("quantidade");
 
             while (resultBusca.next()) {
-                resultado.add(new PecaVo(0, nomeResult, fabResult, valorResult, quantResult));
+                resultado.add(new PecaVo(idResult, nomeResult, fabResult, valorResult, quantResult));
             }
 
             return resultado;
