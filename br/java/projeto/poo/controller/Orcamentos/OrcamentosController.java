@@ -5,9 +5,7 @@ import java.util.ArrayList;
 
 import br.java.projeto.poo.controller.BaseController;
 import br.java.projeto.poo.controller.ModalsController;
-import br.java.projeto.poo.controller.Funcionarios.EditarFuncionariosController;
 import br.java.projeto.poo.models.BO.OrcamentoBO;
-import br.java.projeto.poo.models.VO.FuncionarioVO;
 import br.java.projeto.poo.models.VO.OrcamentoVO;
 import br.java.projeto.poo.src.App;
 import javafx.collections.FXCollections;
@@ -20,11 +18,11 @@ import javafx.scene.control.Button;
 import javafx.scene.control.TableCell;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
+import javafx.scene.control.TextField;
 import javafx.scene.control.cell.PropertyValueFactory;
+import javafx.scene.input.KeyEvent;
 import javafx.scene.layout.HBox;
-import javafx.stage.Modality;
 import javafx.stage.Stage;
-import javafx.stage.StageStyle;
 
 public class OrcamentosController extends BaseController {
     private OrcamentoBO orcamentoBO = new OrcamentoBO();
@@ -40,6 +38,7 @@ public class OrcamentosController extends BaseController {
     @FXML private TableColumn<OrcamentoVO, String> funcionario;
     @FXML private TableColumn<OrcamentoVO, String> placa;
     @FXML private TableColumn<OrcamentoVO, String> acoes;
+    @FXML private TextField buscar;
 
     @FXML
     public void initialize() throws Exception {
@@ -52,6 +51,24 @@ public class OrcamentosController extends BaseController {
     @FXML
     public void gerarRelatorio() throws Exception {
         
+    }
+
+    @FXML
+    void buscarOrcamentos(KeyEvent event) {
+        try {
+            if (buscar.getText().length() > 2) {
+                if(buscar.getText().matches("^\\d{3}.*")) {
+                    orcamentosDisponiveis.setAll(orcamentoBO.buscarPorCPFCliente(buscar.getText()));
+                } else {
+                    orcamentosDisponiveis.setAll(orcamentoBO.buscarPorVeiculo(buscar.getText()));
+                }
+            } else {
+                listaOrcamentos = this.orcamentoBO.listar();
+                orcamentosDisponiveis.setAll(listaOrcamentos);
+            }
+        } catch (Exception e) {
+            System.out.println(e.getMessage());
+        }
     }
 
     @FXML
@@ -93,7 +110,6 @@ public class OrcamentosController extends BaseController {
                         OrcamentoVO orcamentoVO = getTableView().getItems().get(getIndex());
                         if(modalsController.abrirModalExcluir("Realmente deseja excluir esse orçamento?", getIndex())) {
                             orcamentoBO.deletar(orcamentoVO.getId());
-                            listaOrcamentos.remove(getIndex());
                             orcamentosDisponiveis.remove(getIndex());
                         };
                     } catch (Exception e) {

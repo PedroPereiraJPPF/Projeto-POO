@@ -160,16 +160,16 @@ public class AutomoveisController extends BaseController{
     void buscarVeiculo(KeyEvent event) {
         try {
             ArrayList<VeiculoVO> veiculos;
-           if(this.buscar.getText().length() > 2) {
-                if (this.buscar.getText().matches("^\\d{3}.*")) {
-                    veiculos = veiculoB0.buscarPorDono(buscar.getText());
-                } else {
-                    veiculos = veiculoB0.buscarPorPlaca(buscar.getText());
-                }
-                automoveisDisponiveis.setAll(veiculos);
-           } else {
-                automoveisDisponiveis.setAll(listaAutomoveis);
-           }
+            if(this.buscar.getText().length() > 2) {
+                    if (this.buscar.getText().matches("^\\d{3}.*")) {
+                        veiculos = veiculoB0.buscarPorDono(buscar.getText());
+                    } else {
+                        veiculos = veiculoB0.buscarPorPlaca(buscar.getText());
+                    }
+                    automoveisDisponiveis.setAll(veiculos);
+            } else {
+                    automoveisDisponiveis.setAll(listaAutomoveis);
+            }
 
             veiculos = veiculoB0.buscarPorDono(buscar.getText());
             veiculos = veiculoB0.buscarPorPlaca(buscar.getText());

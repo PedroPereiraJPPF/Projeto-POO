@@ -168,7 +168,7 @@ public class OrcamentoDao extends BaseDao <OrcamentoVO>{
     }
 
     public ResultSet buscarPorVeiculo(OrcamentoVO orcamento) throws SQLException {
-        String query = "Select * from orcamentos where placa like '%'|| ? ||'%'";
+        String query = "Select * from orcamentos where placaVeiculo like '%'|| ? ||'%'";
         PreparedStatement ps = null;
         try {
             ps = this.db.prepareStatement(query);
@@ -176,12 +176,13 @@ public class OrcamentoDao extends BaseDao <OrcamentoVO>{
             return ps.executeQuery();
 
         } catch (SQLException e) {
+            System.out.println(e.getMessage());
             throw e;
         }
     }
 
     public ResultSet buscarPorCPFCliente(OrcamentoVO orcamento) throws SQLException {
-        String query = "select * from orcamentos where placaVeiculo in (select placa from veiculos where cpfDono like '%' || ? || '%')";
+        String query = "Select * from orcamentos where cpfCLiente like '%'|| ? ||'%'";
         PreparedStatement ps = null;
         try {
             ps = this.db.prepareStatement(query);
@@ -189,6 +190,7 @@ public class OrcamentoDao extends BaseDao <OrcamentoVO>{
             return ps.executeQuery();
 
         } catch (SQLException e) {
+            System.out.println(e.getMessage());
             throw e;
         }
     }
