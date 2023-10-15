@@ -27,6 +27,7 @@ create table telefones (
 	
 	primary key(id),
 	foreign key(cpfCliente) references clientes(cpf) on delete cascade on update cascade
+	foreign key(cpfFuncionario) references funcionarios(cpf) on delete cascade on update cascade
 );
 
 create table enderecos(
