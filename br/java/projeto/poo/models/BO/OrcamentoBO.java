@@ -1,7 +1,9 @@
 package br.java.projeto.poo.models.BO;
 
 import java.sql.ResultSet;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Date;
 
 import br.java.projeto.poo.DAO.OrcamentoDao;
 import br.java.projeto.poo.models.VO.OrcamentoVO;
@@ -148,6 +150,34 @@ public class OrcamentoBO {
             throw new Exception("erro ao buscar orcamentos");
         }
     }
+
+    public ArrayList<OrcamentoVO> buscarPorData(String data) throws Exception {
+        try {
+            SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd");
+            Date dataGerada = dateFormat.parse(data);
+            java.sql.Date sqlDate = new java.sql.Date(dataGerada.getTime());
+
+            OrcamentoVO orcamentoVO = new OrcamentoVO();
+            orcamentoVO.setDataDeCriação(sqlDate);
+            ResultSet orcamentosBuscados = orcamentoDao.buscarPorData(orcamentoVO);
+            ArrayList<OrcamentoVO> orcamentos = new ArrayList<>();
+            while(orcamentosBuscados.next()) {
+                OrcamentoVO orcamento = new OrcamentoVO();
+                orcamento.setId(orcamentosBuscados.getLong("id"));
+                orcamento.setPlacaVeiculo(orcamentosBuscados.getString("placaVeiculo"));
+                orcamento.setValor(orcamentosBuscados.getDouble("valor"));
+                orcamento.setDataDeCriação(orcamentosBuscados.getDate("dataDeCriacao"));
+                orcamento.setDataDeEncerramento(orcamentosBuscados.getDate("dataDeEncerramento"));
+                orcamento.setCpfCliente(orcamentosBuscados.getString("cpfCliente"));
+                orcamento.setCpfFuncionario(orcamentosBuscados.getString("cpfResponsavel"));
+                orcamentos.add(orcamento);
+            }
+
+            return orcamentos;
+        } catch (Exception e) {
+            throw new Exception("erro ao buscar orcamentos");
+        }
+    }
     
     public ArrayList<OrcamentoVO> buscarPorStatusData(OrcamentoVO vo) throws Exception {
         try {
@@ -168,6 +198,14 @@ public class OrcamentoBO {
             return orcamentos;
         } catch (Exception e) {
             throw new Exception("erro ao buscar orcamentos");
+        }
+    }
+
+    public Boolean encerrarRelatorio(OrcamentoVO vo) throws Exception {
+        try {
+            return orcamentoDao.encerrarRelatorio(vo);
+        } catch (Exception e) {
+            throw new Exception("Erro ao encerrar orcamento");
         }
     }
 }

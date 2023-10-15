@@ -84,6 +84,24 @@
     -fx-border-color:transparent;
 }
 
+.btn-encerrar{
+    -fx-background-image:url('../../public/ButtomX.png');
+    -fx-background-position:center;
+    -fx-background-color:transparent;
+    -fx-background-size: 27px, 27px;
+    -fx-background-repeat:no-repeat;
+    -fx-border-color:transparent;
+}
+
+.btn-encerrar:hover{
+    -fx-background-image:url('../../public/ButtomX.png');
+    -fx-background-position:center;
+    -fx-background-color:green;
+    -fx-background-size: 27px, 27px;
+    -fx-background-repeat:no-repeat;
+    -fx-border-color:transparent;
+}
+
 .btn-logout{
     -fx-background-image:url('../../public/iconeSair.png');
     -fx-background-color:transparent;

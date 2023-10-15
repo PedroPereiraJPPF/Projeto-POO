@@ -168,7 +168,7 @@ public class OrcamentoDao extends BaseDao <OrcamentoVO>{
     }
 
     public ResultSet buscarPorVeiculo(OrcamentoVO orcamento) throws SQLException {
-        String query = "Select * from orcamentos where placaVeiculo like '%'|| ? ||'%' and status = 1";
+        String query = "Select * from orcamentos where placaVeiculo like '%'|| ? ||'%' and status = 0";
         PreparedStatement ps = null;
         try {
             ps = this.db.prepareStatement(query);
@@ -182,11 +182,25 @@ public class OrcamentoDao extends BaseDao <OrcamentoVO>{
     }
 
     public ResultSet buscarPorCPFCliente(OrcamentoVO orcamento) throws SQLException {
-        String query = "Select * from orcamentos where cpfCLiente like '%'|| ? ||'%' and status = 1";
+        String query = "Select * from orcamentos where cpfCLiente like '%'|| ? ||'%' and status = 0";
         PreparedStatement ps = null;
         try {
             ps = this.db.prepareStatement(query);
             ps.setString(1, orcamento.getCpfCliente());
+            return ps.executeQuery();
+
+        } catch (SQLException e) {
+            System.out.println(e.getMessage());
+            throw e;
+        }
+    }
+
+    public ResultSet buscarPorData(OrcamentoVO orcamento) throws SQLException {
+        String query = "Select * from orcamentos where dataDeCriacao >= (?) and status = 0";
+        PreparedStatement ps = null;
+        try {
+            ps = this.db.prepareStatement(query);
+            ps.setDate(1, orcamento.getDataDeCriação());
             return ps.executeQuery();
 
         } catch (SQLException e) {
@@ -208,9 +222,8 @@ public class OrcamentoDao extends BaseDao <OrcamentoVO>{
                 ps.setString(3, orcamento.getCpfFuncionario());
             } else if (orcamento.getStatus() != 3) {
                 query = "Select * from orcamentos where status = (?) and dataDeCriacao >= (?) and dataDeEncerramento <= (?)";
-                System.out.println(2);
                 ps = this.db.prepareStatement(query);
-                ps.setString(1, orcamento.getCpfFuncionario());
+                ps.setInt(1, orcamento.getStatus());
                 ps.setDate(2, orcamento.getDataDeCriação());
                 ps.setDate(3, orcamento.getDataDeEncerramento());
             } else if (!orcamento.getCpfFuncionario().isEmpty() && orcamento.getStatus() != 3) {

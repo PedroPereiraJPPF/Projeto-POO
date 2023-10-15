@@ -72,7 +72,9 @@ public class OrcamentosController extends BaseController {
     void buscarOrcamentos(KeyEvent event) {
         try {
             if (buscar.getText().length() > 2) {
-                if(buscar.getText().matches("^\\d{3}.*")) {
+                if(buscar.getText().matches("^\\d{4}-\\d{2}-\\d{2}$")) {
+                    orcamentosDisponiveis.setAll(orcamentoBO.buscarPorData(buscar.getText()));
+                } else if (buscar.getText().matches("^\\d{3}.*") ){
                     orcamentosDisponiveis.setAll(orcamentoBO.buscarPorCPFCliente(buscar.getText()));
                 } else {
                     orcamentosDisponiveis.setAll(orcamentoBO.buscarPorVeiculo(buscar.getText()));
@@ -104,13 +106,28 @@ public class OrcamentosController extends BaseController {
     // inicializa os botões de ação
     private void inicializarBotoesDeAcao (ObservableList<OrcamentoVO> funcs) {
         acoes.setCellFactory(param -> new TableCell<>() {
+            private final Button btnFinalizar = new Button();
             private final Button btnEdit = new Button();
             private final Button btnDelete = new Button();
-            private final HBox btnContainer = new HBox(btnEdit, btnDelete);
+            private final HBox btnContainer = new HBox(btnFinalizar, btnEdit, btnDelete);
 
             {
                 btnEdit.getStyleClass().add("btn-edit");
                 btnDelete.getStyleClass().add("btn-delete");
+                btnFinalizar.getStyleClass().add("btn-encerrar");
+
+                btnFinalizar.setOnAction(event -> {
+                    try {
+                        OrcamentoVO orcamentoVO = getTableView().getItems().get(getIndex());
+                        if(modalsController.abrirModalExcluir("Realmente deseja fechar esse orçamento?", getIndex())) {
+                            orcamentoBO.encerrarRelatorio(orcamentoVO);
+                            orcamentosDisponiveis.remove(getIndex());
+                        };
+                    } catch (Exception e) {
+                        System.out.println(e.getMessage());
+                    }
+                });
+
                 btnEdit.setOnAction(event -> {
                     try {
                         OrcamentoVO orcamentoVO = getTableView().getItems().get(getIndex());
@@ -139,7 +156,7 @@ public class OrcamentosController extends BaseController {
                 if (empty) {
                     setGraphic(null);
                 } else {
-                    btnContainer.setStyle("-fx-padding: 0 20 0 20;");
+                    btnContainer.setStyle("-fx-padding: 0 20 0 5;");
                     btnContainer.setSpacing(10);
                     setGraphic(btnContainer);
                 }

@@ -83,7 +83,7 @@ public class GerarRelatorioController {
             orcamentoVO.setStatus(numeroStatus);
             ArrayList<OrcamentoVO> orcamentos = orcamentoBO.buscarPorStatusData(orcamentoVO);
 
-            PdfWriter.getInstance(documento, new FileOutputStream("br/java/projeto/poo/relatorios/Relatorio-" + dataCriacao.getText() + ".pdf"));
+            PdfWriter.getInstance(documento, new FileOutputStream("br/java/projeto/poo/relatorios/Relatorio-" + dataFormatada + ".pdf"));
             documento.open();
             documento.setPageSize(PageSize.A4);
             documento.add(new Paragraph("Relatorio Ganhos - " + dataFormatada));
@@ -91,7 +91,7 @@ public class GerarRelatorioController {
 
             PdfPTable table = new PdfPTable(6);
 
-            float[] columnWidths = {300f, 300f, 300f, 300f, 300f, 300f};
+            float[] columnWidths = {400f, 400f, 300f, 300f, 400f, 400f};
             table.setWidths(columnWidths);
 
             table.addCell("Responsavel");
@@ -112,7 +112,8 @@ public class GerarRelatorioController {
 
             documento.add(table);
             documento.close();
-            
+            fecharModal();
+
             modalsController.abrirModalSucesso("Relatorio criado com sucesso!");
             App.navegarEntreTelas("orcamentos");
         } catch (Exception e) {
@@ -158,9 +159,4 @@ public class GerarRelatorioController {
 
         return 3;
     }
-
-    private void gerarPDF() {
-
-    }
-
 }
