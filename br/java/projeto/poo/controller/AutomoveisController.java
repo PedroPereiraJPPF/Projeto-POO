@@ -113,7 +113,7 @@ public class AutomoveisController extends BaseController{
         palco.showAndWait();
 
         if(modalExc.getExclusaoValid()){
-            realizarExclusao(veiculo);
+            realizarExclusao(veiculo, index);
         }
     }
 
@@ -175,11 +175,11 @@ public class AutomoveisController extends BaseController{
 
 
 
-    private void realizarExclusao(VeiculoVO veiculo) throws Exception {
+    private void realizarExclusao(VeiculoVO veiculo, int index) throws Exception {
         VeiculoBO veiculoExcluido = new VeiculoBO();
         if(veiculoExcluido.deletar(veiculo.getId())){
-            automoveisDisponiveis.remove(veiculo);
-            tbAutomoveis.refresh();
+            automoveisDisponiveis.remove(index);
+            //tbAutomoveis.refresh();
         }
 
     }

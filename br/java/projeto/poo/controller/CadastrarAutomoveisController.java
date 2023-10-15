@@ -6,6 +6,7 @@ import br.java.projeto.poo.models.BO.ClienteBO;
 import br.java.projeto.poo.models.BO.VeiculoBO;
 import br.java.projeto.poo.models.VO.ClienteVO;
 import br.java.projeto.poo.models.VO.EnderecoVO;
+import br.java.projeto.poo.models.VO.TelefoneVO;
 import br.java.projeto.poo.models.VO.VeiculoVO;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
@@ -32,6 +33,7 @@ public class CadastrarAutomoveisController {
     @FXML private Label msgErro;
     @FXML private TextField nome;
     @FXML private TextField placa;
+    @FXML private TextField telefone;
     @FXML private ChoiceBox<String> tipo;
     
     @FXML
@@ -69,8 +71,10 @@ public class CadastrarAutomoveisController {
             VeiculoVO veiculoVO = new VeiculoVO(0, placa.getText(), cor.getText(), modelo.getText(), cpf.getText(), tipo.getValue(), ano.getText(), Double.valueOf(km.getText()));
             ArrayList<VeiculoVO> listaVeiculos = new ArrayList<VeiculoVO>();
             listaVeiculos.add(veiculoVO);
-
-            ClienteVO ClienteVO = new ClienteVO(0, nome.getText(), cpf.getText(), enderecoCliente, listaVeiculos);
+            String cpfNull = null;
+            TelefoneVO telefoneVO = new TelefoneVO(0, cpf.getText(), cpfNull, telefone.getText());
+            
+            ClienteVO ClienteVO = new ClienteVO(0, nome.getText(), cpf.getText(), enderecoCliente, listaVeiculos, telefoneVO);
 
             if (!clienteExisteFlag) {
                 clienteBO.inserir(ClienteVO);

@@ -27,7 +27,7 @@
          <children>
             <Group>
                <children>
-                  <VBox spacing="3.0">
+                  <VBox maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="65.0" prefWidth="420.0" spacing="3.0">
                      <children>
                         <Label text="Nome" />
                         <TextField fx:id="nome" prefHeight="40.0" prefWidth="300.0" promptText="Ex.: João Pedro" />
@@ -38,7 +38,7 @@
                   </VBox>
                </children>
             </Group>
-            <Group>
+            <HBox spacing="20.0">
                <children>
                   <VBox spacing="3.0">
                      <children>
@@ -49,8 +49,17 @@
                         <Insets bottom="5.0" />
                      </padding>
                   </VBox>
+                  <VBox spacing="3.0">
+                     <children>
+                        <Label text="Telefone" />
+                        <TextField fx:id="telefone" onKeyReleased="#buscarCliente" prefHeight="40.0" prefWidth="200.0" promptText="Ex.: 84 91234-5678" />
+                     </children>
+                     <padding>
+                        <Insets bottom="5.0" />
+                     </padding>
+                  </VBox>
                </children>
-            </Group>
+            </HBox>
             <Group>
                <children>
                   <VBox layoutX="14.0" layoutY="-6.0" spacing="3.0">

@@ -3,9 +3,9 @@ package br.java.projeto.poo.controller.Clientes;
 import java.io.IOException;
 import java.util.ArrayList;
 
+
 import br.java.projeto.poo.controller.ModalsController;
 import br.java.projeto.poo.models.BO.ClienteBO;
-import br.java.projeto.poo.models.BO.TelefoneBO;
 import br.java.projeto.poo.models.BO.VeiculoBO;
 import br.java.projeto.poo.models.VO.ClienteVO;
 import br.java.projeto.poo.models.VO.EnderecoVO;
@@ -138,11 +138,11 @@ public class ClienteCadController {
         if (this.campoEndCliente.getText().isEmpty()) {this.mensagemErroCad.setVisible(true);} 
         else endereco = campoEndCliente.getText();
 
-        if (this.campoNomeCliente.getText().isEmpty()) {this.mensagemErroCad.setVisible(true);} 
-        else nome = campoNomeCliente.getText();
-
         if (this.campoModVeic.getText().isEmpty()) {this.mensagemErroCad.setVisible(true);} 
         else modelo = campoModVeic.getText();
+
+        if (this.campoNomeCliente.getText().isEmpty()) {this.mensagemErroCad.setVisible(true);} 
+        else nome = campoNomeCliente.getText();
 
         if (this.campoPlacCliente.getText().isEmpty()) {this.mensagemErroCad.setVisible(true);} 
         else placa = campoPlacCliente.getText();
@@ -160,7 +160,8 @@ public class ClienteCadController {
         try{
             if(!this.mensagemErroCad.isVisible()){
                 EnderecoVO nEnderecoVO = new EnderecoVO();
-                TelefoneBO telefoneBO = new TelefoneBO();
+                ClienteBO clienteBO = new ClienteBO();
+                VeiculoBO nVeiculoBO = new VeiculoBO();
                 nEnderecoVO.pegarValoresComoString(endereco);
 
                 //EnderecoBO nEnderecoBO = new EnderecoBO();
@@ -169,22 +170,25 @@ public class ClienteCadController {
 
                 VeiculoVO veiculo = new VeiculoVO(id, placa, cor, modelo, cpf, tipoVeic, ano, quilometragem);
                 listaveiculos.add(veiculo);
-                ClienteVO nClienteVO = new ClienteVO(id, nome, cpf, nEnderecoVO, listaveiculos);
-
                 String cpfNull = null;
 
-                ClienteBO clienteBO = new ClienteBO();
-                clienteBO.inserir(nClienteVO);
-
                 TelefoneVO telefoneVO = new TelefoneVO(id, cpf, cpfNull, telefone);
-                telefoneBO.inserir(telefoneVO);
+                ClienteVO nClienteVO = new ClienteVO(id, nome, cpf, nEnderecoVO, listaveiculos, telefoneVO);
 
-                VeiculoBO nVeiculoBO = new VeiculoBO();
-                nVeiculoBO.inserir(veiculo);
-
-                Label labelSucesso = new Label("Cliente cadastrado com sucesso.");
-                cancelarCadastro();
-                abrirModalSucess(labelSucesso, cadastrarCliente, nClienteVO);
+                
+                if(clienteBO.inserir(nClienteVO)){
+                    
+                    nVeiculoBO.inserir(veiculo);
+                    Label labelSucesso = new Label("Cliente cadastrado com sucesso.");
+                    cancelarCadastro();
+                    abrirModalSucess(labelSucesso, cadastrarCliente, nClienteVO);
+                    //telefoneBO.inserir(telefoneVO);
+                }
+                
+                FXMLLoader loader2 = new FXMLLoader(getClass().getResource("../../controller/Clientes/ClienteController.java"));
+                ClienteController controller2 = loader2.load();
+                controller2.tabelaClientes.refresh();
+                
             }
         }
         catch (Exception ex){
@@ -193,10 +197,6 @@ public class ClienteCadController {
             cancelarCadastro();
             abrirModalFail(labelFalha, cadastrarCliente);
 
-            FXMLLoader loader2 = new FXMLLoader(getClass().getResource("../../controller/Clientes/ClienteController.java"));
-            ClienteController controller2 = loader2.load();
-            controller2.tabelaClientes.refresh();
-            
         }
     }
     

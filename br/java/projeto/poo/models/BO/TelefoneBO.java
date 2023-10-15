@@ -44,9 +44,9 @@ public class TelefoneBO {
 
     public TelefoneVO buscarPorCliente(String cpf) throws Exception {
         try {
-            ResultSet selectTelefone = telefoneDao.buscarPorCpfFuncionario(new TelefoneVO(0,cpf, null, null));
+            ResultSet selectTelefone = telefoneDao.buscarPorCpfCliente(new TelefoneVO(0,cpf, null, null));
             if(selectTelefone.next()) {
-                return new TelefoneVO(0, 
+                return new TelefoneVO(selectTelefone.getLong("id"), 
                     selectTelefone.getString("cpfCliente"),
                     selectTelefone.getString("cpfFuncionario"),
                     selectTelefone.getString("numero")

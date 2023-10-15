@@ -111,7 +111,7 @@ public class ServicosController extends BaseController{
         palco.showAndWait();
 
         if(modalExc.getExclusaoValid()){
-            realizarExclusao(servico);
+            realizarExclusao(servico, index);
         }
     }
 
@@ -169,10 +169,10 @@ public class ServicosController extends BaseController{
     }
 
 
-    private void realizarExclusao(ServicoVO servico) throws Exception {
+    private void realizarExclusao(ServicoVO servico, int index) throws Exception {
         ServicoBO servicoExcluido = new ServicoBO();
-            if(servicoExcluido.deletar(servico)){
-                servicosDisponiveis.remove(servico);
+            if(!servicoExcluido.deletar(servico)){
+                servicosDisponiveis.remove(index);
                 //tabelaClientes.refresh();
             }
     }

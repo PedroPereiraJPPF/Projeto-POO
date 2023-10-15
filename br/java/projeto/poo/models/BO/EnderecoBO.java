@@ -35,12 +35,14 @@ public class EnderecoBO {
                     selectEndereco.getString("rua"), 
                     selectEndereco.getString("bairro"), 
                     selectEndereco.getString("cidade"), 
-                    selectEndereco.getString("estado"));
+                    selectEndereco.getString("num_casa"));
             }
 
             return null;
         } catch (Exception e) {
-            throw new Exception("Erro ao acessar o banco");
+            System.out.println(e.getMessage());
+            //throw new Exception("Erro ao acessar o banco");
+            return null;
         }
     }
 
@@ -54,7 +56,7 @@ public class EnderecoBO {
                     selectEndereco.getString("rua"), 
                     selectEndereco.getString("bairro"), 
                     selectEndereco.getString("cidade"), 
-                    selectEndereco.getString("estado"));
+                    selectEndereco.getString("num_casa"));
             }
 
             return null;

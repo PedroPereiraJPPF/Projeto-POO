@@ -119,7 +119,7 @@ public class PecasController extends BaseController {
         palco.showAndWait();
 
         if(modalExc.getExclusaoValid()){
-            realizarExclusao(peca);
+            realizarExclusao(peca, index);
         }
     }
 
@@ -210,10 +210,10 @@ public class PecasController extends BaseController {
 
 
     
-    private void realizarExclusao(PecaVo peca) throws Exception {
+    private void realizarExclusao(PecaVo peca, int index) throws Exception {
         PecaBO pecaExcluida = new PecaBO();
-            if(pecaExcluida.deletar(peca)){
-                //clientesDisponiveis.remove(cliente);
+            if(!pecaExcluida.deletar(peca)){
+                pecasDisponiveis.remove(peca);
                 //tabelaClientes.refresh();
             }
     }

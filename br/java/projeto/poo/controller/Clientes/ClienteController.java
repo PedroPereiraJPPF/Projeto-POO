@@ -8,19 +8,17 @@ import br.java.projeto.poo.controller.BaseController;
 import br.java.projeto.poo.controller.ModalsController;
 import br.java.projeto.poo.models.BO.ClienteBO;
 import br.java.projeto.poo.models.VO.ClienteVO;
-import br.java.projeto.poo.models.VO.EnderecoVO;
-import br.java.projeto.poo.models.VO.TelefoneVO;
+//import br.java.projeto.poo.models.VO.EnderecoVO;
+//import br.java.projeto.poo.models.VO.TelefoneVO;
 import br.java.projeto.poo.src.App;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
-import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.geometry.Pos;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
-import javafx.scene.control.Label;
 import javafx.scene.control.TableCell;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
@@ -39,7 +37,7 @@ public class ClienteController extends BaseController{
 
     // ====== campos da tela principal de clientes ======
     private ClienteBO clienteBO = new ClienteBO();
-    static ArrayList<ClienteVO> listaClientes;
+    static ArrayList<ClienteVO> listaClientes = new ArrayList<ClienteVO>();
     static ObservableList<ClienteVO> clientesDisponiveis;
 
     @FXML protected Button novoCliente;
@@ -47,10 +45,10 @@ public class ClienteController extends BaseController{
     @FXML protected TableView<ClienteVO> tabelaClientes;
     @FXML private TableColumn<ClienteVO, String>  columnBut;
     @FXML private TableColumn<ClienteVO, String>  columnCPF;
-    @FXML private TableColumn<ClienteVO, EnderecoVO>  columnEnd;
+    @FXML private TableColumn<ClienteVO, String>  columnEnd;
     @FXML private TableColumn<ClienteVO, Integer> columnIdCliente;
     @FXML private TableColumn<ClienteVO, String>  columnNome;
-    @FXML private TableColumn<ClienteVO, TelefoneVO>  columnTel;
+    @FXML private TableColumn<ClienteVO, String>  columnTel;
     // ==================================================
 
 
@@ -61,7 +59,7 @@ public class ClienteController extends BaseController{
             clientesDisponiveis = FXCollections.observableArrayList(listaClientes);
             this.inicializarTabela(); 
         }catch(Exception ex){
-            ex.printStackTrace();
+            System.out.println("Erro do initialize: " + ex.getMessage() + "\n");
         }
         
     }
@@ -111,6 +109,8 @@ public class ClienteController extends BaseController{
         palco.setX(centralizarEixoX);
         palco.setY(centralizarEixoY);
         palco.show();
+
+        tabelaClientes.refresh();
     }
 
 
@@ -139,7 +139,7 @@ public class ClienteController extends BaseController{
         palco.showAndWait();
 
         if(modalExc.getExclusaoValid()){
-            realizarExclusao(cliente);
+            realizarExclusao(cliente, index);
         }
     }
 
@@ -199,9 +199,9 @@ public class ClienteController extends BaseController{
     private void inicializarTabela() throws SQLException {
         columnNome.setCellValueFactory(new PropertyValueFactory<ClienteVO, String>("nome"));
         columnCPF.setCellValueFactory(new PropertyValueFactory<ClienteVO, String>("cpf"));
-        columnIdCliente.setCellValueFactory(new PropertyValueFactory<ClienteVO, Integer>("id"));
-        columnEnd.setCellValueFactory(new PropertyValueFactory<ClienteVO, EnderecoVO>("endereco"));
-        columnTel.setCellValueFactory(new PropertyValueFactory<ClienteVO, TelefoneVO>("telefone"));
+        //columnIdCliente.setCellValueFactory(new PropertyValueFactory<ClienteVO, Integer>("id"));
+        columnEnd.setCellValueFactory(new PropertyValueFactory<ClienteVO, String>("endereco"));
+        columnTel.setCellValueFactory(new PropertyValueFactory<ClienteVO, String>("telefone"));
         tabelaClientes.setItems(clientesDisponiveis);
         this.inicializarBotoesDeAcao(clientesDisponiveis);
     }
@@ -218,9 +218,16 @@ public class ClienteController extends BaseController{
                 btnEdit.setOnAction(event -> {
                     try {
                         ClienteVO cliente = getTableView().getItems().get(getIndex());
-                        abrirEdicao(cliente, getIndex());
+                        //abrirEdicao(cliente, getIndex());
+                        System.out.println(cliente.getNome() + "\n" + 
+                                           cliente.getCpf() + "\n" + 
+                                           cliente.getTelefone() + "\n" + 
+                                           cliente.getEndereco() + "\n" + 
+                                           cliente.getVeiculo() + "\n");
+                        tabelaClientes.refresh();
                     } catch (Exception e) {
                         System.out.println(e.getMessage());
+                        tabelaClientes.refresh();
                     }
                 });
 
@@ -250,14 +257,16 @@ public class ClienteController extends BaseController{
         });
     }
 
+
     
 
 
-    private void realizarExclusao(ClienteVO cliente) throws Exception {
+    private void realizarExclusao(ClienteVO cliente, int index) throws Exception {
         ClienteBO clienteExcluido = new ClienteBO();
-            if(clienteExcluido.deletar(cliente)){
-                clientesDisponiveis.remove(cliente);
-                tabelaClientes.refresh();
+            if(!clienteExcluido.deletar(cliente)){
+                clientesDisponiveis.remove(index);
+                //listaClientes.remove(cliente);
+                //tabelaClientes.refresh();
             }
     }
 

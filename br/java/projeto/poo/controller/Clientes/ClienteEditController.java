@@ -23,6 +23,9 @@ import javafx.stage.Window;
 
 public class ClienteEditController {
     
+    EnderecoBO enderecoBO = new EnderecoBO();
+    ClienteBO clienteBO = new ClienteBO();
+    TelefoneBO telefoneBO = new TelefoneBO();
     private ClienteVO clienteEditar = new ClienteVO();
     @FXML private TextField campoEditCPF;
     @FXML private TextField campoEditEnd;
@@ -44,7 +47,7 @@ public class ClienteEditController {
 
     @FXML
     void abrirModalFail(Label mensagem, Button b) throws Exception{
-        FXMLLoader loader = new FXMLLoader(getClass().getResource("../views/Modals/ModalFalha.fxml"));
+        FXMLLoader loader = new FXMLLoader(getClass().getResource("../../views/Modals/ModalFalha.fxml"));
         Parent root = loader.load();
 
         ModalsController controller = loader.getController();
@@ -71,7 +74,7 @@ public class ClienteEditController {
 
     @FXML
     void abrirModalSucess(Label mensagem, Button b, ClienteVO cliente) throws IOException{
-        FXMLLoader loader = new FXMLLoader(getClass().getResource("../views/Modals/ModalSucesso.fxml"));
+        FXMLLoader loader = new FXMLLoader(getClass().getResource("../../views/Modals/ModalSucesso.fxml"));
         Parent root = loader.load();
         
         ModalsController controller = loader.getController();
@@ -90,7 +93,9 @@ public class ClienteEditController {
         palco.setY(centralizarEixoY);
         palco.showAndWait();
 
-        ClienteController.clientesDisponiveis.add(cliente);
+        FXMLLoader loader2 = new FXMLLoader(getClass().getResource("../../controller/Clientes/ClienteController.java"));
+        ClienteController controller2 = loader2.load();
+        controller2.tabelaClientes.refresh();
         
     }
 
@@ -121,26 +126,38 @@ public class ClienteEditController {
         
         try{
             
-            EnderecoVO enderecoVO = new EnderecoVO();
-            enderecoVO.pegarValoresComoString(endereco);
-            EnderecoBO enderecoBO = new EnderecoBO();
-            enderecoBO.atualizar(enderecoVO);
+            if (!mensagemErroEdit.isVisible()) {
+                TelefoneVO telefoneVO;
+                EnderecoVO enderecoVO = new EnderecoVO();
+                enderecoVO.pegarValoresComoString(endereco);
+                
+                enderecoBO.atualizar(enderecoVO);
+                
+                String cpfNull = null;
+                
 
-            
-            clienteEditar.setNome(nome);
-            clienteEditar.setCpf(cpf);
-            clienteEditar.setEndereco(enderecoVO);
-            ClienteBO clienteBO = new ClienteBO();
-            clienteBO.atualizar(clienteEditar);
+                clienteEditar.setNome(nome);
+                clienteEditar.setCpf(cpf);
+                clienteEditar.setEndereco(enderecoVO);
+                
+                
+                telefoneVO = telefoneBO.buscarPorCliente(cpf);
+                if (telefoneVO == null) {
+                    clienteBO.atualizar(clienteEditar);
+                    telefoneVO = new TelefoneVO(1, cpf, cpfNull, telefone);
+                    telefoneBO.inserir(telefoneVO);
+                } else {//telefoneBO.atualizar(telefoneVO);
+                    
+                    telefoneVO = new TelefoneVO(1, cpf, cpfNull, telefone);
+                    clienteEditar.setTelefone(telefoneVO);
+                    clienteBO.atualizar(clienteEditar);
+                }
+                
+                Label labelSucesso = new Label("Cliente editado com sucesso.");
+                cancelarEdicao();
+                abrirModalSucess(labelSucesso, salvarEdicao, clienteEditar);
 
-            String cpfNull = null;
-            TelefoneBO telefoneBO = new TelefoneBO();
-            TelefoneVO telefoneVO = new TelefoneVO(0, cpf, cpfNull, telefone);
-            telefoneBO.atualizar(telefoneVO);
-
-            Label labelSucesso = new Label("Cliente editado com sucesso.");
-            cancelarEdicao();
-            abrirModalSucess(labelSucesso, salvarEdicao, clienteEditar);
+            }
 
         }
         catch(Exception ex){

@@ -17,7 +17,7 @@ public class EnderecoDao extends BaseDao <EnderecoVO>{
     }
 
     public boolean inserir(EnderecoVO endereco) throws SQLException {
-        String query = "INSERT INTO enderecos (cpfCliente, cpfFuncionario, rua, bairro, cidade, estado) VALUES (?, ?, ?, ?, ?, ?)";
+        String query = "INSERT INTO enderecos (cpfCliente, cpfFuncionario, rua, bairro, cidade, num_casa) VALUES (?, ?, ?, ?, ?, ?)";
         PreparedStatement ps = null;
 
         try {
@@ -68,12 +68,12 @@ public class EnderecoDao extends BaseDao <EnderecoVO>{
     }
 
     public EnderecoVO atualizar(EnderecoVO endereco) throws SQLException {
-        String query = "UPDATE enderecos SET cpfCliente = ?, cpfFuncionario = ?, rua = ?, bairro = ?, cidade = ?, numero = ? WHERE id = ?";
+        String query = "UPDATE enderecos SET cpfCliente = ?, cpfFuncionario = ?, rua = ?, bairro = ?, cidade = ?, num_casa = ? WHERE id = ?";
         PreparedStatement ps = null;
 
         try {
             ps = this.db.prepareStatement(query);
-            ps.setLong(8, endereco.getId());
+            ps.setLong(7, endereco.getId());
             ps.setString(1, endereco.getCpfCliente());
             ps.setString(2, endereco.getCpfFuncionario());
             ps.setString(3, endereco.getRua());

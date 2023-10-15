@@ -29,6 +29,12 @@ public class ClienteDao extends BaseDao <ClienteVO>{
                 cliente.getEndereco().setCpfCliente(cliente.getCpf());
                 endereco.inserir(cliente.getEndereco());    
             }
+            
+            if (cliente.getTelefone() != null) {
+                TelefoneDao telefone = new TelefoneDao();
+                cliente.getTelefone().setCpfCliente(cliente.getCpf());
+                telefone.inserir(cliente.getTelefone());    
+            }
 
             return true;
 
@@ -76,6 +82,19 @@ public class ClienteDao extends BaseDao <ClienteVO>{
             ps.setLong(3, cliente.getId());
             ps.setString(1, cliente.getNome());
             ps.setString(2, cliente.getCpf());
+
+            if (cliente.getEndereco() != null) {
+                EnderecoDao endereco = new EnderecoDao();
+                //cliente.getEndereco().setCpfCliente(cliente.getCpf());
+                endereco.atualizar(cliente.getEndereco());    
+            }
+            
+            if (cliente.getTelefone() != null) {
+                TelefoneDao telefone = new TelefoneDao();
+                //cliente.getTelefone().setCpfCliente(cliente.getCpf());
+                telefone.atualizar(cliente.getTelefone());    
+            }
+
             ps.executeUpdate();
             return cliente;
 
