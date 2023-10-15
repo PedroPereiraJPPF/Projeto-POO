@@ -35,8 +35,6 @@ public class FuncionarioDao extends BaseDao <FuncionarioVO> {
                 endereco.inserir(funcionario.getEndereco());    
             }
 
-            // System.out.println(funcionario.);
-
             if(funcionario.getTelefone() != null) {
                 TelefoneDao telefone = new TelefoneDao();
                 funcionario.getTelefone().setCpfFuncionario(funcionario.getCpf());

@@ -10,6 +10,7 @@ public class OrcamentoVO {
     ArrayList<PecaVo> pecas;
     ArrayList<ServicoVO> Servicos;
     Date dataDeCriação, dataDeEncerramento;
+    int status;
 
     public long getId() {
         return this.id;
@@ -83,4 +84,12 @@ public class OrcamentoVO {
         this.cpfFuncionario = cpfFuncionario;
     }
 
+    public int getStatus() {
+        return this.status;
+    }
+
+    public void setStatus(int status) {
+        this.status = status;
+    }
+    
 }

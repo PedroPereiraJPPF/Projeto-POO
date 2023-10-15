@@ -168,7 +168,7 @@ public class OrcamentoDao extends BaseDao <OrcamentoVO>{
     }
 
     public ResultSet buscarPorVeiculo(OrcamentoVO orcamento) throws SQLException {
-        String query = "Select * from orcamentos where placaVeiculo like '%'|| ? ||'%'";
+        String query = "Select * from orcamentos where placaVeiculo like '%'|| ? ||'%' and status = 1";
         PreparedStatement ps = null;
         try {
             ps = this.db.prepareStatement(query);
@@ -182,7 +182,7 @@ public class OrcamentoDao extends BaseDao <OrcamentoVO>{
     }
 
     public ResultSet buscarPorCPFCliente(OrcamentoVO orcamento) throws SQLException {
-        String query = "Select * from orcamentos where cpfCLiente like '%'|| ? ||'%'";
+        String query = "Select * from orcamentos where cpfCLiente like '%'|| ? ||'%' and status = 1";
         PreparedStatement ps = null;
         try {
             ps = this.db.prepareStatement(query);
@@ -195,8 +195,54 @@ public class OrcamentoDao extends BaseDao <OrcamentoVO>{
         }
     }
 
+    public ResultSet buscarPorStatusData(OrcamentoVO orcamento) throws SQLException {
+        try {
+            PreparedStatement ps = null;
+            String query;
+            if (!orcamento.getCpfFuncionario().isEmpty()) {
+                query = "Select * from orcamentos where dataDeCriacao >= (?) and dataDeEncerramento <= (?) and cpfResponsavel = (?)";
+                System.out.println("1");
+                ps = this.db.prepareStatement(query);
+                ps.setDate(1, orcamento.getDataDeCriação());
+                ps.setDate(2, orcamento.getDataDeEncerramento());
+                ps.setString(3, orcamento.getCpfFuncionario());
+            } else if (orcamento.getStatus() != 3) {
+                query = "Select * from orcamentos where status = (?) and dataDeCriacao >= (?) and dataDeEncerramento <= (?)";
+                System.out.println(2);
+                ps = this.db.prepareStatement(query);
+                ps.setString(1, orcamento.getCpfFuncionario());
+                ps.setDate(2, orcamento.getDataDeCriação());
+                ps.setDate(3, orcamento.getDataDeEncerramento());
+            } else if (!orcamento.getCpfFuncionario().isEmpty() && orcamento.getStatus() != 3) {
+                System.out.println(3);
+                query = "Select * from orcamentos where status = (?) and dataDeCriacao >= (?) and dataDeEncerramento <= (?) and cpfResponsavel = (?)";
+                ps = this.db.prepareStatement(query);
+                ps.setInt(1, orcamento.getStatus());
+                ps.setDate(2, orcamento.getDataDeCriação());
+                ps.setDate(3, orcamento.getDataDeEncerramento());
+                ps.setString(4, orcamento.getCpfFuncionario());
+            } else {
+                if (orcamento.getStatus() == 1) {
+                    query = "Select * from orcamentos where dataDeCriacao >= (?) and dataDeEncerramento <= (?)";
+                    ps = this.db.prepareStatement(query);
+                    ps.setDate(1, orcamento.getDataDeCriação());
+                    ps.setDate(2, orcamento.getDataDeEncerramento());
+                } else {
+                    query = "Select * from orcamentos where dataDeCriacao >= (?)";
+                    ps = this.db.prepareStatement(query);
+                    ps.setDate(1, orcamento.getDataDeCriação());
+                }
+            }
+            return ps.executeQuery();
+
+        } catch (SQLException e) {
+            System.out.println(e.getMessage());
+            throw e;
+        }
+    }
+
     public ResultSet listar() throws SQLException {
-        String query = "Select * from orcamentos";
+        String query = "Select * from relatorios where status = 0";
         PreparedStatement ps = null;
         try {
             ps = this.db.prepareStatement(query);
@@ -273,6 +319,21 @@ public class OrcamentoDao extends BaseDao <OrcamentoVO>{
 
         } catch (SQLException e) {
             throw e;
+        }
+    }
+
+    public boolean encerrarRelatorio(OrcamentoVO vo) {
+        try {
+            String query = "UPDATE orcamentos SET status = 1, dataDeEncerramento = ? WHERE id = ?";
+            java.util.Date utilDate = new java.util.Date();
+            Date sqlDate = new Date(utilDate.getTime());
+            PreparedStatement ps = this.db.prepareStatement(query);
+            ps.setDate(1, sqlDate);
+            ps.setLong(2, vo.getId());
+            return ps.execute();
+        } catch (Exception e) {
+            System.out.println(e.getMessage());
+            return false;
         }
     }
 }
