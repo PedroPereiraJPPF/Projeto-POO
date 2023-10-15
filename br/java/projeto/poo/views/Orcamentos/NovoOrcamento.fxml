@@ -155,7 +155,7 @@
                               <Insets right="8.0" />
                            </HBox.margin>
                         </Button>
-                        <Button fx:id="salvarNovoOrcamento" minHeight="-Infinity" minWidth="-Infinity" mnemonicParsing="false" prefHeight="40.0" prefWidth="110.0" styleClass="btn-primary" stylesheets="@../css/buttons.css" text="Salvar">
+                        <Button fx:id="salvarNovoOrcamento" minHeight="-Infinity" minWidth="-Infinity" mnemonicParsing="false" onAction="#salvarOrcamento" prefHeight="40.0" prefWidth="110.0" styleClass="btn-primary" stylesheets="@../css/buttons.css" text="Salvar">
                            <HBox.margin>
                               <Insets left="8.0" />
                            </HBox.margin>
@@ -204,9 +204,9 @@
                                                       <Font size="18.0" />
                                                    </font>
                                                 </Label>
-                                                <Label fx:id="valorOrcamento" alignment="CENTER" text="R$ 1000" visible="false">
+                                                <Label fx:id="valorOrcamento" alignment="CENTER" text="0.0">
                                                    <font>
-                                                      <Font name="System Bold" size="18.0" />
+                                                      <Font size="18.0" />
                                                    </font>
                                                 </Label>
                                              </children>

@@ -12,12 +12,18 @@ public class GerenciadorDeTelas {
         final private String pastaPadrao = "../views/"; 
         final private TelasDisponiveis telas = new TelasDisponiveis();
 
-        public Scene carregarNovaTela(String nomeTela) throws Exception {
-            FXMLLoader loader = new FXMLLoader(getClass().getResource(pastaPadrao + telas.pegarTelaPorNome(nomeTela)));
-            Parent root = loader.load();
-            Scene tela = new Scene(root);
-            
-            return tela;
+        public Scene carregarNovaTela(String nomeTela) {
+            try {
+                FXMLLoader loader = new FXMLLoader(getClass().getResource(pastaPadrao + telas.pegarTelaPorNome(nomeTela)));
+                Parent root = loader.load();
+                Scene tela = new Scene(root);
+                
+                return tela;
+            } catch (Exception e) {
+                System.out.println(e.getMessage());
+            }
+
+            return null;
         }
 
         

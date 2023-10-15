@@ -69,7 +69,7 @@ create table pecas (
 	id serial primary key,
 	nome varchar(50),
 	preco float,
-	quantidade 
+	quantidade integer,
 	fabricante varchar(50)
 );
 

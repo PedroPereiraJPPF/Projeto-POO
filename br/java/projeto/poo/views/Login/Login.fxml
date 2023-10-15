@@ -1,6 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<?import java.net.URL?>
 <?import javafx.scene.control.Button?>
 <?import javafx.scene.control.Label?>
 <?import javafx.scene.control.PasswordField?>
@@ -8,22 +7,25 @@
 <?import javafx.scene.image.Image?>
 <?import javafx.scene.image.ImageView?>
 <?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.BorderPane?>
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Font?>
 
-<AnchorPane id="nody" minHeight="-Infinity" minWidth="-Infinity" prefHeight="800.0" prefWidth="1024.0" styleClass="body" xmlns="http://javafx.com/javafx/20.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="br.java.projeto.poo.controller.LoginController">
-   <children>
-      <VBox alignment="CENTER" layoutX="287.0" layoutY="135.0" prefHeight="530.0" prefWidth="450.0" styleClass="loginContainer">
+
+<BorderPane prefHeight="800.0" prefWidth="1024.0" styleClass="body" stylesheets="@login.css" xmlns="http://javafx.com/javafx/20.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="br.java.projeto.poo.controller.LoginController">
+   <center>
+      <VBox alignment="CENTER" maxHeight="-Infinity" maxWidth="-Infinity" prefHeight="600.0" prefWidth="500.0" styleClass="loginContainer" BorderPane.alignment="CENTER">
          <children>
-            <VBox alignment="CENTER" prefHeight="160.0" prefWidth="450.0">
+            <VBox alignment="CENTER" maxHeight="-Infinity" maxWidth="-Infinity" prefHeight="160.0" prefWidth="450.0">
                <children>
                   <ImageView accessibleRole="IMAGE_VIEW" fitHeight="70.0" fitWidth="260.0" pickOnBounds="true" preserveRatio="true">
                      <image>
                         <Image url="@../../public/LogoPrimary.png" />
-                     </image></ImageView>
+                     </image>
+                  </ImageView>
                </children>
             </VBox>
-            <AnchorPane prefHeight="407.0" prefWidth="450.0">
+            <AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" prefHeight="407.0" prefWidth="450.0">
                <children>
                   <TextField fx:id="nomeUsuario" layoutX="50.0" layoutY="90.0" prefHeight="35.0" prefWidth="350.0" promptText="CPF" />
                   <Label alignment="CENTER" layoutX="50.0" layoutY="14.0" text="Informe seu usuario e senha para fazer login">
@@ -46,10 +48,11 @@
                         <Font size="15.0" />
                      </font>
                   </Label>
-                  <Button fx:id="logar" layoutX="50.0" layoutY="235.0" mnemonicParsing="false" onAction="#logarUsuario" prefHeight="35.0" prefWidth="350.0" styleClass="btn-primary" text="Entrar" textFill="WHITE">
+                  <Button fx:id="logar" layoutX="50.0" layoutY="235.0" mnemonicParsing="false" onAction="#logarUsuario" prefHeight="35.0" prefWidth="350.0" styleClass="btn-primary" stylesheets="@../css/buttons.css" text="Entrar" textFill="WHITE">
                      <font>
                         <Font size="16.0" />
-                     </font></Button>
+                     </font>
+                  </Button>
                   <Label layoutX="144.0" layoutY="214.0" textFill="#064eb9">
                      <font>
                         <Font size="15.0" />
@@ -77,10 +80,7 @@
                   </Label>
                </children>
             </AnchorPane>
-         </children></VBox>
-   </children>
-   <stylesheets>
-      <URL value="@login.css" />
-      <URL value="@../css/buttons.css" />
-   </stylesheets>
-</AnchorPane>
+         </children>
+      </VBox>
+   </center>
+</BorderPane>

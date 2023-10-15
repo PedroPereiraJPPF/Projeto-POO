@@ -1,9 +1,11 @@
 package br.java.projeto.poo.DAO;
 
 import java.sql.Connection;
+import java.sql.Date;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.sql.Statement;
 import java.util.List;
 
 import br.java.projeto.poo.models.VO.OrcamentoVO;
@@ -18,26 +20,37 @@ public class OrcamentoDao extends BaseDao <OrcamentoVO>{
     }
 
     public boolean inserir(OrcamentoVO orcamento) throws SQLException {
-        String query = "INSERT INTO orcamentos (placaVeiculo, valor) VALUES (?, ?)";
+        String query = "INSERT INTO orcamentos (placaVeiculo, valor, cpfResponsavel, cpfCliente, dataDeCriacao) VALUES (?, ?, ?, ?, ?)";
         String queryPecas = "INSERT INTO pecas_orcamentos (idOrcamento, idPeca) VALUES (?, ?)";
         String queryServicos = "INSERT INTO servicos_orcamentos (idOrcamento, idServico) values (?, ?)";
         PreparedStatement ps = null;
 
         try {
-            ps = this.db.prepareStatement(query);
+
+            java.util.Date utilDate = new java.util.Date();
+            Date sqlDate = new Date(utilDate.getTime()); // pega a data atual
+            
+            ps = this.db.prepareStatement(query, Statement.RETURN_GENERATED_KEYS);
             ps.setString(1, orcamento.getPlacaVeiculo());
             ps.setDouble(2, orcamento.getValor());
-            ps.execute();
-            ps.close();
+            ps.setString(3, orcamento.getCpfFuncionario());
+            ps.setString(4, orcamento.getCpfCliente());
+            ps.setDate(5, sqlDate);
+            ps.executeUpdate();
+            ResultSet rs = ps.getGeneratedKeys();
+            if (!rs.next()) {
+                throw new SQLException("Erro ao inserir orçamento.");
+            }
+            long idOrcamento = rs.getLong(1);
+            ps = this.db.prepareStatement(queryPecas);
 
             List<PecaVo> pecas = orcamento.getPecas();
             List<ServicoVO> servicos = orcamento.getServicos();
 
             if(pecas != null) {
-                ps = this.db.prepareStatement(queryPecas);
                 for (PecaVo peca : pecas) {
                     try {
-                        ps.setLong(1, orcamento.getId());
+                        ps.setLong(1, idOrcamento);
                         ps.setLong(2, peca.getId());
                         ps.execute();
                     } catch (SQLException e) {
@@ -51,7 +64,7 @@ public class OrcamentoDao extends BaseDao <OrcamentoVO>{
                 ps = this.db.prepareStatement(queryServicos);
                 for (ServicoVO servico : servicos) {
                     try {
-                        ps.setLong(1, orcamento.getId());
+                        ps.setLong(1, idOrcamento);
                         ps.setLong(2, servico.getId());
                         ps.execute();
                     } catch (SQLException e) {

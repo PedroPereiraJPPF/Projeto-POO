@@ -6,8 +6,6 @@ import java.util.ArrayList;
 
 import br.java.projeto.poo.DAO.OrcamentoDao;
 import br.java.projeto.poo.models.VO.OrcamentoVO;
-import br.java.projeto.poo.models.VO.PecaVo;
-import br.java.projeto.poo.models.VO.ServicoVO;
 
 public class OrcamentoBO {
     OrcamentoDao orcamentoDao = new OrcamentoDao();
@@ -15,13 +13,8 @@ public class OrcamentoBO {
     public ArrayList<OrcamentoVO> listar() throws Exception {
         try {
             ResultSet orcamentos = orcamentoDao.listar();
-            ResultSet pecasBuscadas;
-            ResultSet servicosBuscados;
             OrcamentoVO orcamento = new OrcamentoVO();
             ArrayList<OrcamentoVO> listarOrcamentos = new ArrayList<OrcamentoVO>();
-            ArrayList<PecaVo> pecas = new ArrayList<PecaVo>();
-            ArrayList<ServicoVO> servicos = new ArrayList<ServicoVO>();
-
             while(orcamentos.next()) {
                 orcamento.setId(orcamentos.getLong("id"));
                 orcamento.setPlacaVeiculo(orcamentos.getString("placaVeiculo"));
@@ -30,25 +23,6 @@ public class OrcamentoBO {
                 orcamento.setDataDeEncerramento(orcamentos.getDate("dataDeEncerramento"));
                 orcamento.setCpfCliente(orcamentos.getString("cpfCliente"));
                 orcamento.setCpfFuncionario(orcamentos.getString("cpfResponsavel"));
-                pecasBuscadas = orcamentoDao.listarPecas(orcamento);
-                servicosBuscados = orcamentoDao.listarServicos(orcamento);
-
-                while(pecasBuscadas.next()) {
-                    pecas.add(new PecaVo(pecasBuscadas.getLong("id"),
-                    pecasBuscadas.getString("nome"),
-                    pecasBuscadas.getString("fabricante"),
-                    pecasBuscadas.getDouble("valor"),
-                    pecasBuscadas.getInt("quantidade")));
-                }
-
-                while(servicosBuscados.next()) {
-                    servicos.add(new ServicoVO(servicosBuscados.getLong("id"),
-                    pecasBuscadas.getString("nome"),
-                    pecasBuscadas.getDouble("valor")));
-                }
-
-                orcamento.setPecas(pecas);
-                orcamento.setServicos(servicos);
                 listarOrcamentos.add(orcamento);
             }
 
@@ -59,8 +33,12 @@ public class OrcamentoBO {
         }
     }
 
-    public boolean inserir(OrcamentoVO VO) {
-        return false;
+    public boolean inserir(OrcamentoVO vo) throws Exception {
+        try {
+            return this.orcamentoDao.inserir(vo); 
+        } catch (Exception e) {
+            throw e;
+        }
     }
 
     public OrcamentoVO atualizar(OrcamentoVO VO) {

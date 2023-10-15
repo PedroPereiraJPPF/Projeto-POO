@@ -1,20 +1,28 @@
 package br.java.projeto.poo.controller.Orcamentos;
 
+import java.io.IOException;
 import java.sql.SQLException;
 import java.util.ArrayList;
 
 import br.java.projeto.poo.controller.BaseController;
+import br.java.projeto.poo.controller.ModalsController;
 import br.java.projeto.poo.exceptions.InvalidQuantidadeException;
+import br.java.projeto.poo.models.BO.OrcamentoBO;
 import br.java.projeto.poo.models.BO.PecaBO;
 import br.java.projeto.poo.models.BO.ServicoBO;
 import br.java.projeto.poo.models.BO.VeiculoBO;
+import br.java.projeto.poo.models.VO.OrcamentoVO;
 import br.java.projeto.poo.models.VO.PecaVo;
 import br.java.projeto.poo.models.VO.ServicoVO;
 import br.java.projeto.poo.models.VO.VeiculoVO;
 import br.java.projeto.poo.src.App;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
+import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
+import javafx.fxml.FXMLLoader;
+import javafx.scene.Parent;
+import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.control.ListView;
@@ -25,11 +33,19 @@ import javafx.scene.control.TextField;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.input.KeyEvent;
 import javafx.scene.layout.HBox;
+import javafx.stage.Modality;
+import javafx.stage.Stage;
+import javafx.stage.StageStyle;
+import javafx.stage.Window;
 
 public class CriarOrcamentosController extends BaseController{
     PecaBO pecaBo = new PecaBO();
     VeiculoBO veiculoBO = new VeiculoBO();
     ServicoBO servicoBO = new ServicoBO();
+    OrcamentoBO orcamentoBO = new OrcamentoBO();
+    double valor = 0; String cpfCliente;
+    ModalsController modalsController = new ModalsController();
+    
     @FXML private TableView<PecaVo> tbPecas;
     @FXML private TableColumn<PecaVo, String> acaoPeca;
     @FXML private TableColumn<PecaVo, String> nomePeca;
@@ -49,6 +65,7 @@ public class CriarOrcamentosController extends BaseController{
     @FXML private ListView<ServicoVO> servicosBuscados;
     @FXML private Label msgErroPecas;
     @FXML private Label msgErroServicos;
+    @FXML private Label valorOrcamento;
 
     ObservableList<PecaVo> itensPecas = FXCollections.observableArrayList();
     ObservableList<PecaVo> pecasEscolhidas = FXCollections.observableArrayList();
@@ -75,11 +92,33 @@ public class CriarOrcamentosController extends BaseController{
     }
 
     @FXML
+    void salvarOrcamento(ActionEvent event) {
+        try {
+            OrcamentoVO orcamentoVo = new OrcamentoVO();
+            orcamentoVo.setId(0);
+            orcamentoVo.setCpfCliente(this.cpfCliente);
+            orcamentoVo.setCpfFuncionario(App.usuarioLogado.getCpf());
+            orcamentoVo.setPlacaVeiculo(buscarVeiculo.getText());
+            ArrayList<PecaVo> pecas = new ArrayList<>(pecasEscolhidas);
+            ArrayList<ServicoVO> servicos = new ArrayList<>(servicosEscolhidos);
+            orcamentoVo.setPecas(pecas);
+            orcamentoVo.setServicos(servicos);
+            orcamentoVo.setValor(valor);
+            orcamentoBO.inserir(orcamentoVo);
+            App.navegarEntreTelas("novoOrcamento");
+            modalsController.abrirModalSucesso("Orcamento cadastrado com sucesso.");
+        } catch (Exception e) {
+            modalsController.abrirModalFalha(e.getMessage());
+        }
+    }
+
+    @FXML
     void buscarDadosDoVeiculo(KeyEvent event) {
         try {
             if(buscarVeiculo.getText().length() > 7) {
                 ArrayList<VeiculoVO> veiculos = veiculoBO.buscarPorPlaca(buscarVeiculo.getText());
                 if(veiculos.get(0).getId() > 0) {
+                    this.cpfCliente = veiculos.get(0).getCpfDono();
                     dadosCliente.setText("Veiculo existe");
                     dadosCliente.setStyle("-fx-text-fill: green;");
                     salvarNovoOrcamento.setDisable(false);
@@ -132,6 +171,8 @@ public class CriarOrcamentosController extends BaseController{
                 pecaAdicionada.setQuantidade(pecaAdicionada.getQuantidade() + 1);
                 pecasEscolhidas.set(indice, pecaAdicionada);
             }
+            this.valor += peca.getValor();
+            valorOrcamento.setText(String.valueOf(valor));
         } catch (Exception e) {
             msgErroPecas.setText(e.getMessage());
             msgErroPecas.setVisible(true);
@@ -154,6 +195,8 @@ public class CriarOrcamentosController extends BaseController{
                         } else {
                             pecasEscolhidas.remove(getIndex());
                         }
+                        valor -= peca.getValor();
+                        valorOrcamento.setText(String.valueOf(valor));
                     } catch (Exception e) {
                         e.printStackTrace();
                     }
@@ -199,6 +242,8 @@ public class CriarOrcamentosController extends BaseController{
         
             if (!servicosEscolhidos.contains(servico)) {
                 servicosEscolhidos.add(servico);
+                this.valor += servico.getValor();
+                valorOrcamento.setText(String.valueOf(valor));
             } else {
                 throw new InvalidQuantidadeException("Esse serviço ja foi adicionado");
             }
@@ -217,7 +262,10 @@ public class CriarOrcamentosController extends BaseController{
                 btnDelete.getStyleClass().add("btn-delete");
                 btnDelete.setOnAction(event -> {
                     try {
+                        ServicoVO servicoVo = getTableView().getItems().get(getIndex());
                         servicosEscolhidos.remove(getIndex());
+                        valor -= servicoVo.getValor();
+                        valorOrcamento.setText(String.valueOf(valor));
                     } catch (Exception e) {
                         e.printStackTrace();
                     }

@@ -1,11 +1,15 @@
 package br.java.projeto.poo.controller;
 
 import javafx.fxml.FXML;
+import javafx.fxml.FXMLLoader;
+import javafx.scene.Parent;
+import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.layout.Pane;
+import javafx.stage.Modality;
 import javafx.stage.Stage;
-
+import javafx.stage.StageStyle;
 public class ModalsController {
     
     private boolean exclusaoValid = false;
@@ -24,15 +28,15 @@ public class ModalsController {
         CloseModalE();
     }
 
-    void ExibirMensagemExcluir(String mensagem){
+    public void ExibirMensagemExcluir(String mensagem){
         mensagemExclusao.setText(mensagem);
     }
 
-    void ExibirMensagemFalha(String mensagem){
+    public void ExibirMensagemFalha(String mensagem){
         mensagemFalha.setText(mensagem);
     }
     
-    void ExibirMensagemSucesso(String mensagem){
+    public void ExibirMensagemSucesso(String mensagem){
         mensagemSucesso.setText(mensagem);
     }
 
@@ -59,5 +63,46 @@ public class ModalsController {
 
     public boolean getExclusaoValid(){
         return this.exclusaoValid;
+    }
+
+    public void abrirModalSucesso(String mensagem) {
+        try {
+            FXMLLoader loader = new FXMLLoader(getClass().getResource("../views/Modals/ModalSucesso.fxml"));
+            Parent root = loader.load();
+            
+            ModalsController controller = loader.getController();
+            controller.ExibirMensagemSucesso(mensagem);
+            
+            Scene popup = new Scene(root);
+            Stage palco = new Stage();
+            palco.setScene(popup);
+            palco.setResizable(false);
+            palco.initModality(Modality.APPLICATION_MODAL);
+            palco.initStyle(StageStyle.UNDECORATED);
+            palco.showAndWait();
+            
+        } catch (Exception e) {
+            System.out.println(e.getMessage());
+        }
+    }
+
+    public void abrirModalFalha(String mensagem) {
+        try {
+            FXMLLoader loader = new FXMLLoader(getClass().getResource("../views/Modals/ModalFalha.fxml"));
+            Parent root = loader.load();
+            
+            ModalsController controller = loader.getController();
+            controller.ExibirMensagemFalha(mensagem);
+            
+            Scene popup = new Scene(root);
+            Stage palco = new Stage();
+            palco.setScene(popup);
+            palco.setResizable(false);
+            palco.initModality(Modality.APPLICATION_MODAL);
+            palco.initStyle(StageStyle.UNDECORATED);
+            palco.showAndWait();
+        } catch (Exception e) {
+            System.out.println(e.getMessage());
+        }
     }
 }
