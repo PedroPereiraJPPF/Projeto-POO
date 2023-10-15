@@ -11,7 +11,7 @@
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Font?>
 
-<Pane id="editarCliente" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="450.0" prefWidth="500.0" stylesheets="@../css/Modals.css" xmlns="http://javafx.com/javafx/20.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="br.java.projeto.poo.controller.ClienteEditController">
+<Pane id="editarCliente" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="450.0" prefWidth="500.0" stylesheets="@../css/Modals.css" xmlns="http://javafx.com/javafx/20.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="br.java.projeto.poo.controller.Clientes.ClienteEditController">
    <children>
       <TextField fx:id="idCliente" layoutX="494.0" layoutY="14.0" prefHeight="1.0" prefWidth="1.0" visible="false" />
       <VBox alignment="CENTER_LEFT" layoutX="1.0" layoutY="1.0" prefHeight="52.0" prefWidth="500.0" spacing="10.0" stylesheets="@../css/Modals.css">
