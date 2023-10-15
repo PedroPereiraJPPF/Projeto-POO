@@ -10,6 +10,7 @@ import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
+import javafx.geometry.Pos;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
@@ -23,35 +24,21 @@ import javafx.scene.layout.HBox;
 import javafx.stage.Modality;
 import javafx.stage.Stage;
 import javafx.stage.StageStyle;
+import javafx.stage.Window;
 
 public class AutomoveisController extends BaseController{
     private VeiculoBO veiculoB0 = new VeiculoBO();
     public static ArrayList<VeiculoVO> listaAutomoveis;
     static ObservableList<VeiculoVO> automoveisDisponiveis;
 
-    @FXML
-    private Button cadastrar;
-
-    @FXML
-    private TableView<VeiculoVO> tbAutomoveis;
-
-    @FXML
-    private TableColumn<VeiculoVO, String> placa;
-
-    @FXML
-    private TableColumn<VeiculoVO, String> proprietario;
-
-    @FXML
-    private TableColumn<VeiculoVO, String> acoes;
-
-    @FXML
-    private TableColumn<VeiculoVO, String> modelo;
-
-    @FXML
-    private TableColumn<VeiculoVO, Long> id;
-
-    @FXML
-    private TextField buscar;
+    @FXML private Button cadastrar;
+    @FXML private TableView<VeiculoVO> tbAutomoveis;
+    @FXML private TableColumn<VeiculoVO, String> placa;
+    @FXML private TableColumn<VeiculoVO, String> proprietario;
+    @FXML private TableColumn<VeiculoVO, String> acoes;
+    @FXML private TableColumn<VeiculoVO, String> modelo;
+    @FXML private TableColumn<VeiculoVO, Long> id;
+    @FXML private TextField buscar;
 
     @FXML
     public void initialize () {
@@ -101,6 +88,35 @@ public class AutomoveisController extends BaseController{
         }
     }
 
+
+    private void abrirExclusao(VeiculoVO veiculo, int index) throws Exception {
+        FXMLLoader loader = new FXMLLoader(getClass().getResource("../views/Modals/ModalExcluir.fxml"));
+        Parent root = loader.load();
+        ModalsController modalExc = loader.getController();
+
+        String mensagem = "Tem certeza que deseja excluir esse veículo?";
+
+        modalExc.ExibirMensagemExcluir(mensagem);
+
+        Scene janelaEdit = new Scene(root);
+        Stage palco = new Stage();
+        palco.setResizable(false);
+        palco.setScene(janelaEdit);
+        palco.initModality(Modality.APPLICATION_MODAL);
+        palco.initStyle(StageStyle.UNDECORATED);
+        Window wNV = cadastrar.getScene().getWindow();
+        double centralizarEixoX, centralizarEixoY;
+        centralizarEixoX = (wNV.getX() + wNV.getWidth()/2) - 225;
+        centralizarEixoY = (wNV.getY() + wNV.getHeight()/2) - 150;
+        palco.setX(centralizarEixoX);
+        palco.setY(centralizarEixoY);
+        palco.showAndWait();
+
+        if(modalExc.getExclusaoValid()){
+            realizarExclusao(veiculo, index);
+        }
+    }
+
     // inicializa a tabela
     private void inicializarTabela() throws SQLException {
         placa.setCellValueFactory(new PropertyValueFactory<VeiculoVO, String>("placa"));
@@ -133,9 +149,9 @@ public class AutomoveisController extends BaseController{
                 btnDelete.setOnAction(event -> {
                     try {
                         VeiculoVO veiculo = getTableView().getItems().get(getIndex());
-                        if (!veiculoB0.deletar(veiculo.getId())) {
-                            funcs.remove(veiculo);
-                        }
+                        abrirExclusao(veiculo, getIndex());
+                        //funcs.remove(veiculo);
+                        
                     } catch (Exception e) {
                        e.printStackTrace();
                     }
@@ -148,13 +164,28 @@ public class AutomoveisController extends BaseController{
                 if (empty) {
                     setGraphic(null);
                 } else {
-                    btnContainer.setStyle("-fx-padding: 0 20 0 20;");
+                    //btnContainer.setStyle("-fx-padding: 0 20 0 20;");
                     btnContainer.setSpacing(10);
                     setGraphic(btnContainer);
+                    btnContainer.setAlignment(Pos.CENTER);
                 }
             }
         });
     }  
+
+
+
+    private void realizarExclusao(VeiculoVO veiculo, int index) throws Exception {
+        VeiculoBO veiculoExcluido = new VeiculoBO();
+        if(veiculoExcluido.deletar(veiculo.getId())){
+            automoveisDisponiveis.remove(index);
+            //tbAutomoveis.refresh();
+        }
+
+    }
+
+
+
 
     @FXML
     void buscarVeiculo(KeyEvent event) {

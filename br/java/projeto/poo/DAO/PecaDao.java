@@ -15,7 +15,7 @@ public class PecaDao <VO extends PecaVo> extends BaseDao <VO>{
     }
 
     public boolean inserir(VO peca) throws SQLException {
-        String query = "INSERT INTO pecas (nome, fabricante, valor, quantidade) VALUES (?, ?, ?, ?)";
+        String query = "INSERT INTO pecas (nome, fabricante, preco, quantidade) VALUES (?, ?, ?, ?)";
         PreparedStatement ps = null;
 
         try {
@@ -49,7 +49,7 @@ public class PecaDao <VO extends PecaVo> extends BaseDao <VO>{
     }
 
     public VO atualizar(VO peca) throws SQLException {
-        String query = "UPDATE pecas SET nome = ?, fabricante = ?, valor = ?, quantidade = ? WHERE id = ?";
+        String query = "UPDATE pecas SET nome = ?, fabricante = ?, preco = ?, quantidade = ? WHERE id = ?";
         PreparedStatement ps = null;
 
         try {
@@ -83,7 +83,7 @@ public class PecaDao <VO extends PecaVo> extends BaseDao <VO>{
     }
     
     public ResultSet buscarPorNome(VO peca) throws SQLException {
-        String query = "select * from pecas where nome like '%'|| ? ||'%'";
+        String query = "select * from pecas where nome like '%' || ? || '%'";
         PreparedStatement ps = null;
         try {
             ps = this.db.prepareStatement(query);
@@ -95,7 +95,7 @@ public class PecaDao <VO extends PecaVo> extends BaseDao <VO>{
     }
 
     public ResultSet buscarPorFabricante(VO peca) throws SQLException {
-        String query = "Select * from pecas where fabricante = (?)";
+        String query = "Select * from pecas where fabricante like '%' || ? || '%'";
         PreparedStatement ps = null;
         try {
             ps = this.db.prepareStatement(query);

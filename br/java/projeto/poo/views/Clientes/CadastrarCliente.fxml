@@ -22,20 +22,16 @@
       <Separator layoutY="50.0" minHeight="-Infinity" minWidth="-Infinity" prefHeight="0.0" prefWidth="500.0" />
       <VBox layoutX="40.0" layoutY="50.0" spacing="5.0">
          <children>
-            <Group>
+            <VBox spacing="3.0">
                <children>
-                  <VBox spacing="3.0">
-                     <children>
-                        <Label text="Nome" />
-                        <TextField fx:id="campoNomeCliente" onMouseClicked="#setInvisibleCad" prefHeight="40.0" prefWidth="300.0" promptText="Ex.: João Pedro" />
-                     </children>
-                     <padding>
-                        <Insets bottom="5.0" />
-                     </padding>
-                  </VBox>
+                  <Label text="Nome" />
+                  <TextField fx:id="campoNomeCliente" onMouseClicked="#setInvisibleCad" prefHeight="40.0" prefWidth="300.0" promptText="Ex.: João Pedro" />
                </children>
-            </Group>
-            <Group>
+               <padding>
+                  <Insets bottom="5.0" />
+               </padding>
+            </VBox>
+            <HBox spacing="20.0">
                <children>
                   <VBox spacing="3.0">
                      <children>
@@ -46,8 +42,17 @@
                         <Insets bottom="5.0" />
                      </padding>
                   </VBox>
+                  <VBox spacing="3.0">
+                     <children>
+                        <Label text="Telefone" />
+                        <TextField fx:id="campoTelefone" onMouseClicked="#setInvisibleCad" prefHeight="40.0" prefWidth="200.0" promptText="Ex.: 84 91234-5678" />
+                     </children>
+                     <padding>
+                        <Insets bottom="5.0" />
+                     </padding>
+                  </VBox>
                </children>
-            </Group>
+            </HBox>
             <Group>
                <children>
                   <VBox layoutX="14.0" layoutY="-6.0" spacing="3.0">

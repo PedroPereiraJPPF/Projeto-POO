@@ -10,7 +10,7 @@
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Font?>
 
-<Pane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="400.0" styleClass="pane" stylesheets="@../css/Modals.css" xmlns="http://javafx.com/javafx/20.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="br.java.projeto.poo.controller.PecasController">
+<Pane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="400.0" styleClass="pane" stylesheets="@../css/Modals.css" xmlns="http://javafx.com/javafx/20.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="br.java.projeto.poo.controller.Pecas.PecasEditController">
    <children>
       <Label contentDisplay="CENTER" layoutY="14.0" text="Editar peça">
          <font>
@@ -38,7 +38,7 @@
             <VBox layoutX="10.0" layoutY="77.0">
                <children>
                   <Label text="Quantidade" />
-                  <TextField fx:id="campoEditQuant" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" onMouseClicked="#setInvisibleEdit" prefHeight="40.0" prefWidth="300.0" promptText="Ex.: 500" />
+                  <TextField fx:id="campoEditQuantidade" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" onMouseClicked="#setInvisibleEdit" prefHeight="40.0" prefWidth="300.0" promptText="Ex.: 500" />
                </children>
             </VBox>
             <VBox layoutX="10.0" layoutY="144.0">
@@ -57,8 +57,8 @@
       <Separator layoutY="320.0" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="5.0" prefWidth="400.0" />
       <HBox layoutX="50.0" layoutY="340.0" spacing="20.0">
          <children>
-            <Button fx:id="cancelarEdicao" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" mnemonicParsing="false" prefHeight="40.0" prefWidth="140.0" styleClass="btn-back" stylesheets="@../css/buttons.css" text="Cancelar" />
-            <Button fx:id="salvarEdicao" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" mnemonicParsing="false" prefHeight="40.0" prefWidth="140.0" styleClass="btn-primary" stylesheets="@../css/buttons.css" text="Salvar alterações" />
+            <Button fx:id="cancelarEdicao" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" mnemonicParsing="false" onAction="#cancelarEdicao" prefHeight="40.0" prefWidth="140.0" styleClass="btn-back" stylesheets="@../css/buttons.css" text="Cancelar" />
+            <Button fx:id="salvarEdicao" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" mnemonicParsing="false" onAction="#editarPeca" prefHeight="40.0" prefWidth="140.0" styleClass="btn-primary" stylesheets="@../css/buttons.css" text="Salvar alterações" />
          </children>
       </HBox>
    </children>

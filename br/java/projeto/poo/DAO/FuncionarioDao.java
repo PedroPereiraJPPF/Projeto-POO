@@ -16,7 +16,7 @@ public class FuncionarioDao extends BaseDao <FuncionarioVO> {
     }
 
     public boolean inserir(FuncionarioVO funcionario) throws SQLException {
-        String query = "INSERT INTO funcionarios (nome, cpf, salario, dataDeAdmissao, funcao, senha) VALUES (?, ?, ?, ?, ?, ?)";
+        String query = "INSERT INTO funcionarios (nome, cpf, salario, dataDeAdmissao, nivel, senha) VALUES (?, ?, ?, ?, ?, ?)";
         PreparedStatement ps = null;
 
         try {
@@ -65,7 +65,7 @@ public class FuncionarioDao extends BaseDao <FuncionarioVO> {
     }
 
     public FuncionarioVO atualizar(FuncionarioVO funcionario) throws SQLException {
-        String query = "UPDATE funcionarios SET nome = ?, cpf = ?, salario = ?, dataDeAdmissao = ?, funcao = ? WHERE id = ?";
+        String query = "UPDATE funcionarios SET nome = ?, cpf = ?, salario = ?, dataDeAdmissao = ?, nivel = ? WHERE id = ?";
         PreparedStatement ps = null;
 
         try {

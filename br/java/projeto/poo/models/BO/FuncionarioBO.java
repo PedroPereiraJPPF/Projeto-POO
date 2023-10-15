@@ -32,7 +32,7 @@ public class FuncionarioBO {
                     selectFuncionarios.getDouble("salario"),
                     selectFuncionarios.getString("dataDeAdmissao"),
                     selectEndereco,
-                    selectFuncionarios.getInt("funcao"),
+                    selectFuncionarios.getInt("nivel"),
                     selectTelefone,
                     null));
             }
@@ -56,7 +56,7 @@ public class FuncionarioBO {
                 funcionario.getString("cpf"),
                 funcionario.getFloat("salario"),
                 funcionario.getString("dataDeAdmissao"),
-                funcionario.getInt("funcao")));
+                funcionario.getInt("nivel")));
             }
 
             return funcionarios;
@@ -79,7 +79,7 @@ public class FuncionarioBO {
                 funcionario.getString("cpf"),
                 funcionario.getFloat("salario"),
                 funcionario.getString("dataDeAdmissao"),
-                funcionario.getInt("funcao")));
+                funcionario.getInt("nivel")));
             }
 
             return funcionarios;
@@ -104,7 +104,9 @@ public class FuncionarioBO {
             if (e.getSQLState().equals("23505")) {
                 throw new Exception("Esse CPF já pertence a outro usuario");
             }
-            throw new Exception("falha ao atualizar funcionario");
+            System.out.println(e.getMessage());
+            //throw new Exception("falha ao atualizar funcionario");
+            return false;
         } catch (Exception e) {
             throw new Exception(e.getMessage());
         }
@@ -165,7 +167,7 @@ public class FuncionarioBO {
                         funcionario.getString("cpf"), 
                         funcionario.getDouble("salario"), 
                         funcionario.getString("dataDeAdmissao"), 
-                        funcionario.getInt("funcao"));
+                        funcionario.getInt("nivel"));
                 }
             }
 

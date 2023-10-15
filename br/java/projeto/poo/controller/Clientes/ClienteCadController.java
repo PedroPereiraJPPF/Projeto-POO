@@ -3,11 +3,13 @@ package br.java.projeto.poo.controller.Clientes;
 import java.io.IOException;
 import java.util.ArrayList;
 
+
 import br.java.projeto.poo.controller.ModalsController;
 import br.java.projeto.poo.models.BO.ClienteBO;
 import br.java.projeto.poo.models.BO.VeiculoBO;
 import br.java.projeto.poo.models.VO.ClienteVO;
 import br.java.projeto.poo.models.VO.EnderecoVO;
+import br.java.projeto.poo.models.VO.TelefoneVO;
 import br.java.projeto.poo.models.VO.VeiculoVO;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
@@ -43,6 +45,7 @@ public class ClienteCadController {
     @FXML private TextField campoModVeic;
     @FXML private TextField campoNomeCliente;
     @FXML private TextField campoPlacCliente;
+    @FXML private TextField campoTelefone;
     
 
 
@@ -60,7 +63,7 @@ public class ClienteCadController {
 
     @FXML
     void abrirModalFail(Label mensagem, Button b) throws Exception{
-        FXMLLoader loader = new FXMLLoader(getClass().getResource("../views/Modals/ModalFalha.fxml"));
+        FXMLLoader loader = new FXMLLoader(getClass().getResource("../../views/Modals/ModalFalha.fxml"));
         Parent root = loader.load();
 
         ModalsController controller = loader.getController();
@@ -87,7 +90,7 @@ public class ClienteCadController {
 
     @FXML
     void abrirModalSucess(Label mensagem, Button b, ClienteVO cliente) throws IOException{
-        FXMLLoader loader = new FXMLLoader(getClass().getResource("../views/Modals/ModalSucesso.fxml"));
+        FXMLLoader loader = new FXMLLoader(getClass().getResource("../../views/Modals/ModalSucesso.fxml"));
         Parent root = loader.load();
         
         ModalsController controller = loader.getController();
@@ -105,8 +108,6 @@ public class ClienteCadController {
         palco.setX(centralizarEixoX);
         palco.setY(centralizarEixoY);
         palco.showAndWait();
-
-        ClienteController.clientesDisponiveis.add(cliente);
         
     }
 
@@ -116,7 +117,7 @@ public class ClienteCadController {
     @FXML
     void cadastrarCliente() throws Exception{
         
-        String ano = null, cor = null, cpf = null, endereco = null, modelo = null, nome = null, placa = null, tipoVeic = null;
+        String ano = null, cor = null, cpf = null, endereco = null, modelo = null, nome = null, placa = null, tipoVeic = null, telefone = null;
         double quilometragem = 0;
         long id = 0;
         DropShadow ErrorStyle = new DropShadow();
@@ -136,7 +137,7 @@ public class ClienteCadController {
         
         if (this.campoEndCliente.getText().isEmpty()) {this.mensagemErroCad.setVisible(true);} 
         else endereco = campoEndCliente.getText();
-        
+
         if (this.campoModVeic.getText().isEmpty()) {this.mensagemErroCad.setVisible(true);} 
         else modelo = campoModVeic.getText();
 
@@ -149,12 +150,18 @@ public class ClienteCadController {
         if (this.campoKMVeic.getText().isEmpty()) {this.mensagemErroCad.setVisible(true);} 
         else quilometragem = Double.parseDouble(campoKMVeic.getText());
 
+        if (this.campoTelefone.getText().isEmpty()){this.mensagemErroCad.setVisible(true);}
+        else telefone = this.campoTelefone.getText();
+        
         if (this.tipoVeic.getValue() == null){this.mensagemErroCad.setVisible(true);}
         else tipoVeic = this.tipoVeic.getValue();
+        
 
         try{
             if(!this.mensagemErroCad.isVisible()){
                 EnderecoVO nEnderecoVO = new EnderecoVO();
+                ClienteBO clienteBO = new ClienteBO();
+                VeiculoBO nVeiculoBO = new VeiculoBO();
                 nEnderecoVO.pegarValoresComoString(endereco);
 
                 //EnderecoBO nEnderecoBO = new EnderecoBO();
@@ -163,17 +170,25 @@ public class ClienteCadController {
 
                 VeiculoVO veiculo = new VeiculoVO(id, placa, cor, modelo, cpf, tipoVeic, ano, quilometragem);
                 listaveiculos.add(veiculo);
-                ClienteVO nClienteVO = new ClienteVO(id, nome, cpf, nEnderecoVO, listaveiculos);
+                String cpfNull = null;
 
-                ClienteBO clienteBO = new ClienteBO();
-                clienteBO.inserir(nClienteVO);
+                TelefoneVO telefoneVO = new TelefoneVO(id, cpf, cpfNull, telefone);
+                ClienteVO nClienteVO = new ClienteVO(id, nome, cpf, nEnderecoVO, listaveiculos, telefoneVO);
 
-                VeiculoBO nVeiculoBO = new VeiculoBO();
-                nVeiculoBO.inserir(veiculo);
-
-                Label labelSucesso = new Label("Cliente cadastrado com sucesso.");
-                cancelarCadastro();
-                abrirModalSucess(labelSucesso, cadastrarCliente, nClienteVO);
+                
+                if(clienteBO.inserir(nClienteVO)){
+                    
+                    nVeiculoBO.inserir(veiculo);
+                    Label labelSucesso = new Label("Cliente cadastrado com sucesso.");
+                    cancelarCadastro();
+                    abrirModalSucess(labelSucesso, cadastrarCliente, nClienteVO);
+                    //telefoneBO.inserir(telefoneVO);
+                }
+                
+                FXMLLoader loader2 = new FXMLLoader(getClass().getResource("../../controller/Clientes/ClienteController.java"));
+                ClienteController controller2 = loader2.load();
+                controller2.tabelaClientes.refresh();
+                
             }
         }
         catch (Exception ex){
@@ -181,7 +196,7 @@ public class ClienteCadController {
             labelFalha.setText(ex.getMessage());
             cancelarCadastro();
             abrirModalFail(labelFalha, cadastrarCliente);
-            
+
         }
     }
     

@@ -15,7 +15,7 @@ public class ServicoDao <VO extends ServicoVO> extends BaseDao <VO>{
     }
 
     public boolean inserir(VO Servico) throws SQLException {
-        String query = "INSERT INTO servicos (nome, valor) VALUES (?, ?)";
+        String query = "INSERT INTO servicos (nome, preco) VALUES (?, ?)";
         PreparedStatement ps = null;
 
         try {
