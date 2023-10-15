@@ -30,13 +30,14 @@ import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.input.KeyEvent;
 import javafx.scene.layout.HBox;
 
-public class CriarOrcamentosController extends BaseController{
+public class EditarOrcamentosController extends BaseController {
     PecaBO pecaBo = new PecaBO();
     VeiculoBO veiculoBO = new VeiculoBO();
     ServicoBO servicoBO = new ServicoBO();
     OrcamentoBO orcamentoBO = new OrcamentoBO();
     double valor = 0; String cpfCliente;
     ModalsController modalsController = new ModalsController();
+    OrcamentoVO orcamentoEditado = new OrcamentoVO();
     
     @FXML private TableView<PecaVo> tbPecas;
     @FXML private TableColumn<PecaVo, String> acaoPeca;
@@ -44,7 +45,7 @@ public class CriarOrcamentosController extends BaseController{
     @FXML private TableColumn<PecaVo, Double> valorPeca;
     @FXML private TableColumn<PecaVo, Integer> quantidade;
     @FXML private Button voltaTelaInicial;
-    @FXML private Button salvarNovoOrcamento;
+    @FXML private Button editarOrcamento;
     @FXML private TextField buscarVeiculo;
     @FXML private TextField campoBuscaPeca;
     @FXML private TextField campoBuscaServ;
@@ -70,7 +71,6 @@ public class CriarOrcamentosController extends BaseController{
         tbPecas.setItems(pecasEscolhidas);
         pecasBuscadas.setVisible(false);
         servicosBuscados.setVisible(false);
-        salvarNovoOrcamento.setDisable(true);
         servicosBuscados.setItems(itensServicos);
         servicosBuscados.setOnMouseClicked(event -> {
             this.atualizarValoresServicos();
@@ -84,24 +84,24 @@ public class CriarOrcamentosController extends BaseController{
     }
 
     @FXML
-    void salvarOrcamento(ActionEvent event) {
+    void editarOrcamento(ActionEvent event) {
         try {
             if (App.usuarioLogado == null) {
                 throw new Exception("Você não tem permissão para fazer essa ação");
             }
             OrcamentoVO orcamentoVo = new OrcamentoVO();
-            orcamentoVo.setId(0);
-            orcamentoVo.setCpfCliente(this.cpfCliente);
-            orcamentoVo.setCpfFuncionario(App.usuarioLogado.getCpf());
-            orcamentoVo.setPlacaVeiculo(buscarVeiculo.getText());
+            orcamentoVo.setId(orcamentoEditado.getId());
+            orcamentoVo.setCpfCliente(orcamentoEditado.getCpfCliente());
+            orcamentoVo.setCpfFuncionario(orcamentoEditado.getCpfFuncionario());
+            orcamentoVo.setPlacaVeiculo(orcamentoEditado.getPlacaVeiculo());
             ArrayList<PecaVo> pecas = new ArrayList<>(pecasEscolhidas);
             ArrayList<ServicoVO> servicos = new ArrayList<>(servicosEscolhidos);
             orcamentoVo.setPecas(pecas);
             orcamentoVo.setServicos(servicos);
             orcamentoVo.setValor(valor);
-            orcamentoBO.inserir(orcamentoVo);
-            App.navegarEntreTelas("novoOrcamento");
-            modalsController.abrirModalSucesso("Orcamento cadastrado com sucesso.");
+            orcamentoBO.atualizar(orcamentoVo);
+            modalsController.abrirModalSucesso("Orcamento editado com sucesso.");
+            App.navegarEntreTelas("orcamentos");
         } catch (Exception e) {
             e.printStackTrace();
             modalsController.abrirModalFalha(e.getMessage());
@@ -118,10 +118,8 @@ public class CriarOrcamentosController extends BaseController{
                     this.cpfCliente = veiculos.get(0).getCpfDono();
                     dadosCliente.setText("Veiculo existe");
                     dadosCliente.setStyle("-fx-text-fill: green;");
-                    salvarNovoOrcamento.setDisable(false);
                 }
             } else {
-                salvarNovoOrcamento.setDisable(true);
                 dadosCliente.setText("");
             }
         } catch (Exception e) {
@@ -296,5 +294,19 @@ public class CriarOrcamentosController extends BaseController{
     @FXML
     public void voltaTelaInicial() throws Exception {
         App.navegarEntreTelas("orcamentos");
+    }
+
+    public void setDados(Long id) {
+        try {
+            orcamentoEditado = orcamentoBO.buscarPorId(id);
+            pecasEscolhidas.setAll(orcamentoEditado.getPecas());
+            servicosEscolhidos.setAll(orcamentoEditado.getServicos());
+            this.valor = orcamentoEditado.getValor();
+            valorOrcamento.setText(String.valueOf(valor));
+            dadosCliente.setText(orcamentoEditado.getCpfCliente() + " - " + orcamentoEditado.getPlacaVeiculo());
+            dadosCliente.setVisible(true);
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
     }
 }

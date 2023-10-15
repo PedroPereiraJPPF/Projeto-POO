@@ -6,6 +6,7 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
+import java.util.ArrayList;
 import java.util.List;
 
 import br.java.projeto.poo.models.VO.OrcamentoVO;
@@ -21,7 +22,7 @@ public class OrcamentoDao extends BaseDao <OrcamentoVO>{
 
     public boolean inserir(OrcamentoVO orcamento) throws SQLException {
         String query = "INSERT INTO orcamentos (placaVeiculo, valor, cpfResponsavel, cpfCliente, dataDeCriacao) VALUES (?, ?, ?, ?, ?)";
-        String queryPecas = "INSERT INTO pecas_orcamentos (idOrcamento, idPeca) VALUES (?, ?)";
+        String queryPecas = "INSERT INTO pecas_orcamentos (idOrcamento, idPeca, quantidade) VALUES (?, ?, ?)";
         String queryServicos = "INSERT INTO servicos_orcamentos (idOrcamento, idServico) values (?, ?)";
         PreparedStatement ps = null;
 
@@ -42,16 +43,17 @@ public class OrcamentoDao extends BaseDao <OrcamentoVO>{
                 throw new SQLException("Erro ao inserir orçamento.");
             }
             long idOrcamento = rs.getLong(1);
-            ps = this.db.prepareStatement(queryPecas);
 
             List<PecaVo> pecas = orcamento.getPecas();
             List<ServicoVO> servicos = orcamento.getServicos();
+            ps = this.db.prepareStatement(queryPecas);
 
             if(pecas != null) {
                 for (PecaVo peca : pecas) {
                     try {
                         ps.setLong(1, idOrcamento);
                         ps.setLong(2, peca.getId());
+                        ps.setLong(3, peca.getQuantidade());
                         ps.execute();
                     } catch (SQLException e) {
                         throw e;
@@ -59,9 +61,9 @@ public class OrcamentoDao extends BaseDao <OrcamentoVO>{
                 }
                 ps.close();
             }
-
+            ps = this.db.prepareStatement(queryServicos);
+            
             if(servicos != null) {
-                ps = this.db.prepareStatement(queryServicos);
                 for (ServicoVO servico : servicos) {
                     try {
                         ps.setLong(1, idOrcamento);
@@ -77,6 +79,7 @@ public class OrcamentoDao extends BaseDao <OrcamentoVO>{
             return true;
 
         } catch (SQLException e) {
+            e.printStackTrace();
             throw e;
         }
     }
@@ -91,21 +94,57 @@ public class OrcamentoDao extends BaseDao <OrcamentoVO>{
 
         } catch (SQLException e) {
             throw e;
-        } finally {
-            ps.close();
         }
     }
 
     public OrcamentoVO atualizar(OrcamentoVO orcamento) throws SQLException {
-        String query = "UPDATE orcamentos SET placaAutomovel = ?, valor = ? WHERE id = ?";
+        String query = "UPDATE orcamentos SET valor = ? WHERE id = ?";
+        String queryPecas = "INSERT INTO pecas_orcamentos (idOrcamento, idPeca, quantidade) VALUES (?, ?, ?)";
+        String queryServicos = "INSERT INTO servicos_orcamentos (idOrcamento, idServico) values (?, ?)";
         PreparedStatement ps = null;
 
         try {
-            ps = this.db.prepareStatement(query);
-            ps.setLong(3, orcamento.getId());
-            ps.setString(1, orcamento.getPlacaVeiculo());
-            ps.setDouble(2, orcamento.getValor());
+            ps = this.db.prepareStatement(query, Statement.RETURN_GENERATED_KEYS);
+            ps.setLong(2, orcamento.getId());
+            ps.setDouble(1, orcamento.getValor());
             ps.executeUpdate();
+            ps.close();
+
+            ArrayList<PecaVo> pecas = orcamento.getPecas();
+            ArrayList<ServicoVO> servicos = orcamento.getServicos();
+
+            ps = this.db.prepareStatement(queryPecas);
+            if(pecas != null) {
+                this.deletarPecas(orcamento);
+                for (PecaVo peca : pecas) {
+                    try {
+                        ps.setLong(1, orcamento.getId());
+                        ps.setLong(2, peca.getId());
+                        ps.setLong(3, peca.getQuantidade());
+                        ps.execute();
+                    } catch (SQLException e) {
+                        throw e;
+                    }
+                }
+                ps.close();
+            }
+
+            ps = this.db.prepareStatement(queryServicos);
+            if(servicos != null) {
+                this.deletarServicos(orcamento);
+                for (ServicoVO servico : servicos) {
+                    try {
+                        ps.setLong(1, orcamento.getId());
+                        ps.setLong(2, servico.getId());
+                        ps.execute();
+                    } catch (SQLException e) {
+                        throw e;
+                    }
+                }
+                ps.close();
+            }
+            orcamento.setPecas(pecas);
+            orcamento.setServicos(servicos);
             return orcamento;
 
         } catch (SQLException e) {
@@ -179,6 +218,23 @@ public class OrcamentoDao extends BaseDao <OrcamentoVO>{
         }
     }
 
+    public int contarPecas(PecaVo vo, long idOrcamento) throws SQLException {
+        String query = "Select quantidade from pecas_orcamentos where idPeca = (?) and idOrcamento = (?)";
+        PreparedStatement ps = null;
+        try {
+            ps = this.db.prepareStatement(query);
+            ps.setLong(1, vo.getId());
+            ps.setLong(2, idOrcamento);
+            ResultSet rs = ps.executeQuery();
+            if(rs.next()) {
+                return rs.getInt(1);
+            }
+            return 0;
+        } catch (SQLException e) {
+            throw e;
+        }
+    }
+
     public ResultSet listarServicos(OrcamentoVO orcamento) throws SQLException {
         String query = "Select * from servicos where id in (select idServico from servicos_orcamentos where idOrcamento = ?)";
         PreparedStatement ps = null;
@@ -186,6 +242,32 @@ public class OrcamentoDao extends BaseDao <OrcamentoVO>{
             ps = this.db.prepareStatement(query);
             ps.setLong(1, orcamento.getId());
             return ps.executeQuery();
+
+        } catch (SQLException e) {
+            throw e;
+        }
+    }
+
+    public boolean deletarPecas(OrcamentoVO vo) throws SQLException {
+        String query = "DELETE FROM pecas_orcamentos WHERE idOrcamento = (?)";
+        PreparedStatement ps = null;
+        try {
+            ps = this.db.prepareStatement(query);
+            ps.setLong(1, vo.getId());
+            return ps.execute();
+
+        } catch (SQLException e) {
+            throw e;
+        }
+    }
+
+    public boolean deletarServicos(OrcamentoVO vo) throws SQLException {
+        String query = "DELETE FROM servicos_orcamentos WHERE idOrcamento = (?)";
+        PreparedStatement ps = null;
+        try {
+            ps = this.db.prepareStatement(query);
+            ps.setLong(1, vo.getId());
+            return ps.execute();
 
         } catch (SQLException e) {
             throw e;

@@ -112,12 +112,12 @@
                      </children>
                   </HBox>
                </children>
-               <HBox.margin>
-                  <Insets right="40.0" />
-               </HBox.margin>
                <padding>
                   <Insets left="60.0" />
                </padding>
+               <HBox.margin>
+                  <Insets right="30.0" />
+               </HBox.margin>
             </HBox>
          </children>
          <padding>

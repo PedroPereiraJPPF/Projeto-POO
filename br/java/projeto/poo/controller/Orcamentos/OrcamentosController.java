@@ -4,23 +4,33 @@ import java.sql.SQLException;
 import java.util.ArrayList;
 
 import br.java.projeto.poo.controller.BaseController;
+import br.java.projeto.poo.controller.ModalsController;
+import br.java.projeto.poo.controller.Funcionarios.EditarFuncionariosController;
 import br.java.projeto.poo.models.BO.OrcamentoBO;
+import br.java.projeto.poo.models.VO.FuncionarioVO;
 import br.java.projeto.poo.models.VO.OrcamentoVO;
 import br.java.projeto.poo.src.App;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
+import javafx.fxml.FXMLLoader;
+import javafx.scene.Parent;
+import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.TableCell;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.layout.HBox;
+import javafx.stage.Modality;
+import javafx.stage.Stage;
+import javafx.stage.StageStyle;
 
 public class OrcamentosController extends BaseController {
     private OrcamentoBO orcamentoBO = new OrcamentoBO();
     static ArrayList<OrcamentoVO> listaOrcamentos;
     static ObservableList<OrcamentoVO> orcamentosDisponiveis;
+    private ModalsController modalsController = new ModalsController();
 
     @FXML private Button novoOrcamento;
     @FXML private Button gerarRelatorio;
@@ -71,8 +81,8 @@ public class OrcamentosController extends BaseController {
                 btnDelete.getStyleClass().add("btn-delete");
                 btnEdit.setOnAction(event -> {
                     try {
-                        // FuncionarioVO funcionario = getTableView().getItems().get(getIndex());
-                        // abrirModalEditar(funcionario, getIndex());
+                        OrcamentoVO orcamentoVO = getTableView().getItems().get(getIndex());
+                        abrirTelaEditar(orcamentoVO, getIndex());
                     } catch (Exception e) {
                         System.out.println(e.getMessage());
                     }
@@ -80,9 +90,12 @@ public class OrcamentosController extends BaseController {
 
                 btnDelete.setOnAction(event -> {
                     try {
-                        // FuncionarioVO funcionario = getTableView().getItems().get(getIndex());
-                        // System.out.println(getIndex());
-                        // abrirModalDeletar(funcionario.getId(), getIndex());
+                        OrcamentoVO orcamentoVO = getTableView().getItems().get(getIndex());
+                        if(modalsController.abrirModalExcluir("Realmente deseja excluir esse orçamento?", getIndex())) {
+                            orcamentoBO.deletar(orcamentoVO.getId());
+                            listaOrcamentos.remove(getIndex());
+                            orcamentosDisponiveis.remove(getIndex());
+                        };
                     } catch (Exception e) {
                         e.printStackTrace();
                     }
@@ -101,5 +114,21 @@ public class OrcamentosController extends BaseController {
                 }
             }
         });
+    }
+
+    void abrirTelaEditar(OrcamentoVO vo, int indice) throws Exception {
+        try {
+            Stage stage = (Stage) this.novoOrcamento.getScene().getWindow();
+
+            FXMLLoader loader = new FXMLLoader(getClass().getResource("../../views/Orcamentos/EditarOrcamento.fxml"));
+            Parent root = loader.load();
+            EditarOrcamentosController editarController = loader.getController();
+            editarController.setDados(vo.getId());
+            Scene modalScene = new Scene(root);
+            stage.setScene(modalScene);
+            stage.showAndWait();
+        } catch (Exception e) {
+            System.out.println(e.getMessage());
+        }
     }
 }

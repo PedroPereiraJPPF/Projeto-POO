@@ -10,6 +10,7 @@ import javafx.scene.layout.Pane;
 import javafx.stage.Modality;
 import javafx.stage.Stage;
 import javafx.stage.StageStyle;
+import javafx.stage.Window;
 public class ModalsController {
     
     private boolean exclusaoValid = false;
@@ -104,5 +105,29 @@ public class ModalsController {
         } catch (Exception e) {
             System.out.println(e.getMessage());
         }
+    }
+
+    public boolean abrirModalExcluir(String mensagem, long index) {
+        try {
+            FXMLLoader loader = new FXMLLoader(getClass().getResource("../views/Modals/ModalExcluir.fxml"));
+            Parent root = loader.load();
+            ModalsController modalExc = loader.getController();
+
+            modalExc.ExibirMensagemExcluir(mensagem);
+
+            Scene janelaEdit = new Scene(root);
+            Stage palco = new Stage();
+            palco.setResizable(false);
+            palco.setScene(janelaEdit);
+            palco.initModality(Modality.APPLICATION_MODAL);
+            palco.initStyle(StageStyle.UNDECORATED);
+            palco.showAndWait();
+
+            return modalExc.getExclusaoValid();
+        } catch (Exception e) {
+            System.out.println(e.getMessage());
+        }
+
+        return false;
     }
 }

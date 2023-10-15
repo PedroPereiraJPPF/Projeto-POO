@@ -91,6 +91,7 @@ create table orcamentos (
 create table pecas_orcamentos (
 	idOrcamento integer,
 	idPeca integer,
+	quantidade integer,
 	
 	foreign key(idOrcamento) references orcamentos(id) on delete cascade on update cascade,
 	foreign key(idPeca) references pecas(id) on delete cascade on update cascade
