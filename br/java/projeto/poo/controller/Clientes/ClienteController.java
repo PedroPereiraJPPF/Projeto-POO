@@ -9,13 +9,14 @@ import br.java.projeto.poo.controller.ModalsController;
 import br.java.projeto.poo.models.BO.ClienteBO;
 import br.java.projeto.poo.models.VO.ClienteVO;
 import br.java.projeto.poo.models.VO.EnderecoVO;
-import br.java.projeto.poo.models.VO.VeiculoVO;
+import br.java.projeto.poo.models.VO.TelefoneVO;
 import br.java.projeto.poo.src.App;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
+import javafx.geometry.Pos;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
@@ -25,6 +26,7 @@ import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 import javafx.scene.control.TextField;
 import javafx.scene.control.cell.PropertyValueFactory;
+import javafx.scene.input.KeyEvent;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.HBox;
 import javafx.stage.Modality;
@@ -42,35 +44,25 @@ public class ClienteController extends BaseController{
 
     @FXML protected Button novoCliente;
     @FXML private TextField campoBusca;
-    @FXML private TableView<ClienteVO> tabelaClientes;
+    @FXML protected TableView<ClienteVO> tabelaClientes;
     @FXML private TableColumn<ClienteVO, String>  columnBut;
     @FXML private TableColumn<ClienteVO, String>  columnCPF;
     @FXML private TableColumn<ClienteVO, EnderecoVO>  columnEnd;
     @FXML private TableColumn<ClienteVO, Integer> columnIdCliente;
     @FXML private TableColumn<ClienteVO, String>  columnNome;
-    @FXML private TableColumn<ClienteVO, VeiculoVO>  columnVeic;
+    @FXML private TableColumn<ClienteVO, TelefoneVO>  columnTel;
     // ==================================================
-    
-    // ====== campos da tela de informações do cliente ======
-    @FXML private Label exibirCPF;
-    @FXML private Label exibirCorV;
-    @FXML private Label exibirDataCad;
-    @FXML private Label exibirEndereco;
-    @FXML private Label exibirKmV;
-    @FXML private Label exibirModV;
-    @FXML private Label exibirNome;
-    @FXML private Label exibirPlacaV;
-    @FXML private Button novoVeic;
-    @FXML private Button telaInicial;
-    // ======================================================
 
 
     @Override
     public void initialize() throws Exception{
-        
-        listaClientes = this.clienteBO.listar();
-        clientesDisponiveis = FXCollections.observableArrayList(listaClientes);
-        this.inicializarTabela(); 
+        try{
+            listaClientes = this.clienteBO.listar();
+            clientesDisponiveis = FXCollections.observableArrayList(listaClientes);
+            this.inicializarTabela(); 
+        }catch(Exception ex){
+            ex.printStackTrace();
+        }
         
     }
 
@@ -97,7 +89,7 @@ public class ClienteController extends BaseController{
 
 
 
-    
+    @FXML
     private void abrirEdicao(ClienteVO cliente, int i) throws Exception {
 
         FXMLLoader loader = new FXMLLoader(getClass().getResource("../../views/Clientes/EditarCliente.fxml"));
@@ -153,7 +145,7 @@ public class ClienteController extends BaseController{
 
 
     @FXML
-    void buscarCliente(){
+    void buscarCliente(KeyEvent event){
         try {
             ArrayList<ClienteVO> clienteVOs;
             if (this.campoBusca.getText().length() > 2) {
@@ -174,20 +166,31 @@ public class ClienteController extends BaseController{
 
 
 
-
+    
     @FXML
     void colunaSelecionada(MouseEvent event) throws Exception{
         ClienteVO clienteSelecionado = tabelaClientes.getSelectionModel().getSelectedItem();
+        //System.out.println(clienteSelecionado.getNome() + "\n" + clienteSelecionado.getCpf() + "\n" + clienteSelecionado.getEndereco().toString());
         this.exibirCliente(clienteSelecionado);
     }
 
 
-
+    // Ainda não está funcionando bem
     private void exibirCliente(ClienteVO cliente)throws Exception {
         App.navegarEntreTelas("exibirClientes");
-        exibirNome.setText(cliente.getNome());
-        exibirCPF.setText(cliente.getCpf());
-        exibirEndereco.setText(cliente.getEndereco().toString());
+        //System.out.println(cliente.getNome() + "\n" + cliente.getCpf() + "\n" + cliente.getEndereco().toString());
+        FXMLLoader loader = new FXMLLoader(getClass().getResource("../ClienteShowController.java"));
+        ClienteShowController showControl = loader.getController();
+
+
+        showControl.exibirNome.setText(cliente.getNome());
+        showControl.exibirNome.setVisible(true);
+        showControl.exibirCPF.setText(cliente.getCpf());
+        showControl.exibirCPF.setVisible(true);
+        showControl.exibirEndereco.setText(cliente.getEndereco().toString());
+        showControl.exibirEndereco.setVisible(true);
+        showControl.nomeClienteMenu.setText(cliente.getNome());
+    
     } 
 
 
@@ -198,7 +201,7 @@ public class ClienteController extends BaseController{
         columnCPF.setCellValueFactory(new PropertyValueFactory<ClienteVO, String>("cpf"));
         columnIdCliente.setCellValueFactory(new PropertyValueFactory<ClienteVO, Integer>("id"));
         columnEnd.setCellValueFactory(new PropertyValueFactory<ClienteVO, EnderecoVO>("endereco"));
-        columnVeic.setCellValueFactory(new PropertyValueFactory<ClienteVO, VeiculoVO>("veiculo"));
+        columnTel.setCellValueFactory(new PropertyValueFactory<ClienteVO, TelefoneVO>("telefone"));
         tabelaClientes.setItems(clientesDisponiveis);
         this.inicializarBotoesDeAcao(clientesDisponiveis);
     }
@@ -238,22 +241,16 @@ public class ClienteController extends BaseController{
                 if (empty) {
                     setGraphic(null);
                 } else {
-                    btnContainer.setStyle("-fx-padding: 0 20 0 20;");
+                    //btnContainer.setStyle("-fx-padding: 0 20 0 20;");
                     btnContainer.setSpacing(10);
+                    btnContainer.setAlignment(Pos.CENTER);
                     setGraphic(btnContainer);
                 }
             }
         });
     }
 
-
-
-
-    @FXML
-    void novoVeiculo(ActionEvent event) {
-
-    }
-
+    
 
 
     private void realizarExclusao(ClienteVO cliente) throws Exception {
@@ -264,13 +261,5 @@ public class ClienteController extends BaseController{
             }
     }
 
-
-
-
-
-    @FXML
-    void voltaTelaInicial(ActionEvent event) throws Exception {
-        App.navegarEntreTelas("clientes");
-    }
 
 }

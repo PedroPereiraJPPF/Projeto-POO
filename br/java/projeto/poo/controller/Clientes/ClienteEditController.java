@@ -4,8 +4,11 @@ import java.io.IOException;
 
 import br.java.projeto.poo.controller.ModalsController;
 import br.java.projeto.poo.models.BO.ClienteBO;
+import br.java.projeto.poo.models.BO.EnderecoBO;
+import br.java.projeto.poo.models.BO.TelefoneBO;
 import br.java.projeto.poo.models.VO.ClienteVO;
 import br.java.projeto.poo.models.VO.EnderecoVO;
+import br.java.projeto.poo.models.VO.TelefoneVO;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
@@ -24,7 +27,7 @@ public class ClienteEditController {
     @FXML private TextField campoEditCPF;
     @FXML private TextField campoEditEnd;
     @FXML private TextField campoEditNome;
-    @FXML private TextField idCliente;
+    @FXML private TextField campoEditTel;
     @FXML private Button cancelarEdicao;
     @FXML private Label mensagemErroEdit;
     @FXML private Button salvarEdicao;
@@ -99,7 +102,7 @@ public class ClienteEditController {
     @FXML
     void editarCliente() throws Exception{
         
-        String nome = null, cpf = null, endereco = null;
+        String nome = null, cpf = null, endereco = null, telefone = null;
         
         if (campoEditNome.getText().isEmpty()) {mensagemErroEdit.setVisible(true);} 
         else nome = campoEditNome.getText();
@@ -107,15 +110,34 @@ public class ClienteEditController {
         if (campoEditCPF.getText().isEmpty()) {mensagemErroEdit.setVisible(true);} 
         else cpf = campoEditCPF.getText();
         
+        if (campoEditEnd.getText().isEmpty()) {mensagemErroEdit.setVisible(true);} 
+        else endereco = campoEditEnd.getText();
+        
+        if (campoEditTel.getText().isEmpty()) {mensagemErroEdit.setVisible(true);} 
+        else telefone = campoEditTel.getText();
+
+
+
+        
         try{
             
             EnderecoVO enderecoVO = new EnderecoVO();
             enderecoVO.pegarValoresComoString(endereco);
+            EnderecoBO enderecoBO = new EnderecoBO();
+            enderecoBO.atualizar(enderecoVO);
+
+            
             clienteEditar.setNome(nome);
             clienteEditar.setCpf(cpf);
             clienteEditar.setEndereco(enderecoVO);
-            ClienteBO bo = new ClienteBO();
-            bo.atualizar(clienteEditar);
+            ClienteBO clienteBO = new ClienteBO();
+            clienteBO.atualizar(clienteEditar);
+
+            String cpfNull = null;
+            TelefoneBO telefoneBO = new TelefoneBO();
+            TelefoneVO telefoneVO = new TelefoneVO(0, cpf, cpfNull, telefone);
+            telefoneBO.atualizar(telefoneVO);
+
             Label labelSucesso = new Label("Cliente editado com sucesso.");
             cancelarEdicao();
             abrirModalSucess(labelSucesso, salvarEdicao, clienteEditar);
@@ -140,8 +162,6 @@ public class ClienteEditController {
 
 
 
-
-
     void preencherCampos(ClienteVO cliente, int index){
         
         try{
@@ -149,6 +169,7 @@ public class ClienteEditController {
             campoEditNome.setText(cliente.getNome());
             campoEditCPF.setText(cliente.getCpf());
             campoEditEnd.setText(cliente.getEndereco().toString());
+            campoEditTel.setText(cliente.getTelefone().toString());
         } catch(Exception ex){
             System.out.println(ex.getMessage());
         }

@@ -47,12 +47,22 @@
                   <TextField fx:id="campoEditEnd" minHeight="-Infinity" minWidth="-Infinity" onMouseClicked="#setInvisibleEdit" prefHeight="40.0" prefWidth="400.0" promptText="Ex.: Rua, número, bairro, cidade" />
                </children>
             </VBox>
-            <VBox alignment="CENTER_LEFT" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="80.0" prefWidth="400.0" spacing="15.0">
+            <HBox maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="80.0" prefWidth="400.0" spacing="20.0">
                <children>
-                  <Label text="CPF" />
-                  <TextField fx:id="campoEditCPF" minHeight="-Infinity" minWidth="-Infinity" onMouseClicked="#setInvisibleEdit" prefHeight="40.0" prefWidth="400.0" promptText="Ex.: 123.456.789-10" />
+                  <VBox alignment="CENTER_LEFT" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="80.0" prefWidth="190.0" spacing="15.0">
+                     <children>
+                        <Label text="CPF" />
+                        <TextField fx:id="campoEditCPF" minHeight="-Infinity" minWidth="-Infinity" onMouseClicked="#setInvisibleEdit" prefHeight="40.0" prefWidth="180.0" promptText="Ex.: 123.456.789-10" />
+                     </children>
+                  </VBox>
+                  <VBox alignment="CENTER_LEFT" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="80.0" prefWidth="190.0" spacing="15.0">
+                     <children>
+                        <Label text="Telefone" />
+                        <TextField fx:id="campoEditTel" minHeight="-Infinity" minWidth="-Infinity" onMouseClicked="#setInvisibleEdit" prefHeight="40.0" prefWidth="180.0" promptText="Ex.: 84 91234-5678" />
+                     </children>
+                  </VBox>
                </children>
-            </VBox>
+            </HBox>
          </children>
       </VBox>
       <Separator layoutY="366.0" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" prefWidth="500.0" />

@@ -113,7 +113,7 @@ public class ClienteDao extends BaseDao <ClienteVO>{
     }
 
     public ResultSet buscarPorNome(ClienteVO cliente) throws SQLException {
-        String query = "Select * from clientes where nome = (?)";
+        String query = "Select * from clientes where nome like '%' || ? || '%'";
         PreparedStatement ps = null;
         try {
             ps = this.db.prepareStatement(query);

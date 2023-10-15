@@ -54,7 +54,7 @@ public class ClienteBO {
         try {
             ClienteVO cl = new ClienteVO();
             cl.setNome(nome);
-            ResultSet clientesBuscados = clienteDao.buscarPorCPF(cl);  
+            ResultSet clientesBuscados = clienteDao.buscarPorNome(cl);  
             ArrayList<ClienteVO> clientes = new ArrayList<>();
             EnderecoVO endereco;
             while (clientesBuscados.next()) {

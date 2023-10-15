@@ -147,7 +147,7 @@
                   </VBox>
                   <HBox alignment="CENTER_RIGHT" prefWidth="762.0" spacing="25.0" HBox.hgrow="ALWAYS">
                      <children>
-                        <TextField fx:id="campoBusca" onAction="#buscarCliente" prefHeight="40.0" prefWidth="300.0" promptText="Buscar por CPF ou nome" styleClass="searchField" stylesheets="@../css/buttons.css">
+                        <TextField fx:id="campoBusca" onKeyReleased="#buscarCliente" prefHeight="40.0" prefWidth="300.0" promptText="Buscar por CPF ou nome" styleClass="searchField" stylesheets="@../css/buttons.css">
                            <HBox.margin>
                               <Insets />
                            </HBox.margin>
@@ -176,11 +176,11 @@
             </HBox>
             <TableView fx:id="tabelaClientes" onMouseClicked="#colunaSelecionada" prefHeight="600.0" prefWidth="914.0">
               <columns>
-                <TableColumn fx:id="columnNome" maxWidth="500.0" prefWidth="244.0" text="Nome" />
-                <TableColumn fx:id="columnCPF" maxWidth="400.0" minWidth="0.0" prefWidth="127.0" text="CPF" />
-                  <TableColumn fx:id="columnEnd" maxWidth="800.0" prefWidth="247.0" text="Endereço" />
-                  <TableColumn fx:id="columnVeic" maxWidth="400.0" prefWidth="171.0" text="Veículo" />
-                  <TableColumn fx:id="columnBut" maxWidth="122.0" prefWidth="100.0" resizable="false" sortable="false" text="Ações" />
+                <TableColumn fx:id="columnNome" maxWidth="1.7976931348623157E308" prefWidth="244.0" text="Nome" />
+                <TableColumn fx:id="columnCPF" maxWidth="1.7976931348623157E308" minWidth="0.0" prefWidth="116.0" text="CPF" />
+                  <TableColumn fx:id="columnEnd" maxWidth="1.7976931348623157E308" prefWidth="321.0" text="Endereço" />
+                  <TableColumn fx:id="columnTel" maxWidth="400.0" prefWidth="155.0" text="Telefone" />
+                  <TableColumn fx:id="columnBut" maxWidth="122.0" prefWidth="75.0" resizable="false" sortable="false" text="Ações" />
                   <TableColumn fx:id="columnIdCliente" maxWidth="169.0" minWidth="0.0" prefWidth="0.0" resizable="false" text="Id do cliente" visible="false" />
               </columns>
                <columnResizePolicy>

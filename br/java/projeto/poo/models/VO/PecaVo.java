@@ -19,6 +19,8 @@ public class PecaVo {
         setQuantidade(quantidade);
     }
 
+    public PecaVo(){}
+
     public long getId() {
         return this.id;
     }

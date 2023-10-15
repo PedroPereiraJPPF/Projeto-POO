@@ -15,7 +15,15 @@ public class TelefoneBO {
         } catch (Exception e) {
             throw e;
         }
-    }   
+    }
+    public void atualizar(TelefoneVO vo) throws Exception{
+        try {
+            telefoneDao.atualizar(vo);
+        } catch (Exception e) {
+            throw e;
+        }
+        
+    } 
     
     public TelefoneVO buscarPorFuncionario(String cpf) throws Exception {
         try {

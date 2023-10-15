@@ -15,11 +15,12 @@ public class ServicoBO implements BaseInterfaceBO<ServicoVO>{
     public ArrayList<ServicoVO> listar() throws Exception {
         ArrayList<ServicoVO> listaServicos = new ArrayList<ServicoVO>();
         ResultSet servicosNoBanco = servicoDao.listar();
-        long idServicoBanco = servicosNoBanco.getLong("id");
-        String nomeServicoBanco = servicosNoBanco.getString("nome"); 
-        double precoServicoBanco = servicosNoBanco.getDouble("preco");
+        
 
         while(servicosNoBanco.next()){
+            long idServicoBanco = servicosNoBanco.getLong("id");
+            String nomeServicoBanco = servicosNoBanco.getString("nome"); 
+            double precoServicoBanco = servicosNoBanco.getDouble("preco");
             listaServicos.add(new ServicoVO(idServicoBanco,nomeServicoBanco,precoServicoBanco));
         }
 

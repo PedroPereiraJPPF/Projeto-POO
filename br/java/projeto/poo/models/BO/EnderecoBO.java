@@ -15,7 +15,15 @@ public class EnderecoBO {
         } catch (Exception e) {
             throw e;
         }
-    }   
+    } 
+    
+    public void atualizar(EnderecoVO vo) throws Exception {
+        try {
+            enderecoDao.atualizar(vo);
+        } catch (Exception e) {
+            throw e;
+        }
+    }
     
     public EnderecoVO buscarPorFuncionario(String cpf) throws Exception {
         try {

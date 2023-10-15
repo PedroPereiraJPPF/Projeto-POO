@@ -15,7 +15,7 @@
 <?import javafx.scene.shape.Rectangle?>
 <?import javafx.scene.text.Font?>
 
-<BorderPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="800.0" prefWidth="1024.0" styleClass="celulaTabela" xmlns="http://javafx.com/javafx/20.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="br.java.projeto.poo.controller.Clientes.ClienteController">
+<BorderPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="800.0" prefWidth="1024.0" styleClass="celulaTabela" xmlns="http://javafx.com/javafx/20.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="br.java.projeto.poo.controller.Clientes.ClienteShowController">
    <top>
       <HBox alignment="CENTER_LEFT" prefHeight="100.0" prefWidth="200.0" BorderPane.alignment="CENTER">
          <children>
@@ -130,7 +130,7 @@
                               <Label text=" &gt; " />
                               <Label text="Clientes" />
                               <Label text=" &gt; " />
-                              <Label text="Cliente 1" />
+                              <Label fx:id="nomeClienteMenu" text="Cliente 1" />
                            </children>
                         </HBox>
                         <Label minHeight="-Infinity" minWidth="-Infinity" text="Exibir cliente">
@@ -179,7 +179,7 @@
                                           <Font name="System Bold" size="20.0" />
                                        </font>
                                     </Label>
-                                    <Button minHeight="-Infinity" minWidth="-Infinity" mnemonicParsing="false" prefHeight="27.0" prefWidth="27.0" styleClass="btn-edit" stylesheets="@../css/buttons.css" />
+                                    <Button fx:id="editarInfoCliente" minHeight="-Infinity" minWidth="-Infinity" mnemonicParsing="false" prefHeight="27.0" prefWidth="27.0" styleClass="btn-edit" stylesheets="@../css/buttons.css" />
                                  </children>
                               </HBox>
                               <Group>
@@ -209,7 +209,7 @@
                                           </HBox>
                                           <HBox maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="60.0" prefWidth="948.0">
                                              <children>
-                                                <Label fx:id="exibirNome" prefHeight="60.0" prefWidth="474.0" text="Label">
+                                                <Label fx:id="exibirNome" prefHeight="60.0" prefWidth="474.0" text="Nome do cliente" visible="false">
                                                    <padding>
                                                       <Insets bottom="10.0" left="30.0" />
                                                    </padding>
@@ -217,7 +217,7 @@
                                                       <Font name="System Bold" size="20.0" />
                                                    </font>
                                                 </Label>
-                                                <Label fx:id="exibirEndereco" layoutX="10.0" layoutY="10.0" prefHeight="60.0" prefWidth="474.0" text="Label">
+                                                <Label fx:id="exibirEndereco" layoutX="10.0" layoutY="10.0" prefHeight="60.0" prefWidth="474.0" text="Endereço do cliente" visible="false">
                                                    <padding>
                                                       <Insets bottom="10.0" left="30.0" />
                                                    </padding>
@@ -249,7 +249,7 @@
                                           </HBox>
                                           <HBox layoutX="10.0" layoutY="10.0" prefHeight="100.0" prefWidth="200.0">
                                              <children>
-                                                <Label fx:id="exibirCPF" prefHeight="60.0" prefWidth="474.0" text="Label">
+                                                <Label fx:id="exibirCPF" prefHeight="60.0" prefWidth="474.0" text="CPF do cliente" visible="false">
                                                    <padding>
                                                       <Insets bottom="10.0" left="30.0" />
                                                    </padding>
@@ -257,7 +257,7 @@
                                                       <Font name="System Bold" size="20.0" />
                                                    </font>
                                                 </Label>
-                                                <Label fx:id="exibirDataCad" prefHeight="60.0" prefWidth="474.0" text="Label">
+                                                <Label fx:id="exibirDataCad" prefHeight="60.0" prefWidth="474.0" text="Data de cadastro do cliente" visible="false">
                                                    <padding>
                                                       <Insets bottom="10.0" left="30.0" />
                                                    </padding>
@@ -318,7 +318,7 @@
                                           </HBox>
                                           <HBox maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="60.0" prefWidth="948.0">
                                              <children>
-                                                <Label fx:id="exibirCorV" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="60.0" prefWidth="474.0" text="Label">
+                                                <Label fx:id="exibirCorV" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="60.0" prefWidth="474.0" text="Label" visible="false">
                                                    <padding>
                                                       <Insets left="30.0" />
                                                    </padding>
@@ -326,7 +326,7 @@
                                                       <Font name="System Bold" size="20.0" />
                                                    </font>
                                                 </Label>
-                                                <Label fx:id="exibirPlacaV" layoutX="10.0" layoutY="10.0" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="60.0" prefWidth="474.0" text="Label">
+                                                <Label fx:id="exibirPlacaV" layoutX="10.0" layoutY="10.0" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="60.0" prefWidth="474.0" text="Label" visible="false">
                                                    <padding>
                                                       <Insets left="30.0" />
                                                    </padding>
@@ -364,7 +364,7 @@
                                           </HBox>
                                           <HBox layoutX="10.0" layoutY="50.0" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="60.0" prefWidth="948.0">
                                              <children>
-                                                <Label fx:id="exibirModV" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="60.0" prefWidth="474.0" text="Label">
+                                                <Label fx:id="exibirModV" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="60.0" prefWidth="474.0" text="Label" visible="false">
                                                    <padding>
                                                       <Insets left="30.0" />
                                                    </padding>
@@ -372,7 +372,7 @@
                                                       <Font name="System Bold" size="20.0" />
                                                    </font>
                                                 </Label>
-                                                <Label fx:id="exibirKmV" layoutX="10.0" layoutY="10.0" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="60.0" prefWidth="474.0" text="Label">
+                                                <Label fx:id="exibirKmV" layoutX="10.0" layoutY="10.0" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="60.0" prefWidth="474.0" text="Label" visible="false">
                                                    <padding>
                                                       <Insets left="30.0" />
                                                    </padding>
