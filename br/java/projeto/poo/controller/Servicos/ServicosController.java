@@ -18,7 +18,9 @@ import javafx.scene.control.Button;
 import javafx.scene.control.TableCell;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
+import javafx.scene.control.TextField;
 import javafx.scene.control.cell.PropertyValueFactory;
+import javafx.scene.input.KeyEvent;
 import javafx.scene.layout.HBox;
 import javafx.stage.Modality;
 import javafx.stage.Stage;
@@ -31,6 +33,7 @@ public class ServicosController extends BaseController{
     private ArrayList<ServicoVO> listaServicos;
     private ObservableList<ServicoVO> servicosDisponiveis;
     @FXML private Button novoServico;
+    @FXML private TextField buscarServico;
 
     @FXML private TableView<ServicoVO> tabelaServicos;
     @FXML private TableColumn<ServicoVO, String> columnBut;
@@ -168,10 +171,27 @@ public class ServicosController extends BaseController{
         });
     }
 
+    @FXML
+    void buscarServico(KeyEvent event){
+        try {
+            ArrayList<ServicoVO> servicos;
+            if (this.buscarServico.getText().length() > 2) {
+                ServicoVO vo = new ServicoVO(1, buscarServico.getText(), 0);
+                servicos = servicoBO.buscarPorNome(vo);
+                servicosDisponiveis.setAll(servicos);
+            } else {
+               servicosDisponiveis.setAll(listaServicos);
+            }
+        } catch (Exception e) {
+            System.out.println(e.getMessage());
+        }
+    }
+
 
     private void realizarExclusao(ServicoVO servico, int index) throws Exception {
         ServicoBO servicoExcluido = new ServicoBO();
             if(!servicoExcluido.deletar(servico)){
+                listaServicos.remove(index);
                 servicosDisponiveis.remove(index);
                 //tabelaClientes.refresh();
             }

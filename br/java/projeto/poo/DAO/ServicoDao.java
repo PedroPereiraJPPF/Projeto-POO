@@ -47,7 +47,7 @@ public class ServicoDao <VO extends ServicoVO> extends BaseDao <VO>{
     }
 
     public VO atualizar(VO Servico) throws SQLException {
-        String query = "UPDATE servicos SET nome = ?, valor = ? WHERE id = ?";
+        String query = "UPDATE servicos SET nome = ?, preco = ? WHERE id = ?";
         PreparedStatement ps = null;
 
         try {

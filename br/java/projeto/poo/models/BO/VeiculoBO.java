@@ -119,9 +119,9 @@ public class VeiculoBO {
         }
     }
 
-    public boolean deletar(long id) throws Exception {
+    public boolean deletar(String placa) throws Exception {
         try {
-            VeiculoVO vo = new VeiculoVO(id, null, null, null, null, null, null, 0);
+            VeiculoVO vo = new VeiculoVO(0, placa, null, null, null, null, null, 0);
             return veiculoDao.deletar(vo);
         } catch (Exception e) {
             System.out.println(e.getMessage());

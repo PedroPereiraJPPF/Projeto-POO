@@ -150,7 +150,6 @@ public class AutomoveisController extends BaseController{
                     try {
                         VeiculoVO veiculo = getTableView().getItems().get(getIndex());
                         abrirExclusao(veiculo, getIndex());
-                        //funcs.remove(veiculo);
                         
                     } catch (Exception e) {
                        e.printStackTrace();
@@ -164,7 +163,6 @@ public class AutomoveisController extends BaseController{
                 if (empty) {
                     setGraphic(null);
                 } else {
-                    //btnContainer.setStyle("-fx-padding: 0 20 0 20;");
                     btnContainer.setSpacing(10);
                     setGraphic(btnContainer);
                     btnContainer.setAlignment(Pos.CENTER);
@@ -173,19 +171,13 @@ public class AutomoveisController extends BaseController{
         });
     }  
 
-
-
     private void realizarExclusao(VeiculoVO veiculo, int index) throws Exception {
         VeiculoBO veiculoExcluido = new VeiculoBO();
-        if(veiculoExcluido.deletar(veiculo.getId())){
-            automoveisDisponiveis.remove(index);
-            //tbAutomoveis.refresh();
+        if(!veiculoExcluido.deletar(veiculo.getPlaca())){
+            listaAutomoveis.remove(index);
+            automoveisDisponiveis.setAll(listaAutomoveis);
         }
-
     }
-
-
-
 
     @FXML
     void buscarVeiculo(KeyEvent event) {

@@ -25,7 +25,7 @@ public class ServicoVO {
     }
 
     public void setId(long id) throws InvalidIdException {
-        if (id <= 0) {
+        if (id < 0) {
             throw new InvalidIdException();
         }
 
@@ -49,7 +49,7 @@ public class ServicoVO {
     }
 
     public void setValor(double valor) throws InvalidValorException {
-        if(valor <= 0) {
+        if(valor < 0) {
             throw new InvalidValorException("O valor inserido é inválido");
         }
         this.valor = valor;

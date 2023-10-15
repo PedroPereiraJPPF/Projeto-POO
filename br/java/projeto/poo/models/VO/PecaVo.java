@@ -11,10 +11,6 @@ public class PecaVo {
     private double valor;
     private int quantidade;
 
-    public PecaVo() {
-        
-    }
-
     public PecaVo(long id, String nome, String fabricante, double valor, int quantidade) throws Exception {
         setId(id);
         setNome(nome);
@@ -57,7 +53,7 @@ public class PecaVo {
     }
 
     public void setValor(double valor) throws InvalidValorException {
-        if(valor <= 0) {
+        if(valor < 0) {
             throw new InvalidValorException("O valor deve ser maior que 0");
         }
 

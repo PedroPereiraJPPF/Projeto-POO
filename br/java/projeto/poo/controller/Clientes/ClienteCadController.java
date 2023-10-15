@@ -164,8 +164,6 @@ public class ClienteCadController {
                 VeiculoBO nVeiculoBO = new VeiculoBO();
                 nEnderecoVO.pegarValoresComoString(endereco);
 
-                //EnderecoBO nEnderecoBO = new EnderecoBO();
-                //nEnderecoBO.inserir(nEnderecoVO);
                 ArrayList<VeiculoVO> listaveiculos = new ArrayList<VeiculoVO>();
 
                 VeiculoVO veiculo = new VeiculoVO(id, placa, cor, modelo, cpf, tipoVeic, ano, quilometragem);

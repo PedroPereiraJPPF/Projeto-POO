@@ -134,7 +134,7 @@ public class FuncionarioBO {
             if (e.getSQLState().equals("23505")) {
                 throw new Exception("Esse CPF já pertence a outro usuario");
             }
-            throw new Exception("falha ao atualizar funcionario");
+            throw new Exception(e.getMessage());
         }
         catch (Exception e) {
             throw new Exception(e.getMessage());

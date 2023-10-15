@@ -177,19 +177,19 @@ public class ClienteController extends BaseController{
 
     // Ainda não está funcionando bem
     private void exibirCliente(ClienteVO cliente)throws Exception {
-        App.navegarEntreTelas("exibirClientes");
-        //System.out.println(cliente.getNome() + "\n" + cliente.getCpf() + "\n" + cliente.getEndereco().toString());
-        FXMLLoader loader = new FXMLLoader(getClass().getResource("../ClienteShowController.java"));
-        ClienteShowController showControl = loader.getController();
+        // App.navegarEntreTelas("exibirClientes");
+        // //System.out.println(cliente.getNome() + "\n" + cliente.getCpf() + "\n" + cliente.getEndereco().toString());
+        // FXMLLoader loader = new FXMLLoader(getClass().getResource("../ClienteShowController.java"));
+        // ClienteShowController showControl = loader.getController();
 
 
-        showControl.exibirNome.setText(cliente.getNome());
-        showControl.exibirNome.setVisible(true);
-        showControl.exibirCPF.setText(cliente.getCpf());
-        showControl.exibirCPF.setVisible(true);
-        showControl.exibirEndereco.setText(cliente.getEndereco().toString());
-        showControl.exibirEndereco.setVisible(true);
-        showControl.nomeClienteMenu.setText(cliente.getNome());
+        // showControl.exibirNome.setText(cliente.getNome());
+        // showControl.exibirNome.setVisible(true);
+        // showControl.exibirCPF.setText(cliente.getCpf());
+        // showControl.exibirCPF.setVisible(true);
+        // showControl.exibirEndereco.setText(cliente.getEndereco().toString());
+        // showControl.exibirEndereco.setVisible(true);
+        // showControl.nomeClienteMenu.setText(cliente.getNome());
     
     } 
 
@@ -218,7 +218,7 @@ public class ClienteController extends BaseController{
                 btnEdit.setOnAction(event -> {
                     try {
                         ClienteVO cliente = getTableView().getItems().get(getIndex());
-                        //abrirEdicao(cliente, getIndex());
+                        abrirEdicao(cliente, getIndex());
                         System.out.println(cliente.getNome() + "\n" + 
                                            cliente.getCpf() + "\n" + 
                                            cliente.getTelefone() + "\n" + 
