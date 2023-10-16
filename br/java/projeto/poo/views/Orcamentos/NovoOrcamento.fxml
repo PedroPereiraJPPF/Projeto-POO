@@ -32,9 +32,9 @@
                   <Insets left="40.0" right="10.0" />
                </HBox.margin>
             </ImageView>
-            <HBox alignment="CENTER_RIGHT" prefHeight="80.0" prefWidth="730.0" spacing="15.0" HBox.hgrow="ALWAYS">
+            <HBox fx:id="menu" alignment="CENTER_RIGHT" prefHeight="80.0" prefWidth="730.0" spacing="15.0" HBox.hgrow="ALWAYS">
                <children>
-                  <Label onMouseClicked="#carregarClientes" text="Clientes" textOverrun="CLIP">
+                  <Label fx:id="nClie" onMouseClicked="#carregarClientes" text="Clientes" textOverrun="CLIP">
                      <padding>
                         <Insets bottom="10.0" left="5.0" right="5.0" top="10.0" />
                      </padding>
@@ -45,7 +45,7 @@
                         <Cursor fx:constant="HAND" />
                      </cursor>
                   </Label>
-                  <Label onMouseClicked="#carregarServicos" text="Servicos" textOverrun="CLIP">
+                  <Label fx:id="nServ" onMouseClicked="#carregarServicos" text="Servicos" textOverrun="CLIP">
                      <padding>
                         <Insets bottom="10.0" left="5.0" right="5.0" top="10.0" />
                      </padding>
@@ -56,7 +56,7 @@
                         <Font size="15.0" />
                      </font>
                   </Label>
-                  <Label onMouseClicked="#carregarAutomoveis" text="Automóveis" textOverrun="CLIP">
+                  <Label fx:id="nAuto" onMouseClicked="#carregarAutomoveis" text="Automóveis" textOverrun="CLIP">
                      <padding>
                         <Insets bottom="10.0" left="5.0" right="5.0" top="10.0" />
                      </padding>
@@ -67,7 +67,7 @@
                         <Font size="15.0" />
                      </font>
                   </Label>
-                  <Label onMouseClicked="#carregarPecas" text="Peças" textOverrun="CLIP">
+                  <Label fx:id="nPecas" onMouseClicked="#carregarPecas" text="Peças" textOverrun="CLIP">
                      <padding>
                         <Insets bottom="10.0" left="5.0" right="5.0" top="10.0" />
                      </padding>
@@ -78,7 +78,7 @@
                         <Font size="15.0" />
                      </font>
                   </Label>
-                  <Label onMouseClicked="#carregarOrcamentos" text="Orçamentos" textFill="#064eb9" textOverrun="CLIP">
+                  <Label fx:id="nOrcamentos" onMouseClicked="#carregarOrcamentos" text="Orçamentos" textFill="#064eb9" textOverrun="CLIP">
                      <padding>
                         <Insets bottom="10.0" left="5.0" right="5.0" top="10.0" />
                      </padding>
@@ -89,7 +89,7 @@
                         <Font name="System Bold" size="15.0" />
                      </font>
                   </Label>
-                  <Label onMouseClicked="#carregarFuncionarios" text="Funcionários" textOverrun="CLIP">
+                  <Label fx:id="nFunc" onMouseClicked="#carregarFuncionarios" text="Funcionários" textOverrun="CLIP">
                      <padding>
                         <Insets bottom="10.0" left="5.0" right="5.0" top="10.0" />
                      </padding>
@@ -100,17 +100,21 @@
                         <Font size="15.0" />
                      </font>
                   </Label>
-                  <Button alignment="BASELINE_LEFT" contentDisplay="CENTER" minHeight="-Infinity" minWidth="-Infinity" mnemonicParsing="false" onMouseClicked="#logout" prefHeight="30.0" prefWidth="60.0" styleClass="btn-logout" stylesheets="@../css/buttons.css" text="Sair">
-                     <font>
-                        <Font size="15.0" />
-                     </font>
-                  </Button>
+                  <HBox alignment="CENTER" maxHeight="-Infinity">
+                     <children>
+                        <Button alignment="BASELINE_LEFT" minHeight="-Infinity" minWidth="-Infinity" mnemonicParsing="false" onMouseClicked="#logout" prefHeight="30.0" prefWidth="60.0" styleClass="btn-logout" stylesheets="@../css/buttons.css" text="Sair">
+                           <font>
+                              <Font size="15.0" />
+                           </font>
+                        </Button>
+                     </children>
+                  </HBox>
                </children>
                <padding>
                   <Insets left="60.0" />
                </padding>
                <HBox.margin>
-                  <Insets right="40.0" />
+                  <Insets right="30.0" />
                </HBox.margin>
             </HBox>
          </children>

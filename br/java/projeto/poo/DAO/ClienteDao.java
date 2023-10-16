@@ -99,6 +99,7 @@ public class ClienteDao extends BaseDao <ClienteVO>{
             return cliente;
 
         } catch (SQLException e) {
+            e.getMessage();
             throw e;
         } finally {
             ps.close();

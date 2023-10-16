@@ -51,10 +51,10 @@ public class ClienteController extends BaseController{
     @FXML private TableColumn<ClienteVO, String>  columnTel;
     // ==================================================
 
-
     @Override
     public void initialize() throws Exception{
         try{
+            super.initialize();;
             listaClientes = this.clienteBO.listar();
             clientesDisponiveis = FXCollections.observableArrayList(listaClientes);
             this.inicializarTabela(); 
@@ -64,11 +64,8 @@ public class ClienteController extends BaseController{
         
     }
 
-
-
-
     @FXML
-    void abrirCadastro() throws IOException {
+    void abrirCadastro() throws Exception {
         FXMLLoader loader = new FXMLLoader(getClass().getResource("../../views/Clientes/CadastrarCliente.fxml"));
         Parent root = loader.load();
         Scene janelaCad = new Scene(root);
@@ -80,7 +77,10 @@ public class ClienteController extends BaseController{
         Window wNC = novoCliente.getScene().getWindow();
         palco.setX((wNC.getX() + wNC.getWidth()/2) - 250);
         palco.setY((wNC.getY() + wNC.getHeight()/2) - 325);
-        palco.show();
+        palco.showAndWait();
+
+        listaClientes = this.clienteBO.listar();
+        clientesDisponiveis.setAll(listaClientes);
         
     }
 
@@ -108,9 +108,7 @@ public class ClienteController extends BaseController{
         centralizarEixoY = (wNC.getY() + wNC.getHeight()/2) - 225;
         palco.setX(centralizarEixoX);
         palco.setY(centralizarEixoY);
-        palco.show();
-
-        tabelaClientes.refresh();
+        palco.showAndWait();
     }
 
 

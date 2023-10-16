@@ -214,20 +214,22 @@ public class OrcamentoDao extends BaseDao <OrcamentoVO>{
             PreparedStatement ps = null;
             String query;
             if (!orcamento.getCpfFuncionario().isEmpty()) {
-                query = "Select * from orcamentos where dataDeCriacao >= (?) and dataDeEncerramento <= (?) and cpfResponsavel = (?)";
-                System.out.println("1");
+                query = "Select * from orcamentos where dataDeCriacao >= (?) and cpfResponsavel = (?)";
                 ps = this.db.prepareStatement(query);
                 ps.setDate(1, orcamento.getDataDeCriação());
-                ps.setDate(2, orcamento.getDataDeEncerramento());
-                ps.setString(3, orcamento.getCpfFuncionario());
-            } else if (orcamento.getStatus() != 3) {
+                ps.setString(2, orcamento.getCpfFuncionario());
+            } else if (orcamento.getStatus() == 0) {
+                query = "Select * from orcamentos where status = (?) and dataDeCriacao >= (?)";
+                ps = this.db.prepareStatement(query);
+                ps.setInt(1, orcamento.getStatus());
+                ps.setDate(2, orcamento.getDataDeCriação());
+            } else if (orcamento.getStatus() == 1) {
                 query = "Select * from orcamentos where status = (?) and dataDeCriacao >= (?) and dataDeEncerramento <= (?)";
                 ps = this.db.prepareStatement(query);
                 ps.setInt(1, orcamento.getStatus());
                 ps.setDate(2, orcamento.getDataDeCriação());
                 ps.setDate(3, orcamento.getDataDeEncerramento());
             } else if (!orcamento.getCpfFuncionario().isEmpty() && orcamento.getStatus() != 3) {
-                System.out.println(3);
                 query = "Select * from orcamentos where status = (?) and dataDeCriacao >= (?) and dataDeEncerramento <= (?) and cpfResponsavel = (?)";
                 ps = this.db.prepareStatement(query);
                 ps.setInt(1, orcamento.getStatus());

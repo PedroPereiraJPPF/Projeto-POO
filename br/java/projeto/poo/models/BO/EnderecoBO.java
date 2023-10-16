@@ -33,9 +33,9 @@ public class EnderecoBO {
                     selectEndereco.getString("cpfCliente"),
                     selectEndereco.getString("cpfFuncionario"),
                     selectEndereco.getString("rua"), 
+                    selectEndereco.getString("num_casa"), 
                     selectEndereco.getString("bairro"), 
-                    selectEndereco.getString("cidade"), 
-                    selectEndereco.getString("num_casa"));
+                    selectEndereco.getString("cidade"));
             }
 
             return null;
@@ -54,9 +54,9 @@ public class EnderecoBO {
                     selectEndereco.getString("cpfCliente"),
                     selectEndereco.getString("cpfFuncionario"),
                     selectEndereco.getString("rua"), 
+                    selectEndereco.getString("num_casa"), 
                     selectEndereco.getString("bairro"), 
-                    selectEndereco.getString("cidade"), 
-                    selectEndereco.getString("num_casa"));
+                    selectEndereco.getString("cidade"));
             }
 
             return null;

@@ -67,6 +67,7 @@ public class EditarOrcamentosController extends BaseController {
 
     @FXML
     public void initialize() throws Exception {
+        super.initialize();
         tbServicos.setItems(servicosEscolhidos);
         tbPecas.setItems(pecasEscolhidas);
         pecasBuscadas.setVisible(false);

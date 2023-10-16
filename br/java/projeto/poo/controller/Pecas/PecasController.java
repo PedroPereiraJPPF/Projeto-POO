@@ -49,6 +49,7 @@ public class PecasController extends BaseController {
 
     @Override
     public void initialize() throws Exception {
+        super.initialize();
         listaPecas = this.pecaBO.listar();
         pecasDisponiveis = FXCollections.observableArrayList(listaPecas);
         this.inicializarTabela();

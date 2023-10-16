@@ -96,7 +96,7 @@ public class FuncionarioBO {
             }
 
             if(!this.validarNumero(vo.getTelefone().getNumero())) {
-                throw new Exception("Numero inválido o formato deve ser ***********");
+                throw new Exception("Numero inválido o formato deve ser ** *****-****");
             }
 
             return funcionarioDao.inserir(vo);
@@ -125,7 +125,7 @@ public class FuncionarioBO {
             }
 
             if(!this.validarNumero(vo.getTelefone().getNumero())) {
-                throw new Exception("Numero inválido o formato deve ser ***********");
+                throw new Exception("Numero inválido o formato deve ser ** *****-****");
             }
 
             return funcionarioDao.atualizar(vo);
@@ -183,6 +183,6 @@ public class FuncionarioBO {
     }
 
     private boolean validarNumero(String numero) {
-        return numero.matches("\\b\\d{11}");
+        return numero.matches("\\b\\d{1}.*");
     }
 }

@@ -5,6 +5,7 @@ import java.io.IOException;
 import br.java.projeto.poo.controller.ModalsController;
 import br.java.projeto.poo.models.BO.ServicoBO;
 import br.java.projeto.poo.models.VO.ServicoVO;
+import javafx.collections.FXCollections;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
@@ -91,14 +92,16 @@ public class ServicosCadController {
 
                 if(servicoBO.inserir(novoServico)){
                     String labelSucesso = "Serviço cadastrado com sucesso.";
-                    cancelarCadastro();
+                    ServicosController.listaServicos = servicoBO.listar();
+                    ServicosController.servicosDisponiveis.setAll(ServicosController.listaServicos);
                     abrirModalSucess(labelSucesso);
+                    cancelarCadastro();
                 }
             }
         } catch (Exception ex) {
             String labelFalha = ex.getMessage();
-            cancelarCadastro();
             abrirModalFail(labelFalha);
+            cancelarCadastro();
         }
     }
 

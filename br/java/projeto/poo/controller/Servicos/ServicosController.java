@@ -30,8 +30,8 @@ import javafx.stage.Window;
 public class ServicosController extends BaseController{
 
     private ServicoBO servicoBO = new ServicoBO();
-    private ArrayList<ServicoVO> listaServicos;
-    private ObservableList<ServicoVO> servicosDisponiveis;
+    public static ArrayList<ServicoVO> listaServicos;
+    public static ObservableList<ServicoVO> servicosDisponiveis;
     @FXML private Button novoServico;
     @FXML private TextField buscarServico;
 
@@ -40,9 +40,8 @@ public class ServicosController extends BaseController{
     @FXML private TableColumn<ServicoVO, String> columnServ;
     @FXML private TableColumn<ServicoVO, Double> columnVal;
     
-
-
     public void initialize() throws Exception{
+        super.initialize();
         listaServicos = this.servicoBO.listar();
         servicosDisponiveis = FXCollections.observableArrayList(listaServicos);
         this.inicializarTabela();
@@ -63,9 +62,7 @@ public class ServicosController extends BaseController{
         double centralizarEixoY = (wNS.getY() + wNS.getHeight()/2) - 200;
         palco.setX(centralizarEixoX);
         palco.setY(centralizarEixoY);
-        palco.show();
-
-
+        palco.showAndWait();
     }
 
     @FXML

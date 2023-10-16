@@ -22,7 +22,7 @@ import javafx.stage.StageStyle;
 import javafx.stage.Window;
 
 public class ClienteEditController {
-    
+    ModalsController modalsController = new ModalsController();
     EnderecoBO enderecoBO = new EnderecoBO();
     ClienteBO clienteBO = new ClienteBO();
     TelefoneBO telefoneBO = new TelefoneBO();
@@ -146,17 +146,14 @@ public class ClienteEditController {
                     clienteBO.atualizar(clienteEditar);
                     telefoneVO = new TelefoneVO(1, cpf, cpfNull, telefone);
                     telefoneBO.inserir(telefoneVO);
-                } else {//telefoneBO.atualizar(telefoneVO);
+                } else {
                     
                     telefoneVO = new TelefoneVO(1, cpf, cpfNull, telefone);
                     clienteEditar.setTelefone(telefoneVO);
                     clienteBO.atualizar(clienteEditar);
                 }
-                
-                Label labelSucesso = new Label("Cliente editado com sucesso.");
+                modalsController.abrirModalSucesso("Cliente editado com sucesso!");
                 cancelarEdicao();
-                abrirModalSucess(labelSucesso, salvarEdicao, clienteEditar);
-
             }
 
         }
@@ -164,8 +161,8 @@ public class ClienteEditController {
             Label labelFalha = new Label();
             labelFalha.setText(ex.getMessage());
             System.out.println(ex.getMessage());
+            modalsController.abrirModalFalha(ex.getMessage());
             cancelarEdicao();
-            abrirModalFail(labelFalha, salvarEdicao);
         }
     }
 
