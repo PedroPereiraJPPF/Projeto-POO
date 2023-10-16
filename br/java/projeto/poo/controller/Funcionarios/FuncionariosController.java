@@ -5,6 +5,7 @@ import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
+import javafx.geometry.Pos;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
@@ -120,6 +121,7 @@ public class FuncionariosController extends BaseController{
             Scene modalScene = new Scene(root);
             modalStage.setScene(modalScene);
             modalStage.showAndWait();
+
         } catch (Exception e) {
             System.out.println(e.getMessage());
         }
@@ -129,6 +131,7 @@ public class FuncionariosController extends BaseController{
         try {
             Stage modalStage = new Stage();
             modalStage.initModality(Modality.APPLICATION_MODAL);
+
 
             FXMLLoader loader = new FXMLLoader(getClass().getResource("../../views/Funcionarios/ConfirmarDelete.fxml"));
             Parent root = loader.load();
@@ -193,9 +196,10 @@ public class FuncionariosController extends BaseController{
                 if (empty) {
                     setGraphic(null);
                 } else {
-                    btnContainer.setStyle("-fx-padding: 0 20 0 20;");
+                    //btnContainer.setStyle("-fx-padding: 0 20 0 20;");
                     btnContainer.setSpacing(10);
                     setGraphic(btnContainer);
+                    btnContainer.setAlignment(Pos.CENTER);
                 }
             }
         });

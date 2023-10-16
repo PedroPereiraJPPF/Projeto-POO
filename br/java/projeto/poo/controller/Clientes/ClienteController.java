@@ -80,7 +80,9 @@ public class ClienteController extends BaseController{
         Window wNC = novoCliente.getScene().getWindow();
         palco.setX((wNC.getX() + wNC.getWidth()/2) - 250);
         palco.setY((wNC.getY() + wNC.getHeight()/2) - 325);
-        palco.show();
+        palco.showAndWait();
+
+        tabelaClientes.refresh();
         
     }
 
@@ -108,7 +110,7 @@ public class ClienteController extends BaseController{
         centralizarEixoY = (wNC.getY() + wNC.getHeight()/2) - 225;
         palco.setX(centralizarEixoX);
         palco.setY(centralizarEixoY);
-        palco.show();
+        palco.showAndWait();
 
         tabelaClientes.refresh();
     }
@@ -178,7 +180,6 @@ public class ClienteController extends BaseController{
     // Ainda não está funcionando bem
     private void exibirCliente(ClienteVO cliente)throws Exception {
         App.navegarEntreTelas("exibirClientes");
-        //System.out.println(cliente.getNome() + "\n" + cliente.getCpf() + "\n" + cliente.getEndereco().toString());
         FXMLLoader loader = new FXMLLoader(getClass().getResource("../ClienteShowController.java"));
         ClienteShowController showControl = loader.getController();
 
@@ -199,7 +200,6 @@ public class ClienteController extends BaseController{
     private void inicializarTabela() throws SQLException {
         columnNome.setCellValueFactory(new PropertyValueFactory<ClienteVO, String>("nome"));
         columnCPF.setCellValueFactory(new PropertyValueFactory<ClienteVO, String>("cpf"));
-        //columnIdCliente.setCellValueFactory(new PropertyValueFactory<ClienteVO, Integer>("id"));
         columnEnd.setCellValueFactory(new PropertyValueFactory<ClienteVO, String>("endereco"));
         columnTel.setCellValueFactory(new PropertyValueFactory<ClienteVO, String>("telefone"));
         tabelaClientes.setItems(clientesDisponiveis);
@@ -218,12 +218,8 @@ public class ClienteController extends BaseController{
                 btnEdit.setOnAction(event -> {
                     try {
                         ClienteVO cliente = getTableView().getItems().get(getIndex());
-                        //abrirEdicao(cliente, getIndex());
-                        System.out.println(cliente.getNome() + "\n" + 
-                                           cliente.getCpf() + "\n" + 
-                                           cliente.getTelefone() + "\n" + 
-                                           cliente.getEndereco() + "\n" + 
-                                           cliente.getVeiculo() + "\n");
+                        abrirEdicao(cliente, getIndex());
+                        
                         tabelaClientes.refresh();
                     } catch (Exception e) {
                         System.out.println(e.getMessage());
@@ -234,7 +230,6 @@ public class ClienteController extends BaseController{
                 btnDelete.setOnAction(event -> {
                     try{
                         ClienteVO cliente = getTableView().getItems().get(getIndex());
-                        //funcs.remove(cliente);
                         abrirExclusao(cliente, getIndex());
                         
                     } catch(Exception e){
@@ -265,8 +260,8 @@ public class ClienteController extends BaseController{
         ClienteBO clienteExcluido = new ClienteBO();
             if(!clienteExcluido.deletar(cliente)){
                 clientesDisponiveis.remove(index);
-                //listaClientes.remove(cliente);
-                //tabelaClientes.refresh();
+                listaClientes.remove(cliente);
+                tabelaClientes.refresh();
             }
     }
 

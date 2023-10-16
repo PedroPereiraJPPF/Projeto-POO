@@ -58,13 +58,19 @@ public class AutomoveisController extends BaseController{
             Stage modalStage = new Stage();
             modalStage.initModality(Modality.APPLICATION_MODAL);
             modalStage.initStyle(StageStyle.UNDECORATED);
-            modalStage.setResizable(false);
+            Window wNV = cadastrar.getScene().getWindow();
+            double centralizarEixoX, centralizarEixoY;
+            centralizarEixoX = (wNV.getX() + wNV.getWidth()/2) - 255;
+            centralizarEixoY = (wNV.getY() + wNV.getHeight()/2) - 332;
+            modalStage.setX(centralizarEixoX);
+            modalStage.setY(centralizarEixoY);
 
             FXMLLoader loader = new FXMLLoader(getClass().getResource("../views/Automoveis/CadastrarAutomoveis.fxml"));
             Parent root = loader.load();
             Scene modalScene = new Scene(root);
             modalStage.setScene(modalScene);
             modalStage.showAndWait();
+
         } catch (Exception e) {
             System.out.println(e.getMessage());
         }
@@ -75,6 +81,12 @@ public class AutomoveisController extends BaseController{
             Stage modalStage = new Stage();
             modalStage.initModality(Modality.APPLICATION_MODAL);
             modalStage.initStyle(StageStyle.UNDECORATED);
+            Window wNV = cadastrar.getScene().getWindow();
+            double centralizarEixoX, centralizarEixoY;
+            centralizarEixoX = (wNV.getX() + wNV.getWidth()/2) - 260;
+            centralizarEixoY = (wNV.getY() + wNV.getHeight()/2) - 230;
+            modalStage.setX(centralizarEixoX);
+            modalStage.setY(centralizarEixoY);
 
             FXMLLoader loader = new FXMLLoader(getClass().getResource("../views/Automoveis/EditarAutomoveis.fxml"));
             Parent root = loader.load();

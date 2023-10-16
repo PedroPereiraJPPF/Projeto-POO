@@ -68,7 +68,8 @@ create table pecas (
 	id serial primary key,
 	nome varchar(50),
 	preco float,
-	fabricante varchar(50)
+	fabricante varchar(50),
+	int quantidade
 );
  
 create table orcamentos (

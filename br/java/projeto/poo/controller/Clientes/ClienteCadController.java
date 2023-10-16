@@ -53,6 +53,7 @@ public class ClienteCadController {
     void initialize(){
 
         tipoVeic.getItems().addAll(tipoVeic_Array);
+        tipoVeic.setValue(tipoVeic_Array[0]);
     
     }
 
@@ -162,12 +163,11 @@ public class ClienteCadController {
                 EnderecoVO nEnderecoVO = new EnderecoVO();
                 ClienteBO clienteBO = new ClienteBO();
                 VeiculoBO nVeiculoBO = new VeiculoBO();
-                nEnderecoVO.pegarValoresComoString(endereco);
+                nEnderecoVO = nEnderecoVO.pegarValoresComoString(endereco);
+                nEnderecoVO.setCpfCliente(cpf);
 
-                //EnderecoBO nEnderecoBO = new EnderecoBO();
-                //nEnderecoBO.inserir(nEnderecoVO);
+
                 ArrayList<VeiculoVO> listaveiculos = new ArrayList<VeiculoVO>();
-
                 VeiculoVO veiculo = new VeiculoVO(id, placa, cor, modelo, cpf, tipoVeic, ano, quilometragem);
                 listaveiculos.add(veiculo);
                 String cpfNull = null;
@@ -182,12 +182,10 @@ public class ClienteCadController {
                     Label labelSucesso = new Label("Cliente cadastrado com sucesso.");
                     cancelarCadastro();
                     abrirModalSucess(labelSucesso, cadastrarCliente, nClienteVO);
-                    //telefoneBO.inserir(telefoneVO);
+    
                 }
                 
-                FXMLLoader loader2 = new FXMLLoader(getClass().getResource("../../controller/Clientes/ClienteController.java"));
-                ClienteController controller2 = loader2.load();
-                controller2.tabelaClientes.refresh();
+                
                 
             }
         }

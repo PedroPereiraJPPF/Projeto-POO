@@ -34,8 +34,6 @@ public class ServicosEditController {
         servicoEditar = new ServicoVO(servico.getId(), servico.getNome(), servico.getValor());
         servicoEditar = servico;
         this.preencherCampos(servico, index);
-        
-        
     }
     
     @FXML
@@ -102,7 +100,7 @@ public class ServicosEditController {
             if(!mensagemErroEdit.isVisible()){
                 servicoEditar.setNome(nome);
                 servicoEditar.setValor(valor);
-                Label labelSucesso = new Label("Peça editada com sucesso.");
+                Label labelSucesso = new Label("Serviço editado com sucesso.");
                 servicoBO.atualizar(servicoEditar);
                 cancelarEdicao();
                 abrirModalSucess(labelSucesso, salvarEdicao);

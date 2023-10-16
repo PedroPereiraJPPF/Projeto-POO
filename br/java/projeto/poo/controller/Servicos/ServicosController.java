@@ -60,8 +60,9 @@ public class ServicosController extends BaseController{
         double centralizarEixoY = (wNS.getY() + wNS.getHeight()/2) - 200;
         palco.setX(centralizarEixoX);
         palco.setY(centralizarEixoY);
-        palco.show();
+        palco.showAndWait();
 
+        tabelaServicos.refresh();
 
     }
 
@@ -82,7 +83,9 @@ public class ServicosController extends BaseController{
         double centralizarEixoY = (wNS.getY() + wNS.getHeight()/2) - 200;
         palco.setX(centralizarEixoX);
         palco.setY(centralizarEixoY);
-        palco.show();
+        palco.showAndWait();
+
+        tabelaServicos.refresh();
     }
 
 
@@ -92,7 +95,7 @@ public class ServicosController extends BaseController{
         Parent root = loader.load();
         ModalsController modalExc = loader.getController();
 
-        String mensagem = "Tem certeza que deseja excluir essa serviço?";
+        String mensagem = "Tem certeza que deseja excluir esse serviço?";
 
         modalExc.ExibirMensagemExcluir(mensagem);
 

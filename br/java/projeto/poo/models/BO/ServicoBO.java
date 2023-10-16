@@ -65,7 +65,7 @@ public class ServicoBO implements BaseInterfaceBO<ServicoVO>{
     @Override
     public ServicoVO atualizar(ServicoVO vo) throws Exception {
         try{return servicoDao.atualizar(vo);}
-        catch(Exception e){e.printStackTrace();}
+        catch(Exception e){System.out.println("Erro ao atualizar servico. \nMensagem de erro: " + e.getMessage() + "\n");}
         return vo;
     }
 

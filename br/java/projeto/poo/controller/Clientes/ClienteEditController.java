@@ -93,9 +93,7 @@ public class ClienteEditController {
         palco.setY(centralizarEixoY);
         palco.showAndWait();
 
-        FXMLLoader loader2 = new FXMLLoader(getClass().getResource("../../controller/Clientes/ClienteController.java"));
-        ClienteController controller2 = loader2.load();
-        controller2.tabelaClientes.refresh();
+        
         
     }
 
@@ -129,7 +127,7 @@ public class ClienteEditController {
             if (!mensagemErroEdit.isVisible()) {
                 TelefoneVO telefoneVO;
                 EnderecoVO enderecoVO = new EnderecoVO();
-                enderecoVO.pegarValoresComoString(endereco);
+                enderecoVO = enderecoVO.pegarValoresComoString(endereco);
                 
                 enderecoBO.atualizar(enderecoVO);
                 
@@ -146,16 +144,17 @@ public class ClienteEditController {
                     clienteBO.atualizar(clienteEditar);
                     telefoneVO = new TelefoneVO(1, cpf, cpfNull, telefone);
                     telefoneBO.inserir(telefoneVO);
-                } else {//telefoneBO.atualizar(telefoneVO);
-                    
+                } else {
                     telefoneVO = new TelefoneVO(1, cpf, cpfNull, telefone);
                     clienteEditar.setTelefone(telefoneVO);
                     clienteBO.atualizar(clienteEditar);
                 }
-                
+
                 Label labelSucesso = new Label("Cliente editado com sucesso.");
                 cancelarEdicao();
                 abrirModalSucess(labelSucesso, salvarEdicao, clienteEditar);
+
+
 
             }
 
