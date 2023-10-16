@@ -30,7 +30,7 @@
             </ImageView>
             <HBox alignment="CENTER_RIGHT" prefHeight="80.0" prefWidth="730.0" spacing="15.0" HBox.hgrow="ALWAYS">
                <children>
-                  <Label onMouseClicked="#carregarClientes" text="Clientes" textOverrun="CLIP">
+                  <Label fx:id="nClie" onMouseClicked="#carregarClientes" text="Clientes" textOverrun="CLIP">
                      <padding>
                         <Insets bottom="10.0" left="5.0" right="5.0" top="10.0" />
                      </padding>
@@ -41,7 +41,7 @@
                         <Cursor fx:constant="HAND" />
                      </cursor>
                   </Label>
-                  <Label onMouseClicked="#carregarServicos" text="Servicos" textFill="#064eb9" textOverrun="CLIP">
+                  <Label fx:id="nServ" onMouseClicked="#carregarServicos" text="Servicos" textFill="#064eb9" textOverrun="CLIP">
                      <padding>
                         <Insets bottom="10.0" left="5.0" right="5.0" top="10.0" />
                      </padding>
@@ -52,7 +52,7 @@
                         <Font name="System Bold" size="15.0" />
                      </font>
                   </Label>
-                  <Label onMouseClicked="#carregarAutomoveis" text="Automóveis" textOverrun="CLIP">
+                  <Label fx:id="nAuto" onMouseClicked="#carregarAutomoveis" text="Automóveis" textOverrun="CLIP">
                      <padding>
                         <Insets bottom="10.0" left="5.0" right="5.0" top="10.0" />
                      </padding>
@@ -63,7 +63,7 @@
                         <Font size="15.0" />
                      </font>
                   </Label>
-                  <Label onMouseClicked="#carregarPecas" text="Peças" textOverrun="CLIP">
+                  <Label fx:id="nPecas" onMouseClicked="#carregarPecas" text="Peças" textOverrun="CLIP">
                      <padding>
                         <Insets bottom="10.0" left="5.0" right="5.0" top="10.0" />
                      </padding>
@@ -74,7 +74,7 @@
                         <Font size="15.0" />
                      </font>
                   </Label>
-                  <Label onMouseClicked="#carregarOrcamentos" text="Orçamentos" textOverrun="CLIP">
+                  <Label fx:id="nOrcamentos" onMouseClicked="#carregarOrcamentos" text="Orçamentos" textOverrun="CLIP">
                      <padding>
                         <Insets bottom="10.0" left="5.0" right="5.0" top="10.0" />
                      </padding>
@@ -85,7 +85,7 @@
                         <Font size="15.0" />
                      </font>
                   </Label>
-                  <Label onMouseClicked="#carregarFuncionarios" text="Funcionários" textOverrun="CLIP">
+                  <Label fx:id="nFunc" onMouseClicked="#carregarFuncionarios" text="Funcionários" textOverrun="CLIP">
                      <padding>
                         <Insets bottom="10.0" left="5.0" right="5.0" top="10.0" />
                      </padding>
