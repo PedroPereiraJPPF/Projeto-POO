@@ -175,11 +175,11 @@
             <TableView fx:id="tabelaFuncionarios" prefHeight="245.0" prefWidth="914.0">
                <columns>
                   <TableColumn fx:id="funcNome" maxWidth="700.0" prefWidth="75.0" sortType="DESCENDING" text="Nome" />
-                  <TableColumn fx:id="funcCPF" maxWidth="400.0" prefWidth="50.0" text="CPF" />
+                  <TableColumn fx:id="funcCPF" maxWidth="400.0" minWidth="-Infinity" prefWidth="110.0" resizable="false" text="CPF" />
                   <TableColumn fx:id="funcSalario" maxWidth="200.0" minWidth="80.0" prefWidth="100.0" text="Salário" />
-                  <TableColumn fx:id="FuncNivel" maxWidth="200.0" prefWidth="60.0" text="Nível" />
+                  <TableColumn fx:id="FuncNivel" maxWidth="200.0" prefWidth="60.0" resizable="false" text="Nível" />
                   <TableColumn fx:id="funcAdmi" maxWidth="200.0" prefWidth="70.0" text="Data de admissão" />
-                  <TableColumn fx:id="funcAcoes" maxWidth="130.0" minWidth="75.0" prefWidth="75.0" sortable="false" text="Ações" />
+                  <TableColumn fx:id="funcAcoes" maxWidth="130.0" minWidth="75.0" prefWidth="75.0" resizable="false" sortable="false" text="Ações" />
                   <TableColumn fx:id="funcId" maxWidth="0.0" minWidth="0.0" prefWidth="0.0" sortType="DESCENDING" text="Id" />
                   <TableColumn fx:id="funcEndereco" maxWidth="0.0" minWidth="0.0" prefWidth="200.0" sortType="DESCENDING" text="endereco" />
                   <TableColumn fx:id="funcTelefone" maxWidth="0.0" minWidth="0.0" prefWidth="200.0" sortType="DESCENDING" text="telefone" />

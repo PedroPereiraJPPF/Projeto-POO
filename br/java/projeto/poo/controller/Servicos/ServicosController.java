@@ -63,6 +63,8 @@ public class ServicosController extends BaseController{
         palco.setX(centralizarEixoX);
         palco.setY(centralizarEixoY);
         palco.showAndWait();
+
+        tabelaServicos.refresh();
     }
 
     @FXML
@@ -82,7 +84,9 @@ public class ServicosController extends BaseController{
         double centralizarEixoY = (wNS.getY() + wNS.getHeight()/2) - 200;
         palco.setX(centralizarEixoX);
         palco.setY(centralizarEixoY);
-        palco.show();
+        palco.showAndWait();
+
+        tabelaServicos.refresh();
     }
 
 

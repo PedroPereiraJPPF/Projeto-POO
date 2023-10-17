@@ -25,8 +25,8 @@ create table telefones (
 	numero varchar(30),
 	
 	primary key(id),
-	foreign key(cpfCliente) references clientes(cpf) on delete cascade on update cascade
-	foreign key(cpfFuncionario) references funcionarios(cpf) on delete cascade on update cascade
+	foreign key(cpfCliente) references clientes(cpf) on delete cascade on update cascade,
+	foreign key(cpfFuncionario) references funcionarios(cpf) on delete cascade on update cascade,
 	foreign key(cpfFuncionario) references funcionarios(cpf) on delete cascade on update cascade
 );
 
@@ -81,11 +81,11 @@ create table orcamentos (
 	dataDeEncerramento Date,
 	cpfResponsavel varchar(20),
 	cpfCliente varchar(20),
-	status integer set default 0,
+	status integer default 0,
 	
 	primary key(id),
 	foreign key(placaVeiculo) references veiculos(placa) on delete cascade on update cascade,
-	foreign key(cpfResponsavel) references funcionarios(cpf) on delete cascade on update cascade
+	foreign key(cpfResponsavel) references funcionarios(cpf) on delete cascade on update cascade,
 	foreign key(cpfCliente) references clientes(cpf) on delete cascade on update cascade
 );
 

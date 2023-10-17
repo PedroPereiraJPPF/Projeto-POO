@@ -71,7 +71,8 @@ public class PecasController extends BaseController {
         double centralizarEixoY = (wNP.getY() + wNP.getHeight()/2) - 200;
         palco.setX(centralizarEixoX);
         palco.setY(centralizarEixoY);
-        palco.show();
+        palco.showAndWait();
+
     }
 
     @FXML
@@ -91,7 +92,9 @@ public class PecasController extends BaseController {
         double centralizarEixoY = (wNP.getY() + wNP.getHeight()/2) - 200;
         palco.setX(centralizarEixoX);
         palco.setY(centralizarEixoY);
-        palco.show();
+        palco.showAndWait();
+
+        tabelaPecas.refresh();
     }
 
 

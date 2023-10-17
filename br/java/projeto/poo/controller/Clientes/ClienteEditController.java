@@ -93,9 +93,9 @@ public class ClienteEditController {
         palco.setY(centralizarEixoY);
         palco.showAndWait();
 
-        FXMLLoader loader2 = new FXMLLoader(getClass().getResource("../../controller/Clientes/ClienteController.java"));
-        ClienteController controller2 = loader2.load();
-        controller2.tabelaClientes.refresh();
+        // FXMLLoader loader2 = new FXMLLoader(getClass().getResource("../../controller/Clientes/ClienteController.java"));
+        // ClienteController controller2 = loader2.load();
+        // controller2.tabelaClientes.refresh();
         
     }
 
@@ -127,41 +127,39 @@ public class ClienteEditController {
         try{
             
             if (!mensagemErroEdit.isVisible()) {
-                TelefoneVO telefoneVO;
+                TelefoneVO telefoneVO = new TelefoneVO(0, cpf, cpf, telefone);
                 EnderecoVO enderecoVO = new EnderecoVO();
-                enderecoVO.pegarValoresComoString(endereco);
                 
-                enderecoBO.atualizar(enderecoVO);
+                enderecoVO.setCpfCliente(cpf);
+                enderecoVO = enderecoBO.buscarPorCliente(clienteEditar.getCpf());
+                enderecoVO = enderecoVO.pegarValoresComoString(endereco);
                 
-                String cpfNull = null;
-                
-
                 clienteEditar.setNome(nome);
                 clienteEditar.setCpf(cpf);
                 clienteEditar.setEndereco(enderecoVO);
                 
                 
-                telefoneVO = telefoneBO.buscarPorCliente(cpf);
-                if (telefoneVO == null) {
-                    clienteBO.atualizar(clienteEditar);
-                    telefoneVO = new TelefoneVO(1, cpf, cpfNull, telefone);
-                    telefoneBO.inserir(telefoneVO);
-                } else {
-                    
-                    telefoneVO = new TelefoneVO(1, cpf, cpfNull, telefone);
-                    clienteEditar.setTelefone(telefoneVO);
-                    clienteBO.atualizar(clienteEditar);
+                telefoneVO = telefoneBO.buscarPorCliente(clienteEditar.getCpf());
+                if(telefoneVO == null){
+                    throw new Exception("Telefone não encontrado no banco");
                 }
-                modalsController.abrirModalSucesso("Cliente editado com sucesso!");
+                
+                telefoneVO.setNumero(telefone);
+                clienteEditar.setTelefone(telefoneVO);
+                clienteBO.atualizar(clienteEditar);
+                
                 cancelarEdicao();
+                abrirModalSucess(new Label("Cliente editado com sucesso!"), salvarEdicao, clienteEditar);
+                //modalsController.abrirModalSucesso("Cliente editado com sucesso!");
+                
             }
 
         }
         catch(Exception ex){
-            Label labelFalha = new Label();
-            labelFalha.setText(ex.getMessage());
+            Label labelFalha = new Label(ex.getMessage());
             System.out.println(ex.getMessage());
-            modalsController.abrirModalFalha(ex.getMessage());
+            abrirModalFail(labelFalha, cancelarEdicao);
+            //modalsController.abrirModalFalha(ex.getMessage());
             cancelarEdicao();
         }
     }

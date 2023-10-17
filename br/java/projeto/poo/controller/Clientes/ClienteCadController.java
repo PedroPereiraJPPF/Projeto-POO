@@ -183,9 +183,9 @@ public class ClienteCadController {
                     //telefoneBO.inserir(telefoneVO);
                 }
                 
-                FXMLLoader loader2 = new FXMLLoader(getClass().getResource("../../controller/Clientes/ClienteController.java"));
-                ClienteController controller2 = loader2.load();
-                controller2.tabelaClientes.refresh();
+                // FXMLLoader loader2 = new FXMLLoader(getClass().getResource("../../controller/Clientes/ClienteController.java"));
+                // ClienteController controller2 = loader2.load();
+                // controller2.tabelaClientes.refresh();
                 
             }
         }

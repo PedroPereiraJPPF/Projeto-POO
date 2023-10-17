@@ -5,6 +5,7 @@ import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
+import javafx.geometry.Pos;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
@@ -18,6 +19,7 @@ import javafx.scene.layout.HBox;
 import javafx.stage.Modality;
 import javafx.stage.Stage;
 import javafx.stage.StageStyle;
+import javafx.stage.Window;
 
 import java.io.IOException;
 import java.sql.SQLException;
@@ -31,39 +33,19 @@ public class FuncionariosController extends BaseController{
     private FuncionarioBO funcionarioBO = new FuncionarioBO(); 
     static ObservableList<FuncionarioVO> funcionariosDisponiveis;
     static ArrayList<FuncionarioVO> listaFuncionarios;
-   
-    @FXML
-    private TableView<FuncionarioVO> tabelaFuncionarios;
-    
-    @FXML
-    private TableColumn<FuncionarioVO, Integer> FuncNivel;
 
-    @FXML
-    private TableColumn<FuncionarioVO, String> funcAcoes;
-
-    @FXML
-    private TableColumn<FuncionarioVO, String> funcAdmi;
-
-    @FXML
-    private TableColumn<FuncionarioVO, String> funcCPF;
-
-    @FXML
-    private TableColumn<FuncionarioVO, String> funcNome;
-
-    @FXML
-    private TableColumn<FuncionarioVO, Double> funcSalario;
-
-    @FXML
-    private TableColumn<FuncionarioVO, Integer> funcId;
-
-    @FXML
-    private TableColumn<FuncionarioVO, String> funcEndereco;
-
-    @FXML
-    private TableColumn<FuncionarioVO, String> funcTelefone;
-
-    @FXML
-    private TextField buscar;
+    @FXML private Button cadastrarFuncionario;
+    @FXML private TableView<FuncionarioVO> tabelaFuncionarios;
+    @FXML private TableColumn<FuncionarioVO, Integer> FuncNivel;
+    @FXML private TableColumn<FuncionarioVO, String> funcAcoes;
+    @FXML private TableColumn<FuncionarioVO, String> funcAdmi;
+    @FXML private TableColumn<FuncionarioVO, String> funcCPF;
+    @FXML private TableColumn<FuncionarioVO, String> funcNome;
+    @FXML private TableColumn<FuncionarioVO, Double> funcSalario;
+    @FXML private TableColumn<FuncionarioVO, Integer> funcId;
+    @FXML private TableColumn<FuncionarioVO, String> funcEndereco;
+    @FXML private TableColumn<FuncionarioVO, String> funcTelefone;
+    @FXML private TextField buscar;
 
     @FXML
     public void initialize() throws Exception {
@@ -104,6 +86,9 @@ public class FuncionariosController extends BaseController{
         Parent root = loader.load();
         Scene modalScene = new Scene(root);
         modalStage.setScene(modalScene);
+        Window wNF = cadastrarFuncionario.getScene().getWindow();
+        modalStage.setX((wNF.getX() + wNF.getWidth()/2) - 251);
+        modalStage.setY((wNF.getY() + wNF.getHeight()/2) - 325);
         modalStage.showAndWait();
     }
 
@@ -119,6 +104,9 @@ public class FuncionariosController extends BaseController{
             editarController.setDados(vo, indice);
             Scene modalScene = new Scene(root);
             modalStage.setScene(modalScene);
+            Window wNF = cadastrarFuncionario.getScene().getWindow();
+            modalStage.setX((wNF.getX() + wNF.getWidth()/2) - 250);
+            modalStage.setY((wNF.getY() + wNF.getHeight()/2) - 300);
             modalStage.showAndWait();
         } catch (Exception e) {
             System.out.println(e.getMessage());
@@ -193,7 +181,7 @@ public class FuncionariosController extends BaseController{
                 if (empty) {
                     setGraphic(null);
                 } else {
-                    btnContainer.setStyle("-fx-padding: 0 20 0 20;");
+                    btnContainer.setAlignment(Pos.CENTER);
                     btnContainer.setSpacing(10);
                     setGraphic(btnContainer);
                 }

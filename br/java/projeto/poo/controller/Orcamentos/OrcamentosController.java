@@ -25,6 +25,7 @@ import javafx.scene.layout.HBox;
 import javafx.stage.Modality;
 import javafx.stage.Stage;
 import javafx.stage.StageStyle;
+import javafx.stage.Window;
 
 public class OrcamentosController extends BaseController {
     private OrcamentoBO orcamentoBO = new OrcamentoBO();
@@ -62,6 +63,9 @@ public class OrcamentosController extends BaseController {
             Parent root = loader.load();
             Scene modalScene = new Scene(root);
             modalStage.setScene(modalScene);
+            Window wNO = novoOrcamento.getScene().getWindow();
+            modalStage.setX((wNO.getX() + wNO.getWidth()/2) - 260);
+            modalStage.setY((wNO.getY() + wNO.getHeight()/2) - 230);
             modalStage.showAndWait();
         } catch (Exception e) {
             System.out.println(e.getMessage());

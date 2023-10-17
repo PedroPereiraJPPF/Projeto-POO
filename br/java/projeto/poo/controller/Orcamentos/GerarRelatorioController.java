@@ -91,7 +91,7 @@ public class GerarRelatorioController {
 
             PdfPTable table = new PdfPTable(6);
 
-            float[] columnWidths = {400f, 400f, 300f, 300f, 400f, 400f};
+            float[] columnWidths = {450f, 450f, 350f, 350f, 450f, 450f};
             table.setWidths(columnWidths);
 
             table.addCell("Responsavel");

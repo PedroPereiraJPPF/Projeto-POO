@@ -12,14 +12,14 @@
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Font?>
 
-<Pane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="461.0" prefWidth="520.0" styleClass="pane" stylesheets="@../css/Modals.css" xmlns="http://javafx.com/javafx/20.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="br.java.projeto.poo.controller.EditarAutomoveisController">
+<Pane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="460.0" prefWidth="520.0" styleClass="pane" stylesheets="@../css/Modals.css" xmlns="http://javafx.com/javafx/20.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="br.java.projeto.poo.controller.Automoveis.EditarAutomoveisController">
    <children>
-      <Label alignment="CENTER" contentDisplay="CENTER" layoutX="60.0" layoutY="34.0" text="Editar veiculo">
+      <Label alignment="CENTER" contentDisplay="CENTER" layoutX="50.0" layoutY="21.0" text="Editar veiculo">
          <font>
             <Font size="18.0" />
          </font>
       </Label>
-      <Separator layoutX="16.0" layoutY="70.0" minHeight="-Infinity" minWidth="-Infinity" prefHeight="0.0" prefWidth="500.0" />
+      <Separator layoutY="70.0" minHeight="-Infinity" minWidth="-Infinity" prefHeight="0.0" prefWidth="520.0" />
       <Group layoutX="50.0" layoutY="87.0">
          <children>
             <VBox alignment="CENTER" prefHeight="269.0" prefWidth="420.0" spacing="5.0">
@@ -89,7 +89,7 @@
             </VBox>
          </children>
       </Group>
-      <HBox alignment="CENTER" layoutX="10.0" layoutY="356.0" prefHeight="86.0" prefWidth="500.0" spacing="20.0">
+      <HBox alignment="CENTER" layoutX="10.0" layoutY="374.0" prefHeight="86.0" prefWidth="500.0" spacing="20.0">
          <children>
             <Button fx:id="cancelar" alignment="CENTER" contentDisplay="CENTER" mnemonicParsing="false" onAction="#cancelar" prefHeight="50.0" prefWidth="200.0" styleClass="btn-back" stylesheets="@../css/buttons.css" text="Cancelar">
                <font>
@@ -104,5 +104,6 @@
          </children>
       </HBox>
       <Label fx:id="id" layoutX="211.0" layoutY="34.0" maxHeight="0.0" maxWidth="0.0" text="Tipo" />
+      <Separator layoutY="373.0" minHeight="-Infinity" minWidth="-Infinity" prefHeight="0.0" prefWidth="520.0" />
    </children>
 </Pane>
