@@ -16,6 +16,7 @@ public class TelasDisponiveis {
         this.telasDisponiveis = new HashMap<String, String>();
         this.telasDisponiveis.put("orcamentos", "Orcamentos/Orcamentos.fxml");
         this.telasDisponiveis.put("novoOrcamento", "Orcamentos/NovoOrcamento.fxml");
+        this.telasDisponiveis.put("editarOrcamento", "Orcamentos/EditarOrcamento.fxml");
         this.telasDisponiveis.put("clientes", "Clientes/Clientes.fxml");
         this.telasDisponiveis.put("automoveis", "Automoveis/Automoveis.fxml");
         this.telasDisponiveis.put("login", "Login/Login.fxml");

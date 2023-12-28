@@ -25,8 +25,7 @@ public class App extends Application {
             janela.setResizable(true);
             janela.setMinHeight(800);
             janela.setMinWidth(1024);
-            // Scene telaInicial = usuarioLogado != null ? gr.carregarNovaTela("funcionarios") : gr.carregarNovaTela("login"); // carrega a tela inicial logica comentada para testes
-            Scene telaInicial = gr.carregarNovaTela("automoveis"); // usar essa por enquanto
+            Scene telaInicial = usuarioLogado != null ? gr.carregarNovaTela("orcamentos") : gr.carregarNovaTela("login");
             janela.setScene(telaInicial);
             janela.show();
         } catch (Exception e) {
@@ -40,7 +39,7 @@ public class App extends Application {
      * @throws Exception
      */
 
-    public static void navegarEntreTelas(String nomeTela) throws Exception {
+    public static void navegarEntreTelas(String nomeTela) {
         janela.setScene(gr.carregarNovaTela(nomeTela)); // carrega a tela com o nome recebido na funçãzo
     }
 }

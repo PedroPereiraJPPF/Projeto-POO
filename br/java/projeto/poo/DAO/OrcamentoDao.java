@@ -1,9 +1,12 @@
 package br.java.projeto.poo.DAO;
 
 import java.sql.Connection;
+import java.sql.Date;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.sql.Statement;
+import java.util.ArrayList;
 import java.util.List;
 
 import br.java.projeto.poo.models.VO.OrcamentoVO;
@@ -18,27 +21,39 @@ public class OrcamentoDao extends BaseDao <OrcamentoVO>{
     }
 
     public boolean inserir(OrcamentoVO orcamento) throws SQLException {
-        String query = "INSERT INTO orcamentos (placaVeiculo, valor) VALUES (?, ?)";
-        String queryPecas = "INSERT INTO pecas_orcamentos (idOrcamento, idPeca) VALUES (?, ?)";
+        String query = "INSERT INTO orcamentos (placaVeiculo, valor, cpfResponsavel, cpfCliente, dataDeCriacao) VALUES (?, ?, ?, ?, ?)";
+        String queryPecas = "INSERT INTO pecas_orcamentos (idOrcamento, idPeca, quantidade) VALUES (?, ?, ?)";
         String queryServicos = "INSERT INTO servicos_orcamentos (idOrcamento, idServico) values (?, ?)";
         PreparedStatement ps = null;
 
         try {
-            ps = this.db.prepareStatement(query);
+
+            java.util.Date utilDate = new java.util.Date();
+            Date sqlDate = new Date(utilDate.getTime()); // pega a data atual
+            
+            ps = this.db.prepareStatement(query, Statement.RETURN_GENERATED_KEYS);
             ps.setString(1, orcamento.getPlacaVeiculo());
             ps.setDouble(2, orcamento.getValor());
-            ps.execute();
-            ps.close();
+            ps.setString(3, orcamento.getCpfFuncionario());
+            ps.setString(4, orcamento.getCpfCliente());
+            ps.setDate(5, sqlDate);
+            ps.executeUpdate();
+            ResultSet rs = ps.getGeneratedKeys();
+            if (!rs.next()) {
+                throw new SQLException("Erro ao inserir orçamento.");
+            }
+            long idOrcamento = rs.getLong(1);
 
             List<PecaVo> pecas = orcamento.getPecas();
             List<ServicoVO> servicos = orcamento.getServicos();
+            ps = this.db.prepareStatement(queryPecas);
 
             if(pecas != null) {
-                ps = this.db.prepareStatement(queryPecas);
                 for (PecaVo peca : pecas) {
                     try {
-                        ps.setLong(1, orcamento.getId());
+                        ps.setLong(1, idOrcamento);
                         ps.setLong(2, peca.getId());
+                        ps.setLong(3, peca.getQuantidade());
                         ps.execute();
                     } catch (SQLException e) {
                         throw e;
@@ -46,12 +61,12 @@ public class OrcamentoDao extends BaseDao <OrcamentoVO>{
                 }
                 ps.close();
             }
-
+            ps = this.db.prepareStatement(queryServicos);
+            
             if(servicos != null) {
-                ps = this.db.prepareStatement(queryServicos);
                 for (ServicoVO servico : servicos) {
                     try {
-                        ps.setLong(1, orcamento.getId());
+                        ps.setLong(1, idOrcamento);
                         ps.setLong(2, servico.getId());
                         ps.execute();
                     } catch (SQLException e) {
@@ -64,6 +79,7 @@ public class OrcamentoDao extends BaseDao <OrcamentoVO>{
             return true;
 
         } catch (SQLException e) {
+            e.printStackTrace();
             throw e;
         }
     }
@@ -78,21 +94,57 @@ public class OrcamentoDao extends BaseDao <OrcamentoVO>{
 
         } catch (SQLException e) {
             throw e;
-        } finally {
-            ps.close();
         }
     }
 
     public OrcamentoVO atualizar(OrcamentoVO orcamento) throws SQLException {
-        String query = "UPDATE orcamentos SET placaAutomovel = ?, valor = ? WHERE id = ?";
+        String query = "UPDATE orcamentos SET valor = ? WHERE id = ?";
+        String queryPecas = "INSERT INTO pecas_orcamentos (idOrcamento, idPeca, quantidade) VALUES (?, ?, ?)";
+        String queryServicos = "INSERT INTO servicos_orcamentos (idOrcamento, idServico) values (?, ?)";
         PreparedStatement ps = null;
 
         try {
-            ps = this.db.prepareStatement(query);
-            ps.setLong(3, orcamento.getId());
-            ps.setString(1, orcamento.getPlacaVeiculo());
-            ps.setDouble(2, orcamento.getValor());
+            ps = this.db.prepareStatement(query, Statement.RETURN_GENERATED_KEYS);
+            ps.setLong(2, orcamento.getId());
+            ps.setDouble(1, orcamento.getValor());
             ps.executeUpdate();
+            ps.close();
+
+            ArrayList<PecaVo> pecas = orcamento.getPecas();
+            ArrayList<ServicoVO> servicos = orcamento.getServicos();
+
+            ps = this.db.prepareStatement(queryPecas);
+            if(pecas != null) {
+                this.deletarPecas(orcamento);
+                for (PecaVo peca : pecas) {
+                    try {
+                        ps.setLong(1, orcamento.getId());
+                        ps.setLong(2, peca.getId());
+                        ps.setLong(3, peca.getQuantidade());
+                        ps.execute();
+                    } catch (SQLException e) {
+                        throw e;
+                    }
+                }
+                ps.close();
+            }
+
+            ps = this.db.prepareStatement(queryServicos);
+            if(servicos != null) {
+                this.deletarServicos(orcamento);
+                for (ServicoVO servico : servicos) {
+                    try {
+                        ps.setLong(1, orcamento.getId());
+                        ps.setLong(2, servico.getId());
+                        ps.execute();
+                    } catch (SQLException e) {
+                        throw e;
+                    }
+                }
+                ps.close();
+            }
+            orcamento.setPecas(pecas);
+            orcamento.setServicos(servicos);
             return orcamento;
 
         } catch (SQLException e) {
@@ -116,7 +168,7 @@ public class OrcamentoDao extends BaseDao <OrcamentoVO>{
     }
 
     public ResultSet buscarPorVeiculo(OrcamentoVO orcamento) throws SQLException {
-        String query = "Select * from orcamentos where placa like '%'|| ? ||'%'";
+        String query = "Select * from orcamentos where placaVeiculo like '%'|| ? ||'%' and status = 0";
         PreparedStatement ps = null;
         try {
             ps = this.db.prepareStatement(query);
@@ -124,12 +176,13 @@ public class OrcamentoDao extends BaseDao <OrcamentoVO>{
             return ps.executeQuery();
 
         } catch (SQLException e) {
+            System.out.println(e.getMessage());
             throw e;
         }
     }
 
     public ResultSet buscarPorCPFCliente(OrcamentoVO orcamento) throws SQLException {
-        String query = "select * from orcamentos where placaVeiculo in (select placa from veiculos where cpfDono like '%' || ? || '%')";
+        String query = "Select * from orcamentos where cpfCLiente like '%'|| ? ||'%' and status = 0";
         PreparedStatement ps = null;
         try {
             ps = this.db.prepareStatement(query);
@@ -137,12 +190,74 @@ public class OrcamentoDao extends BaseDao <OrcamentoVO>{
             return ps.executeQuery();
 
         } catch (SQLException e) {
+            System.out.println(e.getMessage());
+            throw e;
+        }
+    }
+
+    public ResultSet buscarPorData(OrcamentoVO orcamento) throws SQLException {
+        String query = "Select * from orcamentos where dataDeCriacao >= (?) and status = 0";
+        PreparedStatement ps = null;
+        try {
+            ps = this.db.prepareStatement(query);
+            ps.setDate(1, orcamento.getDataDeCriação());
+            return ps.executeQuery();
+
+        } catch (SQLException e) {
+            System.out.println(e.getMessage());
+            throw e;
+        }
+    }
+
+    public ResultSet buscarPorStatusData(OrcamentoVO orcamento) throws SQLException {
+        try {
+            PreparedStatement ps = null;
+            String query;
+            if (!orcamento.getCpfFuncionario().isEmpty()) {
+                query = "Select * from orcamentos where dataDeCriacao >= (?) and cpfResponsavel = (?)";
+                ps = this.db.prepareStatement(query);
+                ps.setDate(1, orcamento.getDataDeCriação());
+                ps.setString(2, orcamento.getCpfFuncionario());
+            } else if (orcamento.getStatus() == 0) {
+                query = "Select * from orcamentos where status = (?) and dataDeCriacao >= (?)";
+                ps = this.db.prepareStatement(query);
+                ps.setInt(1, orcamento.getStatus());
+                ps.setDate(2, orcamento.getDataDeCriação());
+            } else if (orcamento.getStatus() == 1) {
+                query = "Select * from orcamentos where status = (?) and dataDeCriacao >= (?) and dataDeEncerramento <= (?)";
+                ps = this.db.prepareStatement(query);
+                ps.setInt(1, orcamento.getStatus());
+                ps.setDate(2, orcamento.getDataDeCriação());
+                ps.setDate(3, orcamento.getDataDeEncerramento());
+            } else if (!orcamento.getCpfFuncionario().isEmpty() && orcamento.getStatus() != 3) {
+                query = "Select * from orcamentos where status = (?) and dataDeCriacao >= (?) and dataDeEncerramento <= (?) and cpfResponsavel = (?)";
+                ps = this.db.prepareStatement(query);
+                ps.setInt(1, orcamento.getStatus());
+                ps.setDate(2, orcamento.getDataDeCriação());
+                ps.setDate(3, orcamento.getDataDeEncerramento());
+                ps.setString(4, orcamento.getCpfFuncionario());
+            } else {
+                if (orcamento.getStatus() == 1) {
+                    query = "Select * from orcamentos where dataDeCriacao >= (?) and dataDeEncerramento <= (?)";
+                    ps = this.db.prepareStatement(query);
+                    ps.setDate(1, orcamento.getDataDeCriação());
+                    ps.setDate(2, orcamento.getDataDeEncerramento());
+                } else {
+                    query = "Select * from orcamentos where dataDeCriacao >= (?)";
+                    ps = this.db.prepareStatement(query);
+                    ps.setDate(1, orcamento.getDataDeCriação());
+                }
+            }
+            return ps.executeQuery();
+
+        } catch (SQLException e) {
+            System.out.println(e.getMessage());
             throw e;
         }
     }
 
     public ResultSet listar() throws SQLException {
-        String query = "Select * from orcamentos";
+        String query = "Select * from relatorios where status = 0";
         PreparedStatement ps = null;
         try {
             ps = this.db.prepareStatement(query);
@@ -150,6 +265,90 @@ public class OrcamentoDao extends BaseDao <OrcamentoVO>{
 
         } catch (SQLException e) {
             throw e;
+        }
+    }
+
+    public ResultSet listarPecas(OrcamentoVO orcamento) throws SQLException {
+        String query = "Select * from pecas where id in (select idPeca from pecas_orcamentos where idOrcamento = ?)";
+        PreparedStatement ps = null;
+        try {
+            ps = this.db.prepareStatement(query);
+            ps.setLong(1, orcamento.getId());
+            return ps.executeQuery();
+
+        } catch (SQLException e) {
+            throw e;
+        }
+    }
+
+    public int contarPecas(PecaVo vo, long idOrcamento) throws SQLException {
+        String query = "Select quantidade from pecas_orcamentos where idPeca = (?) and idOrcamento = (?)";
+        PreparedStatement ps = null;
+        try {
+            ps = this.db.prepareStatement(query);
+            ps.setLong(1, vo.getId());
+            ps.setLong(2, idOrcamento);
+            ResultSet rs = ps.executeQuery();
+            if(rs.next()) {
+                return rs.getInt(1);
+            }
+            return 0;
+        } catch (SQLException e) {
+            throw e;
+        }
+    }
+
+    public ResultSet listarServicos(OrcamentoVO orcamento) throws SQLException {
+        String query = "Select * from servicos where id in (select idServico from servicos_orcamentos where idOrcamento = ?)";
+        PreparedStatement ps = null;
+        try {
+            ps = this.db.prepareStatement(query);
+            ps.setLong(1, orcamento.getId());
+            return ps.executeQuery();
+
+        } catch (SQLException e) {
+            throw e;
+        }
+    }
+
+    public boolean deletarPecas(OrcamentoVO vo) throws SQLException {
+        String query = "DELETE FROM pecas_orcamentos WHERE idOrcamento = (?)";
+        PreparedStatement ps = null;
+        try {
+            ps = this.db.prepareStatement(query);
+            ps.setLong(1, vo.getId());
+            return ps.execute();
+
+        } catch (SQLException e) {
+            throw e;
+        }
+    }
+
+    public boolean deletarServicos(OrcamentoVO vo) throws SQLException {
+        String query = "DELETE FROM servicos_orcamentos WHERE idOrcamento = (?)";
+        PreparedStatement ps = null;
+        try {
+            ps = this.db.prepareStatement(query);
+            ps.setLong(1, vo.getId());
+            return ps.execute();
+
+        } catch (SQLException e) {
+            throw e;
+        }
+    }
+
+    public boolean encerrarRelatorio(OrcamentoVO vo) {
+        try {
+            String query = "UPDATE orcamentos SET status = 1, dataDeEncerramento = ? WHERE id = ?";
+            java.util.Date utilDate = new java.util.Date();
+            Date sqlDate = new Date(utilDate.getTime());
+            PreparedStatement ps = this.db.prepareStatement(query);
+            ps.setDate(1, sqlDate);
+            ps.setLong(2, vo.getId());
+            return ps.execute();
+        } catch (Exception e) {
+            System.out.println(e.getMessage());
+            return false;
         }
     }
 }

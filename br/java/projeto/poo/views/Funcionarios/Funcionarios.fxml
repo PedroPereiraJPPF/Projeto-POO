@@ -16,7 +16,7 @@
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Font?>
 
-<BorderPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="800.0" prefWidth="1024.0" xmlns="http://javafx.com/javafx/20.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="br.java.projeto.poo.controller.FuncionariosController">
+<BorderPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="800.0" prefWidth="1024.0" xmlns="http://javafx.com/javafx/20.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="br.java.projeto.poo.controller.Funcionarios.FuncionariosController">
    <top>
       <HBox alignment="CENTER" prefHeight="100.0" prefWidth="200.0" BorderPane.alignment="CENTER">
          <children>
@@ -98,26 +98,20 @@
                   </Label>
                   <HBox alignment="CENTER" maxHeight="-Infinity">
                      <children>
-                        <Label fx:id="nSair" onMouseClicked="#logout" styleClass="btn-logout" stylesheets="@../css/buttons.css" text="Sair" textOverrun="CLIP">
-                           <padding>
-                              <Insets bottom="10.0" right="20.0" top="10.0" />
-                           </padding>
-                           <cursor>
-                              <Cursor fx:constant="HAND" />
-                           </cursor>
+                        <Button alignment="BASELINE_LEFT" minHeight="-Infinity" minWidth="-Infinity" mnemonicParsing="false" onMouseClicked="#logout" prefHeight="30.0" prefWidth="60.0" styleClass="btn-logout" stylesheets="@../css/buttons.css" text="Sair">
                            <font>
                               <Font size="15.0" />
                            </font>
-                        </Label>
+                        </Button>
                      </children>
                   </HBox>
                </children>
-               <HBox.margin>
-                  <Insets right="40.0" />
-               </HBox.margin>
                <padding>
                   <Insets left="60.0" />
                </padding>
+               <HBox.margin>
+                  <Insets right="30.0" />
+               </HBox.margin>
             </HBox>
          </children>
          <padding>
@@ -156,7 +150,7 @@
                               <Insets />
                            </HBox.margin>
                         </TextField>
-                        <Button fx:id="cadastrarFuncionario" alignment="CENTER_RIGHT" mnemonicParsing="false" onAction="#abirModalCadastro" prefHeight="40.0" stylesheets="@../css/buttons.css" text="Novo Funcionario" textAlignment="RIGHT" textFill="#064eb9">
+                        <Button fx:id="cadastrarFuncionario" alignment="CENTER_RIGHT" ellipsisString="" mnemonicParsing="false" onAction="#abirModalCadastro" prefHeight="40.0" prefWidth="160.0" stylesheets="@../css/buttons.css" text="Novo Funcionario" textAlignment="RIGHT" textFill="#064eb9">
                            <padding>
                               <Insets bottom="10.0" left="35.0" right="10.0" top="10.0" />
                            </padding>
@@ -172,17 +166,20 @@
                   </HBox>
                </children>
                <VBox.margin>
-                  <Insets left="20.0" right="25.0" />
+                  <Insets />
                </VBox.margin>
+               <padding>
+                  <Insets left="10.0" right="20.0" />
+               </padding>
             </HBox>
-            <TableView fx:id="tabelaFuncionarios" prefHeight="603.0" prefWidth="914.0">
+            <TableView fx:id="tabelaFuncionarios" prefHeight="245.0" prefWidth="914.0">
                <columns>
                   <TableColumn fx:id="funcNome" maxWidth="700.0" prefWidth="75.0" sortType="DESCENDING" text="Nome" />
-                  <TableColumn fx:id="funcCPF" maxWidth="400.0" prefWidth="50.0" text="CPF" />
-                  <TableColumn fx:id="funcSalario" maxWidth="200.0" minWidth="80.0" prefWidth="100.0" text="Salario" />
-                  <TableColumn fx:id="FuncNivel" maxWidth="200.0" prefWidth="60.0" text="Nivel" />
-                  <TableColumn fx:id="funcAdmi" maxWidth="200.0" prefWidth="70.0" text="Data de admissao" />
-                  <TableColumn fx:id="funcAcoes" maxWidth="130.0" minWidth="75.0" prefWidth="75.0" sortable="false" text="Açoes" />
+                  <TableColumn fx:id="funcCPF" maxWidth="400.0" minWidth="-Infinity" prefWidth="110.0" resizable="false" text="CPF" />
+                  <TableColumn fx:id="funcSalario" maxWidth="200.0" minWidth="80.0" prefWidth="100.0" text="Salário" />
+                  <TableColumn fx:id="FuncNivel" maxWidth="200.0" prefWidth="60.0" resizable="false" text="Nível" />
+                  <TableColumn fx:id="funcAdmi" maxWidth="200.0" prefWidth="70.0" text="Data de admissão" />
+                  <TableColumn fx:id="funcAcoes" maxWidth="130.0" minWidth="75.0" prefWidth="75.0" resizable="false" sortable="false" text="Ações" />
                   <TableColumn fx:id="funcId" maxWidth="0.0" minWidth="0.0" prefWidth="0.0" sortType="DESCENDING" text="Id" />
                   <TableColumn fx:id="funcEndereco" maxWidth="0.0" minWidth="0.0" prefWidth="200.0" sortType="DESCENDING" text="endereco" />
                   <TableColumn fx:id="funcTelefone" maxWidth="0.0" minWidth="0.0" prefWidth="200.0" sortType="DESCENDING" text="telefone" />

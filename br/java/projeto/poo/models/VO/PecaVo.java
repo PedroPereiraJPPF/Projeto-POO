@@ -19,6 +19,8 @@ public class PecaVo {
         setQuantidade(quantidade);
     }
 
+    public PecaVo(){}
+
     public long getId() {
         return this.id;
     }
@@ -27,6 +29,7 @@ public class PecaVo {
         if(id < 0) {
             throw new InvalidIdException();
         }
+        this.id = id;
     }
 
     public String getNome() {
@@ -34,10 +37,6 @@ public class PecaVo {
     }
 
     public void setNome(String nome) throws InvalidNomeException {
-        if(nome == null || nome.isEmpty()) {
-            throw new InvalidNomeException("O nome não pode ser vazio");
-        }
-
         this.nome = nome;
     }
 
@@ -46,10 +45,6 @@ public class PecaVo {
     }
 
     public void setFabricante(String fabricante) throws InvalidNomeException {
-        if(fabricante == null || fabricante.isEmpty()) {
-            throw new InvalidNomeException("O fabricante é inválido");
-        }
-
         this.fabricante = fabricante;
     }
 
@@ -58,7 +53,7 @@ public class PecaVo {
     }
 
     public void setValor(double valor) throws InvalidValorException {
-        if(this.valor <= 0) {
+        if(valor < 0) {
             throw new InvalidValorException("O valor deve ser maior que 0");
         }
 
@@ -70,8 +65,24 @@ public class PecaVo {
     }
 
     public void setQuantidade(int quantidade)throws InvalidQuantidadeException{
-        if(this.quantidade <= 0){
+        if(quantidade < 0){
             throw new InvalidQuantidadeException("O valor dever maior que 0");
         }
+
+        this.quantidade = quantidade;
     }
+
+    @Override
+    public String toString() {
+        return getNome() + " - " + getValor();
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        PecaVo outraPeca = (PecaVo) o;
+        return id == outraPeca.id;
+    }
+
 }

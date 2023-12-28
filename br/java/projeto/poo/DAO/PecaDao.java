@@ -15,13 +15,15 @@ public class PecaDao <VO extends PecaVo> extends BaseDao <VO>{
     }
 
     public boolean inserir(VO peca) throws SQLException {
-        String query = "INSERT INTO pecas (nome, valor) VALUES (?, ?)";
+        String query = "INSERT INTO pecas (nome, fabricante, preco, quantidade) VALUES (?, ?, ?, ?)";
         PreparedStatement ps = null;
 
         try {
             ps = this.db.prepareStatement(query);
             ps.setString(1, peca.getNome());
-            ps.setDouble(2, peca.getValor());
+            ps.setString(2, peca.getFabricante());
+            ps.setDouble(3, peca.getValor());
+            ps.setInt(4, peca.getQuantidade());
             return ps.execute();
 
         } catch (SQLException e) {
@@ -47,14 +49,16 @@ public class PecaDao <VO extends PecaVo> extends BaseDao <VO>{
     }
 
     public VO atualizar(VO peca) throws SQLException {
-        String query = "UPDATE pecas SET nome = ?, valor = ? WHERE id = ?";
+        String query = "UPDATE pecas SET nome = ?, fabricante = ?, preco = ?, quantidade = ? WHERE id = ?";
         PreparedStatement ps = null;
 
         try {
             ps = this.db.prepareStatement(query);
-            ps.setLong(3, peca.getId());
             ps.setString(1, peca.getNome());
-            ps.setDouble(2, peca.getValor());
+            ps.setString(2, peca.getFabricante());
+            ps.setDouble(3, peca.getValor());
+            ps.setInt(4,peca.getQuantidade());
+            ps.setLong(5, peca.getId());
             ps.executeUpdate();
             return peca;
 
@@ -77,9 +81,21 @@ public class PecaDao <VO extends PecaVo> extends BaseDao <VO>{
             throw e;
         }
     }
+    
+    public ResultSet buscarPorNome(VO peca) throws SQLException {
+        String query = "select * from pecas where nome like '%' || ? || '%'";
+        PreparedStatement ps = null;
+        try {
+            ps = this.db.prepareStatement(query);
+            ps.setString(1, peca.getNome());
+            return ps.executeQuery();
+        } catch (Exception e) {
+            throw e;
+        }
+    }
 
     public ResultSet buscarPorFabricante(VO peca) throws SQLException {
-        String query = "Select * from pecas where fabricante = (?)";
+        String query = "Select * from pecas where fabricante like '%' || ? || '%'";
         PreparedStatement ps = null;
         try {
             ps = this.db.prepareStatement(query);

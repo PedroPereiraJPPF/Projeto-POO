@@ -4,10 +4,10 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
 
-import br.java.projeto.poo.DAO.FuncionarioDao;
 import br.java.projeto.poo.exceptions.ErroDeAuthenticacaoException;
 import br.java.projeto.poo.exceptions.InvalidCpfException;
 import br.java.projeto.poo.exceptions.UsuarioNaoEncontradoException;
+import br.java.projeto.poo.DAO.FuncionarioDao;
 import br.java.projeto.poo.models.VO.EnderecoVO;
 import br.java.projeto.poo.models.VO.FuncionarioVO;
 import br.java.projeto.poo.models.VO.TelefoneVO;
@@ -32,7 +32,7 @@ public class FuncionarioBO {
                     selectFuncionarios.getDouble("salario"),
                     selectFuncionarios.getString("dataDeAdmissao"),
                     selectEndereco,
-                    selectFuncionarios.getInt("funcao"),
+                    selectFuncionarios.getInt("nivel"),
                     selectTelefone,
                     null));
             }
@@ -56,7 +56,7 @@ public class FuncionarioBO {
                 funcionario.getString("cpf"),
                 funcionario.getFloat("salario"),
                 funcionario.getString("dataDeAdmissao"),
-                funcionario.getInt("funcao")));
+                funcionario.getInt("nivel")));
             }
 
             return funcionarios;
@@ -79,7 +79,7 @@ public class FuncionarioBO {
                 funcionario.getString("cpf"),
                 funcionario.getFloat("salario"),
                 funcionario.getString("dataDeAdmissao"),
-                funcionario.getInt("funcao")));
+                funcionario.getInt("nivel")));
             }
 
             return funcionarios;
@@ -96,7 +96,7 @@ public class FuncionarioBO {
             }
 
             if(!this.validarNumero(vo.getTelefone().getNumero())) {
-                throw new Exception("Numero inválido o formato deve ser ***********");
+                throw new Exception("Numero inválido o formato deve ser ** *****-****");
             }
 
             return funcionarioDao.inserir(vo);
@@ -104,7 +104,9 @@ public class FuncionarioBO {
             if (e.getSQLState().equals("23505")) {
                 throw new Exception("Esse CPF já pertence a outro usuario");
             }
-            throw new Exception("falha ao atualizar funcionario");
+            System.out.println(e.getMessage());
+            //throw new Exception("falha ao atualizar funcionario");
+            return false;
         } catch (Exception e) {
             throw new Exception(e.getMessage());
         }
@@ -123,7 +125,7 @@ public class FuncionarioBO {
             }
 
             if(!this.validarNumero(vo.getTelefone().getNumero())) {
-                throw new Exception("Numero inválido o formato deve ser ***********");
+                throw new Exception("Numero inválido o formato deve ser ** *****-****");
             }
 
             return funcionarioDao.atualizar(vo);
@@ -132,7 +134,7 @@ public class FuncionarioBO {
             if (e.getSQLState().equals("23505")) {
                 throw new Exception("Esse CPF já pertence a outro usuario");
             }
-            throw new Exception("falha ao atualizar funcionario");
+            throw new Exception(e.getMessage());
         }
         catch (Exception e) {
             throw new Exception(e.getMessage());
@@ -165,7 +167,7 @@ public class FuncionarioBO {
                         funcionario.getString("cpf"), 
                         funcionario.getDouble("salario"), 
                         funcionario.getString("dataDeAdmissao"), 
-                        funcionario.getInt("funcao"));
+                        funcionario.getInt("nivel"));
                 }
             }
 
@@ -181,6 +183,6 @@ public class FuncionarioBO {
     }
 
     private boolean validarNumero(String numero) {
-        return numero.matches("\\b\\d{11}");
+        return numero.matches("\\b\\d{1}.*");
     }
 }

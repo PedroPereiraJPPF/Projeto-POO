@@ -1,10 +1,10 @@
-package br.java.projeto.poo.controller;
+package br.java.projeto.poo.controller.Servicos;
 
 import java.io.IOException;
 
-import br.java.projeto.poo.models.VO.PecaVo;
+import br.java.projeto.poo.controller.ModalsController;
+import br.java.projeto.poo.models.BO.ServicoBO;
 import br.java.projeto.poo.models.VO.ServicoVO;
-import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
@@ -17,9 +17,7 @@ import javafx.stage.Stage;
 import javafx.stage.StageStyle;
 import javafx.stage.Window;
 
-public class ServicosController extends BaseController{
-
-    @FXML private Button novoServico;
+public class ServicosCadController {
     
     @FXML private Button cadastrarServico;
     @FXML private TextField campoCadNome;
@@ -27,36 +25,15 @@ public class ServicosController extends BaseController{
     @FXML private Button cancelarCadastro;
     @FXML private Label mensagemErroCad;
 
-    @FXML private TextField campoEditNome;
-    @FXML private TextField campoEditValor;
-    @FXML private Button cancelarEdicao;
-    @FXML private Label mensagemErroEdit;
-    @FXML private Button salvarEdicao;
-
-
+    
+    
     @FXML
-    void abrirCadastro() throws Exception{
-        FXMLLoader loader = new FXMLLoader(getClass().getResource("../views/Servicos/CadastrarServico.fxml"));
-        Parent root = loader.load();
-        Scene janelaCad = new Scene(root);
-        Stage palco = new Stage(StageStyle.UNDECORATED);
-        palco.initModality(Modality.APPLICATION_MODAL);
-        palco.setScene(janelaCad);
-        Window wNS = novoServico.getScene().getWindow();
-        double centralizarEixoX = (wNS.getX() + wNS.getWidth()/2) - 200;
-        double centralizarEixoY = (wNS.getY() + wNS.getHeight()/2) - 150;
-        palco.setX(centralizarEixoX);
-        palco.setY(centralizarEixoY);
-        palco.show();
-    }
-
-    @FXML
-    void abrirModalFail(Label mensagem) throws Exception{
-        FXMLLoader loader = new FXMLLoader(getClass().getResource("../views/Modals/ModalFalha.fxml"));
+    void abrirModalFail(String mensagem) throws Exception{
+        FXMLLoader loader = new FXMLLoader(getClass().getResource("../../views/Modals/ModalFalha.fxml"));
         Parent root = loader.load();
 
         ModalsController controller = loader.getController();
-        controller.ExibirMensagemFalha(mensagem.getText());
+        controller.ExibirMensagemFalha(mensagem);
 
         Scene popup = new Scene(root);
         Stage palco = new Stage();
@@ -74,12 +51,12 @@ public class ServicosController extends BaseController{
     }
 
     @FXML
-    void abrirModalSucess(Label mensagem) throws IOException{
-        FXMLLoader loader = new FXMLLoader(getClass().getResource("../views/Modals/ModalSucesso.fxml"));
+    void abrirModalSucess(String mensagem) throws IOException{
+        FXMLLoader loader = new FXMLLoader(getClass().getResource("../../views/Modals/ModalSucesso.fxml"));
         Parent root = loader.load();
         
         ModalsController controller = loader.getController();
-        controller.ExibirMensagemSucesso(mensagem.getText());
+        controller.ExibirMensagemSucesso(mensagem);
         
         Scene popup = new Scene(root);
         Stage palco = new Stage();
@@ -97,7 +74,7 @@ public class ServicosController extends BaseController{
     }
 
     @FXML
-    void cadastrarServico() {
+    void cadastrarServico() throws Exception {
         String nome = null;
         double valor = 0;
 
@@ -109,12 +86,23 @@ public class ServicosController extends BaseController{
 
         try {
             if(!mensagemErroCad.isVisible()){
-                ServicoVO novoServico = new ServicoVO(0, nome, valor);
-                
+                ServicoVO novoServico = new ServicoVO(1, nome, valor);
+                ServicoBO servicoBO = new ServicoBO();
+
+                if(servicoBO.inserir(novoServico)){
+                    String labelSucesso = "Serviço cadastrado com sucesso.";
+                    ServicosController.listaServicos = servicoBO.listar();
+                    ServicosController.servicosDisponiveis.setAll(ServicosController.listaServicos);
+                    cancelarCadastro();
+                    abrirModalSucess(labelSucesso);
+                    //cancelarCadastro();
+                }
             }
         } catch (Exception ex) {
-            Label labelFalha = new Label(ex.getMessage());
+            String labelFalha = ex.getMessage();
             cancelarCadastro();
+            abrirModalFail(labelFalha);
+            //cancelarCadastro();
         }
     }
 
@@ -124,25 +112,10 @@ public class ServicosController extends BaseController{
         palco.close();
     }
 
-    @FXML
-    void editarServico() {
-
-    }
-
-    @FXML
-    void cancelarEdicao() {
-        Stage palco = (Stage)this.cancelarEdicao.getScene().getWindow();
-        palco.close();
-    }
+    
 
     @FXML
     void setInvisibleCad(){
         this.mensagemErroCad.setVisible(false);
     }
-
-    @FXML
-    void setInvisibleEdit(){
-        this.mensagemErroEdit.setVisible(false);
-    }
-
 }

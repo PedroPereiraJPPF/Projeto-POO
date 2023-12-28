@@ -72,7 +72,6 @@ public class BaseController {
         App.navegarEntreTelas("login");
     }
 
-
     /**
      * @throws Exception
      */

@@ -83,7 +83,7 @@ public class EnderecoVO {
     }
 
     public String toString() {
-        return this.rua + ", " + this.numero + ", " + this.bairro + ", " + this.cidade; 
+        return this.rua + "," + this.numero + "," + this.bairro + "," + this.cidade; 
     }
 
     public EnderecoVO pegarValoresComoString(String enderecoCompleto) throws InvalidEnderecoException {

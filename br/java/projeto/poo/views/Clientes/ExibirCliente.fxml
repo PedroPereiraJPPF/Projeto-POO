@@ -186,7 +186,7 @@
                                     <Rectangle arcHeight="8.0" arcWidth="8.0" fill="WHITE" height="190.0" layoutY="9.0" stroke="#8d8d8d" strokeType="INSIDE" width="949.0" />
                                     <VBox layoutY="9.0" maxHeight="-Infinity" maxWidth="-Infinity" prefHeight="190.0" prefWidth="949.0">
                                        <children>
-                                          <HBox maxHeight="-Infinity" maxWidth="-Infinity" prefHeight="100.0" prefWidth="949.0">
+                                          <HBox maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="40.0" prefWidth="949.0">
                                              <children>
                                                 <Label maxHeight="-Infinity" maxWidth="-Infinity" prefHeight="50.0" prefWidth="474.0" text="Nome" textFill="#677788">
                                                    <font>
@@ -206,17 +206,29 @@
                                                 </Label>
                                              </children>
                                           </HBox>
+                                          <HBox maxHeight="-Infinity" maxWidth="-Infinity" prefHeight="60.0" prefWidth="949.0">
+                                             <children>
+                                                <Label maxHeight="-Infinity" maxWidth="-Infinity" prefHeight="50.0" prefWidth="474.0" text="Nome do cliente">
+                                                   <font>
+                                                      <Font name="System Bold" size="20.0" />
+                                                   </font>
+                                                   <padding>
+                                                      <Insets left="30.0" />
+                                                   </padding>
+                                                </Label>
+                                                <Label maxHeight="-Infinity" maxWidth="-Infinity" prefHeight="50.0" prefWidth="474.0" text="Endereço do cliente">
+                                                   <font>
+                                                      <Font name="System Bold" size="20.0" />
+                                                   </font>
+                                                   <padding>
+                                                      <Insets left="30.0" />
+                                                   </padding>
+                                                </Label>
+                                             </children>
+                                          </HBox>
                                           <HBox prefHeight="100.0" prefWidth="949.0">
                                              <children>
                                                 <Label prefHeight="17.0" prefWidth="474.0" text="CPF" textFill="#677788">
-                                                   <padding>
-                                                      <Insets left="15.0" />
-                                                   </padding>
-                                                   <font>
-                                                      <Font name="System Bold" size="18.0" />
-                                                   </font>
-                                                </Label>
-                                                <Label prefHeight="17.0" prefWidth="474.0" text="Data de cadastro" textFill="#677788">
                                                    <padding>
                                                       <Insets left="15.0" />
                                                    </padding>

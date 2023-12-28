@@ -15,7 +15,15 @@ public class EnderecoBO {
         } catch (Exception e) {
             throw e;
         }
-    }   
+    } 
+    
+    public void atualizar(EnderecoVO vo) throws Exception {
+        try {
+            enderecoDao.atualizar(vo);
+        } catch (Exception e) {
+            throw e;
+        }
+    }
     
     public EnderecoVO buscarPorFuncionario(String cpf) throws Exception {
         try {
@@ -25,14 +33,16 @@ public class EnderecoBO {
                     selectEndereco.getString("cpfCliente"),
                     selectEndereco.getString("cpfFuncionario"),
                     selectEndereco.getString("rua"), 
+                    selectEndereco.getString("num_casa"), 
                     selectEndereco.getString("bairro"), 
-                    selectEndereco.getString("cidade"), 
-                    selectEndereco.getString("estado"));
+                    selectEndereco.getString("cidade"));
             }
 
             return null;
         } catch (Exception e) {
-            throw new Exception("Erro ao acessar o banco");
+            System.out.println(e.getMessage());
+            //throw new Exception("Erro ao acessar o banco");
+            return null;
         }
     }
 
@@ -40,13 +50,13 @@ public class EnderecoBO {
         try {
             ResultSet selectEndereco = enderecoDao.buscarPorCliente(new EnderecoVO(cpf, null));
             if(selectEndereco.next()) {
-                return new EnderecoVO(0, 
+                return new EnderecoVO(selectEndereco.getInt("id"),
                     selectEndereco.getString("cpfCliente"),
                     selectEndereco.getString("cpfFuncionario"),
                     selectEndereco.getString("rua"), 
+                    selectEndereco.getString("num_casa"), 
                     selectEndereco.getString("bairro"), 
-                    selectEndereco.getString("cidade"), 
-                    selectEndereco.getString("estado"));
+                    selectEndereco.getString("cidade"));
             }
 
             return null;

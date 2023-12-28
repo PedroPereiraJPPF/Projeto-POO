@@ -37,11 +37,11 @@ public class VeiculoDao extends BaseDao <VeiculoVO>{
     }
 
     public boolean deletar(VeiculoVO VeiculoVO) throws SQLException {
-        String query = "DELETE FROM veiculos WHERE id = (?)";
+        String query = "DELETE FROM veiculos WHERE placa = (?)";
         PreparedStatement ps = null;
         try {
             ps = this.db.prepareStatement(query);
-            ps.setLong(1, VeiculoVO.getId());
+            ps.setString(1, VeiculoVO.getPlaca());
             return ps.execute();
 
         } catch (Exception e) {

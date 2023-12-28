@@ -15,7 +15,7 @@ public class ServicoDao <VO extends ServicoVO> extends BaseDao <VO>{
     }
 
     public boolean inserir(VO Servico) throws SQLException {
-        String query = "INSERT INTO servicos (nome, valor) VALUES (?, ?)";
+        String query = "INSERT INTO servicos (nome, preco) VALUES (?, ?)";
         PreparedStatement ps = null;
 
         try {
@@ -47,7 +47,7 @@ public class ServicoDao <VO extends ServicoVO> extends BaseDao <VO>{
     }
 
     public VO atualizar(VO Servico) throws SQLException {
-        String query = "UPDATE servicos SET nome = ?, valor = ? WHERE id = ?";
+        String query = "UPDATE servicos SET nome = ?, preco = ? WHERE id = ?";
         PreparedStatement ps = null;
 
         try {
@@ -74,6 +74,18 @@ public class ServicoDao <VO extends ServicoVO> extends BaseDao <VO>{
             return ps.executeQuery();
 
         } catch (SQLException e) {
+            throw e;
+        }
+    }
+
+    public ResultSet buscarPorNome(VO servico) throws SQLException {
+        String query = "select * from servicos where nome like '%'|| ? ||'%'";
+        PreparedStatement ps = null;
+        try {
+            ps = this.db.prepareStatement(query);
+            ps.setString(1, servico.getNome());
+            return ps.executeQuery();
+        } catch (Exception e) {
             throw e;
         }
     }

@@ -1,4 +1,4 @@
-package br.java.projeto.poo.controller;
+package br.java.projeto.poo.controller.Funcionarios;
 
 import br.java.projeto.poo.models.BO.FuncionarioBO;
 import javafx.event.ActionEvent;

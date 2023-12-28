@@ -11,7 +11,7 @@
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Font?>
 
-<Pane fx:id="cadastroFuncionario" prefHeight="658.0" prefWidth="502.0" style="-fx-effect: dropshadow;" stylesheets="@../css/Modals.css" xmlns="http://javafx.com/javafx/20.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="br.java.projeto.poo.controller.CadastrarFuncionariosController">
+<Pane fx:id="cadastroFuncionario" prefHeight="650.0" prefWidth="502.0" style="-fx-effect: dropshadow;" stylesheets="@../css/Modals.css" xmlns="http://javafx.com/javafx/20.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="br.java.projeto.poo.controller.Funcionarios.CadastrarFuncionariosController">
    <children>
       <Label alignment="CENTER" contentDisplay="CENTER" layoutX="40.0" layoutY="14.0" text="Cadastrar Funcionario">
          <font>
@@ -89,20 +89,15 @@
                   </VBox>
                </children>
             </Group>
-            <Group>
+            <VBox spacing="3.0">
                <children>
-                  <VBox layoutX="14.0" layoutY="-6.0" spacing="3.0">
-                     <children>
-                        <Label text="Telefone" />
-                        <TextField fx:id="telefone" prefHeight="40.0" prefWidth="420.0" promptText="Ex: 84 980028922" />
-                     </children>
-                     <padding>
-                        <Insets bottom="5.0" />
-                     </padding>
-                  </VBox>
+                  <Label text="Telefone" />
+                  <TextField fx:id="telefone" prefHeight="40.0" prefWidth="420.0" promptText="Ex: 84980028922" />
                </children>
-            </Group>
-            <Group />
+               <padding>
+                  <Insets bottom="5.0" />
+               </padding>
+            </VBox>
             <Group>
                <children>
                   <VBox layoutX="14.0" layoutY="-6.0" spacing="3.0">
@@ -116,30 +111,24 @@
                   </VBox>
                </children>
             </Group>
+            <Group />
          </children>
       </VBox>
-      <Group layoutY="573.0">
+      <Label fx:id="mensagemDeErro" layoutX="40.0" layoutY="543.0" text="Falha ao adicionar funcionario" textFill="#a80404" />
+      <Separator layoutX="1.0" layoutY="571.0" minHeight="-Infinity" minWidth="-Infinity" prefHeight="0.0" prefWidth="500.0" />
+      <HBox alignment="CENTER" layoutX="40.0" layoutY="586.0" spacing="20.0">
          <children>
-            <Separator minHeight="-Infinity" minWidth="-Infinity" prefHeight="0.0" prefWidth="500.0" />
-            <HBox alignment="CENTER" layoutY="6.0" spacing="20.0">
-               <children>
-                  <Button fx:id="fechar" alignment="CENTER" contentDisplay="CENTER" mnemonicParsing="false" onAction="#fecharModal" prefHeight="50.0" prefWidth="200.0" styleClass="btn-back" stylesheets="@../css/buttons.css" text="Cancelar">
-                     <font>
-                        <Font size="15.0" />
-                     </font>
-                  </Button>
-                  <Button fx:id="cadastrar" alignment="CENTER" contentDisplay="CENTER" mnemonicParsing="false" onAction="#cadastrarFuncionario" prefHeight="50.0" prefWidth="200.0" styleClass="btn-primary" stylesheets="@../css/buttons.css" text="Cadastrar Funcionario">
-                     <font>
-                        <Font size="15.0" />
-                     </font>
-                  </Button>
-               </children>
-               <padding>
-                  <Insets left="38.0" top="10.0" />
-               </padding>
-            </HBox>
+            <Button fx:id="fechar" alignment="CENTER" contentDisplay="CENTER" mnemonicParsing="false" onAction="#fecharModal" prefHeight="50.0" prefWidth="200.0" styleClass="btn-back" stylesheets="@../css/buttons.css" text="Cancelar">
+               <font>
+                  <Font size="15.0" />
+               </font>
+            </Button>
+            <Button fx:id="cadastrar" alignment="CENTER" contentDisplay="CENTER" mnemonicParsing="false" onAction="#cadastrarFuncionario" prefHeight="50.0" prefWidth="200.0" styleClass="btn-primary" stylesheets="@../css/buttons.css" text="Cadastrar Funcionario">
+               <font>
+                  <Font size="15.0" />
+               </font>
+            </Button>
          </children>
-      </Group>
-      <Label fx:id="mensagemDeErro" layoutX="41.0" layoutY="541.0" text="Falha ao adicionar funcionario" textFill="#a80404" />
+      </HBox>
    </children>
 </Pane>

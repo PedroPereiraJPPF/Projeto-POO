@@ -10,6 +10,10 @@ public class ServicoVO {
     private String nome;
     private double valor;
 
+    public ServicoVO() {
+        
+    }
+
     public ServicoVO(long id, String nome, double valor) throws Exception {
         setId(id);
         setNome(nome);
@@ -21,7 +25,7 @@ public class ServicoVO {
     }
 
     public void setId(long id) throws InvalidIdException {
-        if (id <= 0) {
+        if (id < 0) {
             throw new InvalidIdException();
         }
 
@@ -45,10 +49,23 @@ public class ServicoVO {
     }
 
     public void setValor(double valor) throws InvalidValorException {
-        if(valor <= 0) {
+        if(valor < 0) {
             throw new InvalidValorException("O valor inserido é inválido");
         }
         this.valor = valor;
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        ServicoVO outroServico = (ServicoVO) o;
+        return id == outroServico.id;
+    }
+
+    @Override
+    public String toString() {
+        return this.getNome() + " - " + this.getValor();
     }
 
 }
